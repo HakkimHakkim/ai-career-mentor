@@ -1,0 +1,21 @@
+python,sql,excel,statistics,communication,problem_solving,web_development,data_interest,ai_interest,cloud_interest,design_interest,experience_level,education,career
+1,1,1,1,0,1,0,1,0,0,0,beginner,bachelors,Data Analyst
+1,1,1,1,0,1,0,1,1,0,0,intermediate,bachelors,Data Scientist
+1,0,0,1,0,1,0,1,1,0,0,beginner,bachelors,Data Analyst
+1,1,0,0,0,1,1,0,1,0,0,beginner,bachelors,Full Stack Developer
+1,1,0,0,0,1,1,0,1,1,0,intermediate,bachelors,DevOps Engineer
+0,1,1,1,1,1,0,1,0,0,0,beginner,diploma,Data Analyst
+1,1,0,0,1,1,1,0,1,0,0,beginner,bachelors,Full Stack Developer
+1,1,1,1,1,0,0,1,0,0,0,intermediate,masters,Data Analyst
+1,1,1,1,0,1,0,0,1,0,0,beginner,bachelors,Data Scientist
+0,0,0,0,1,1,1,0,0,0,1,beginner,bachelors,UI/UX Designer
+1,0,0,1,0,1,1,0,1,0,0,beginner,bachelors,Backend Developer
+1,1,1,0,0,1,0,1,0,0,0,intermediate,bachelors,Data Analyst
+1,1,0,0,0,1,1,1,1,0,0,beginner,bachelors,Full Stack Developer
+1,1,0,0,1,1,0,0,1,1,0,intermediate,bachelors,DevOps Engineer
+0,0,0,0,1,1,0,0,0,0,1,beginner,bachelors,Product Manager
+1,1,0,1,0,1,0,0,1,0,0,beginner,bachelors,Data Scientist
+1,0,1,0,1,1,1,0,0,0,0,intermediate,bachelors,Business Analyst
+1,1,1,1,1,1,0,1,1,0,0,advanced,masters,ML Engineer
+0,1,1,1,0,1,0,1,0,0,0,beginner,bachelors,Data Analyst
+1,0,0,0,1,1,1,0,0,0,0,beginner,bachelors,Frontend Developer

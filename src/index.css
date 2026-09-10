@@ -1,0 +1,247 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   ROOT
+========================================================= */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  font-family: 'Inter', sans-serif;
+  background: #e7edf6;
+  color: #172033;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+html.dark body {
+  background: #080d24;
+  color: #ffffff;
+}
+
+/* =========================================================
+   PREMIUM THEME SYSTEM
+========================================================= */
+
+@layer components {
+
+  /* ---------- PAGE ---------- */
+
+  .app-page {
+    @apply min-h-screen;
+    background: #e7edf6;
+    color: #172033;
+  }
+
+  .dark .app-page {
+    background: #080d24;
+    color: #ffffff;
+  }
+
+  /* ---------- CARD ---------- */
+
+  .app-card {
+    background: #f1f5fa;
+    border: 1px solid #cbd5e1;
+    border-radius: 20px;
+    box-shadow: 0 8px 30px rgba(51, 65, 85, 0.06);
+  }
+
+  .dark .app-card {
+    background: #111633;
+    border-color: #1e2749;
+    box-shadow: none;
+  }
+
+  /* ---------- SECONDARY CARD ---------- */
+
+  .app-card-soft {
+    background: #e9eff7;
+    border: 1px solid #d1dae7;
+    border-radius: 16px;
+  }
+
+  .dark .app-card-soft {
+    background: #0e1430;
+    border-color: #202a4d;
+  }
+
+  /* ---------- PRIMARY TEXT ---------- */
+
+  .app-title {
+    color: #172033;
+  }
+
+  .dark .app-title {
+    color: #ffffff;
+  }
+
+  /* ---------- SECONDARY TEXT ---------- */
+
+  .app-muted {
+    color: #5f6d80;
+  }
+
+  .dark .app-muted {
+    color: #94a3b8;
+  }
+
+  /* ---------- INPUT ---------- */
+
+  .app-input {
+    width: 100%;
+    background: #e9eff7;
+    border: 1px solid #cbd5e1;
+    color: #172033;
+    border-radius: 12px;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .app-input::placeholder {
+    color: #7b8798;
+  }
+
+  .app-input:focus {
+    border-color: #6366f1;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+  }
+
+  .dark .app-input {
+    background: #0b1028;
+    border-color: #263158;
+    color: #ffffff;
+  }
+
+  .dark .app-input::placeholder {
+    color: #64748b;
+  }
+
+  /* ---------- PRIMARY BUTTON ---------- */
+
+  .app-primary {
+    background: #4f46e5;
+    color: white;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .app-primary:hover {
+    background: #4338ca;
+    transform: translateY(-1px);
+  }
+
+  /* ---------- SUBTLE BUTTON ---------- */
+
+  .app-secondary {
+    background: #e1e8f2;
+    border: 1px solid #cbd5e1;
+    color: #263247;
+    border-radius: 12px;
+  }
+
+  .app-secondary:hover {
+    background: #d8e1ed;
+  }
+
+  .dark .app-secondary {
+    background: #151c3b;
+    border-color: #29345a;
+    color: #e2e8f0;
+  }
+
+  .dark .app-secondary:hover {
+    background: #1b2447;
+  }
+
+  /* ---------- ICON BOX ---------- */
+
+  .app-icon {
+    background: #e1e8f2;
+    color: #4f46e5;
+    border-radius: 12px;
+  }
+
+  .dark .app-icon {
+    background: #171e3d;
+    color: #a5b4fc;
+  }
+}
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aab7ca;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8d9bb0;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+  background: #29345a;
+}
+
+.dark ::-webkit-scrollbar-thumb:hover {
+  background: #3b4770;
+}
+
+/* =========================================================
+   SELECTION
+========================================================= */
+
+::selection {
+  background: rgba(79, 70, 229, 0.15);
+  color: #172033;
+}
+
+.dark ::selection {
+  background: rgba(139, 92, 246, 0.25);
+  color: white;
+}
+
+/* =========================================================
+   FORM ELEMENTS
+========================================================= */
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .app-card {
+    border-radius: 16px;
+  }
+}

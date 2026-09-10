@@ -1,0 +1,108 @@
+{
+  "nav": {
+    "dashboard": "Dashboard",
+    "career": "Career",
+    "learning": "Learning",
+    "tools": "Tools",
+    "profile": "Profile"
+  },
+  "auth": {
+    "signIn": "Sign In",
+    "signUp": "Sign Up",
+    "email": "Email",
+    "password": "Password",
+    "forgotPassword": "Forgot Password?",
+    "rememberMe": "Remember me",
+    "createAccount": "Create Account",
+    "alreadyHaveAccount": "Already have an account?",
+    "noAccount": "No account?",
+    "loading": "Loading..."
+  },
+  "dashboard": {
+    "title": "Good Morning",
+    "subtitle": "Let's continue your learning journey",
+    "careerMatch": "Career Match",
+    "jobReadiness": "Job Readiness",
+    "skillsLearned": "Skills Learned",
+    "todaysTasks": "Today's Tasks",
+    "aiMentor": "AI Career Mentor",
+    "learningProgress": "Learning Progress",
+    "weeklyActivity": "Weekly Activity",
+    "recommendedCourses": "Recommended Courses"
+  },
+  "career": {
+    "discovery": "Career Discovery",
+    "myCareer": "My Career",
+    "roadmap": "Roadmap",
+    "careerMatch": "Career Match",
+    "assessmentQuestion": "Assessment Question",
+    "currentLevel": "Current Level",
+    "targetLevel": "Target Level",
+    "careerGoal": "Career Goal"
+  },
+  "learning": {
+    "courses": "Courses",
+    "lessons": "Lessons",
+    "duration": "Duration",
+    "progress": "Progress",
+    "startCourse": "Start Course",
+    "continueCourse": "Continue",
+    "difficulty": "Difficulty",
+    "rating": "Rating"
+  },
+  "ai": {
+    "tutor": "AI Tutor",
+    "askMe": "Ask me anything",
+    "thinking": "Thinking...",
+    "copy": "Copy",
+    "regenerate": "Regenerate"
+  },
+  "resume": {
+    "analyzer": "Resume Analyzer",
+    "upload": "Upload Resume",
+    "score": "Score",
+    "feedback": "Feedback",
+    "improvements": "Improvements",
+    "missingSkills": "Missing Skills"
+  },
+  "jobs": {
+    "board": "Job Board",
+    "jobReadiness": "Job Readiness",
+    "viewDetails": "View Details",
+    "save": "Save Job",
+    "salary": "Salary",
+    "location": "Location"
+  },
+  "interview": {
+    "prep": "Interview Preparation",
+    "technical": "Technical Interview",
+    "hr": "HR Interview",
+    "behavioral": "Behavioral Interview",
+    "mock": "Mock Interview",
+    "question": "Question",
+    "answer": "Your Answer"
+  },
+  "profile": {
+    "settings": "Profile Settings",
+    "editProfile": "Edit Profile",
+    "preferences": "Preferences",
+    "notifications": "Notifications",
+    "logout": "Logout",
+    "deleteAccount": "Delete Account"
+  },
+  "common": {
+    "loading": "Loading...",
+    "success": "Success",
+    "error": "Error",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "back": "Back",
+    "next": "Next",
+    "submit": "Submit",
+    "close": "Close",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort"
+  }
+}

@@ -1,0 +1,108 @@
+{
+  "nav": {
+    "dashboard": "डैशबोर्ड",
+    "career": "करियर",
+    "learning": "सीखना",
+    "tools": "उपकरण",
+    "profile": "प्रोफ़ाइल"
+  },
+  "auth": {
+    "signIn": "साइन इन करें",
+    "signUp": "साइन अप करें",
+    "email": "ईमेल",
+    "password": "पासवर्ड",
+    "forgotPassword": "पासवर्ड भूल गए?",
+    "rememberMe": "मुझे याद रखें",
+    "createAccount": "खाता बनाएं",
+    "alreadyHaveAccount": "पहले से खाता है?",
+    "noAccount": "कोई खाता नहीं?",
+    "loading": "लोड हो रहा है..."
+  },
+  "dashboard": {
+    "title": "सुप्रभात",
+    "subtitle": "अपनी सीखने की यात्रा जारी रखें",
+    "careerMatch": "करियर मिलान",
+    "jobReadiness": "नौकरी की तैयारी",
+    "skillsLearned": "सीखे गए कौशल",
+    "todaysTasks": "आज के कार्य",
+    "aiMentor": "AI करियर सलाहकार",
+    "learningProgress": "सीखने की प्रगति",
+    "weeklyActivity": "साप्ताहिक गतिविधि",
+    "recommendedCourses": "अनुशंसित पाठ्यक्रम"
+  },
+  "career": {
+    "discovery": "करियर खोज",
+    "myCareer": "मेरा करियर",
+    "roadmap": "रोडमैप",
+    "careerMatch": "करियर मिलान",
+    "assessmentQuestion": "मूल्यांकन प्रश्न",
+    "currentLevel": "वर्तमान स्तर",
+    "targetLevel": "लक्ष्य स्तर",
+    "careerGoal": "करियर लक्ष्य"
+  },
+  "learning": {
+    "courses": "पाठ्यक्रम",
+    "lessons": "पाठ",
+    "duration": "अवधि",
+    "progress": "प्रगति",
+    "startCourse": "पाठ्यक्रम शुरू करें",
+    "continueCourse": "जारी रखें",
+    "difficulty": "कठिनाई",
+    "rating": "रेटिंग"
+  },
+  "ai": {
+    "tutor": "AI ट्यूटर",
+    "askMe": "कुछ भी पूछें",
+    "thinking": "सोच रहा हूं...",
+    "copy": "कॉपी करें",
+    "regenerate": "फिर से उत्पन्न करें"
+  },
+  "resume": {
+    "analyzer": "रिज्यूमे विश्लेषक",
+    "upload": "रिज्यूमे अपलोड करें",
+    "score": "स्कोर",
+    "feedback": "प्रतिक्रिया",
+    "improvements": "सुधार",
+    "missingSkills": "गायब कौशल"
+  },
+  "jobs": {
+    "board": "नौकरी बोर्ड",
+    "jobReadiness": "नौकरी की तैयारी",
+    "viewDetails": "विवरण देखें",
+    "save": "नौकरी सहेजें",
+    "salary": "वेतन",
+    "location": "स्थान"
+  },
+  "interview": {
+    "prep": "साक्षात्कार की तैयारी",
+    "technical": "तकनीकी साक्षात्कार",
+    "hr": "HR साक्षात्कार",
+    "behavioral": "व्यावहारिक साक्षात्कार",
+    "mock": "मॉक साक्षात्कार",
+    "question": "प्रश्न",
+    "answer": "आपका उत्तर"
+  },
+  "profile": {
+    "settings": "प्रोफ़ाइल सेटिंग्स",
+    "editProfile": "प्रोफ़ाइल संपादित करें",
+    "preferences": "वरीयताएं",
+    "notifications": "सूचनाएं",
+    "logout": "लॉग आउट करें",
+    "deleteAccount": "खाता हटाएं"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "success": "सफल",
+    "error": "त्रुटि",
+    "save": "सहेजें",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "back": "पीछे",
+    "next": "अगला",
+    "submit": "सबमिट करें",
+    "close": "बंद करें",
+    "search": "खोजें",
+    "filter": "फिल्टर",
+    "sort": "सॉर्ट करें"
+  }
+}
