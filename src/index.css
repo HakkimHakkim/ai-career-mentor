@@ -245,3 +245,117 @@ button {
     border-radius: 16px;
   }
 }
+/* =========================================================
+   MOBILE PERFORMANCE + RESPONSIVE
+========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-height: 100%;
+}
+
+body {
+  overflow-x: hidden;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* Prevent mobile horizontal overflow */
+img,
+video,
+canvas,
+svg {
+  max-width: 100%;
+}
+
+/* Better touch experience */
+button,
+a,
+input,
+textarea,
+select {
+  touch-action: manipulation;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+
+  html {
+    scroll-behavior: auto;
+  }
+
+  body {
+    min-width: 320px;
+    overflow-x: hidden;
+  }
+
+  #root {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .app-page {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .app-card {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .app-input {
+    max-width: 100%;
+  }
+
+  button {
+    min-height: 42px;
+  }
+
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Prevent large text from breaking mobile layout */
+  h1,
+  h2,
+  h3,
+  h4,
+  p {
+    overflow-wrap: anywhere;
+  }
+
+  /* Better mobile scrolling */
+  .overflow-auto,
+  .overflow-y-auto,
+  .overflow-x-auto {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* =========================================================
+   SMALL PHONES
+========================================================= */
+
+@media (max-width: 480px) {
+
+  .app-card {
+    border-radius: 14px;
+  }
+
+  body {
+    font-size: 14px;
+  }
+}
