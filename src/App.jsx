@@ -25,11 +25,13 @@ import Progress from './pages/profile/Progress';
 import Profile from './pages/profile/Profile';
 
 function ProtectedApp() {
-  const [navCollapsed, setNavCollapsed] = useState(false);
+  const [navCollapsed, setNavCollapsed] = useState(
+    () => window.innerWidth < 768
+  );
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen bg-[#080d24] text-white">
+      <div className="min-h-screen overflow-x-hidden bg-[#080d24] text-white">
 
         <FloatingNav
           collapsed={navCollapsed}
@@ -37,19 +39,20 @@ function ProtectedApp() {
         />
 
         <main
-          className={`
-            min-h-screen
-            transition-[margin]
-            duration-300
-            ease-in-out
-            ${
-              navCollapsed
-                ? 'ml-[88px]'
-                : 'ml-[262px]'
-            }
-          `}
-        >
+  className={`
+    min-h-screen
+    transition-[margin]
+    duration-300
+    ease-in-out
+    ${
+      navCollapsed
+        ? 'ml-0 md:ml-[88px]'
+        : 'ml-0 md:ml-[262px]'
+    }
+  `}
+>
           <Routes>
+
             <Route
               path="/dashboard"
               element={<Dashboard />}
@@ -114,6 +117,7 @@ function ProtectedApp() {
                 />
               }
             />
+
           </Routes>
         </main>
 
@@ -126,11 +130,10 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        <div className="min-h-screen bg-[#080d24] text-white">
+
+        <div className="min-h-screen overflow-x-hidden bg-[#080d24] text-white">
 
           <Routes>
-
-            {/* FIRST PAGE */}
 
             <Route
               path="/"
@@ -141,8 +144,6 @@ function App() {
                 />
               }
             />
-
-            {/* AUTH */}
 
             <Route
               path="/login"
@@ -163,8 +164,6 @@ function App() {
               }
             />
 
-            {/* PROTECTED APP */}
-
             <Route
               path="/*"
               element={<ProtectedApp />}
@@ -173,6 +172,7 @@ function App() {
           </Routes>
 
         </div>
+
       </Router>
     </ThemeProvider>
   );

@@ -121,12 +121,15 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
 
   return (
     <aside
-      className={`
-        fixed
-        left-4
-        top-4
-        bottom-4
-        z-50
+  className={`
+    fixed
+    left-2
+    top-2
+    bottom-2
+    md:left-4
+    md:top-4
+    md:bottom-4
+    z-50
 
         flex
         flex-col
