@@ -14,8 +14,7 @@ import {
 } from 'lucide-react';
 
 const API_BASE =
-  import.meta.env.VITE_API_BASE_URL ||
-  'https://ai-career-mentor-m2id.onrender.com/api/v1';
+  `${import.meta.env.VITE_API_BASE_URL || 'https://ai-career-mentor-m2id.onrender.com'}/api/v1`;
 
 /* =====================================================
    TOKEN HELPER

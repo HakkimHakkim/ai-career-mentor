@@ -16,7 +16,7 @@ import {
 } from 'lucide-react';
 
 const API_BASE_URL =
-  `${import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000'}/api/v1`;
+  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
 
 /* =========================================================
    CAREER → SKILLS
@@ -457,7 +457,7 @@ const Learn = () => {
         }
 
         const response = await fetch(
-          `${API_BASE}/career/my-career`,
+  `${API_BASE_URL}/api/v1/career/my-career`,
           {
             method: 'GET',
             headers: {
@@ -505,7 +505,7 @@ const Learn = () => {
         );
 
         const roadmapResponse = await fetch(
-          `${API_BASE}/roadmap/`,
+  `${API_BASE_URL}/api/v1/roadmap/`,
           {
             method: 'GET',
             headers: {
@@ -685,7 +685,7 @@ const getResourceUrl = (resource) => {
       }
 
       const response = await fetch(
-        `${API_BASE}/roadmap/steps/${roadmapStep.id}/complete`,
+  `${API_BASE_URL}/api/v1/roadmap/steps/${roadmapStep.id}/complete`,
         {
           method: 'PUT',
           headers: {

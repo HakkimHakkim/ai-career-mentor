@@ -192,7 +192,7 @@ const Interview = () => {
   const fetchOverallReport = async () => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/v1/interview/overall-report`,
+        `${API_BASE_URL}/interview/overall-report`,
         {
           method: "GET",
           headers: authHeaders(),
@@ -225,7 +225,7 @@ const Interview = () => {
   const fetchMySessions = async () => {
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/v1/interview/my-sessions`,
+        `${API_BASE_URL}/interview/my-sessions`,
         {
           method: "GET",
           headers: authHeaders(),
@@ -271,7 +271,7 @@ const Interview = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/v1/interview/start`,
+        `${API_BASE_URL}/interview/start`,
         {
           method: "POST",
           headers: authHeaders(),
@@ -521,10 +521,10 @@ const Interview = () => {
 
     setSubmitting(true);
 
-    try {
-      const response = await fetch(
-        `${API_BASE_URL}/api/v1/interview/sessions/${session.session_id}/answer`,
-        {
+   try {
+  const response = await fetch(
+    `${API_BASE_URL}/interview/sessions/${session.session_id}/answer`,
+    {
           method: "POST",
 
           headers: authHeaders(),
@@ -647,7 +647,7 @@ const Interview = () => {
 
     try {
       const response = await fetch(
-        `${API_BASE_URL}/api/v1/interview/sessions/${session.session_id}/complete`,
+  `${API_BASE_URL}/interview/sessions/${session.session_id}/complete`,
         {
           method: "POST",
           headers: authHeaders(),
