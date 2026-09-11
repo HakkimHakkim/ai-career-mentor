@@ -1,7 +1,8 @@
 """Seed database with initial data"""
 
 from app.db import SessionLocal, engine, Base
-from app.models.career import Career, Skill, CareerSkill
+from app.models.career import Career, CareerSkill
+from app.models.skill import Skill
 from app.models.learning import LearningCourse
 from app.models.project import Project
 from app.models.quiz import Job
