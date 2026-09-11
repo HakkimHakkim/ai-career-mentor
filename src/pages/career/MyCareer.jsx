@@ -13,7 +13,9 @@ import {
   RotateCcw,
 } from 'lucide-react';
 
-const API_BASE = 'http://127.0.0.1:8000/api/v1';
+const API_BASE =
+  import.meta.env.VITE_API_BASE_URL ||
+  'https://ai-career-mentor-m2id.onrender.com/api/v1';
 
 /* =====================================================
    TOKEN HELPER
