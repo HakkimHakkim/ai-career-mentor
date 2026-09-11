@@ -30,7 +30,7 @@ class Settings(BaseSettings):
     ALLOWED_EXTENSIONS: List[str] = ["pdf", "docx"]
     
     # CORS
-    ALLOWED_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000"]
+    ALLOWED_ORIGINS: List[str] = ["http://localhost:5173", "http://localhost:3000", "https://ai-career-mentor-beta.vercel.app"]
     
     # ML
     ML_MODEL_PATH: str = "./app/ml/model.joblib"
