@@ -1496,11 +1496,11 @@ const AiTutor = () => {
 
 
 
-          <header className="h-[68px] sm:h-[76px] shrink-0 border-b border-white/10 px-2.5 sm:px-4 md:px-7 flex items-center justify-between bg-[#090d29]/90 backdrop-blur-xl">
+          <header className="h-[64px] sm:h-[76px] shrink-0 border-b border-white/10 px-1.5 sm:px-4 md:px-7 flex items-center justify-between gap-1.5 bg-[#090d29]/90 backdrop-blur-xl">
 
 
 
-            <div className="flex items-center gap-3">
+            <div className="min-w-0 flex-1 flex items-center gap-2">
 
 
 
@@ -1508,7 +1508,7 @@ const AiTutor = () => {
 
 
 
-              <div className="w-9 h-9 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-gradient-to-br from-violet-500/30 to-indigo-500/30 border border-violet-400/20 flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-gradient-to-br from-violet-500/30 to-indigo-500/30 border border-violet-400/20 flex items-center justify-center">
 
 
 
@@ -1520,15 +1520,15 @@ const AiTutor = () => {
 
 
 
-              <div>
+              <div className="min-w-0">
 
 
 
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1">
 
 
 
-                  <h1 className="text-[12px] sm:text-lg md:text-xl font-bold text-white truncate">
+                  <h1 className="text-[11px] sm:text-lg md:text-xl font-bold text-white truncate">
 
                     <span className="sm:hidden">AI Tutor</span>
                     <span className="hidden sm:inline">AI Career Tutor</span>
@@ -1537,7 +1537,7 @@ const AiTutor = () => {
 
 
 
-                  <span className="shrink-0 px-1.5 sm:px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[8px] sm:text-[10px] font-bold">
+                  <span className="shrink-0 px-1 sm:px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[7px] sm:text-[10px] font-bold">
 
                     ONLINE
 
@@ -1567,14 +1567,14 @@ const AiTutor = () => {
 
             {/* MOBILE CHAT CONTROLS */}
 
-            <div className="lg:hidden flex items-center gap-1.5 shrink-0">
+            <div className="lg:hidden flex items-center gap-1 shrink-0">
 
               <button
                 type="button"
                 onClick={handleNewChat}
                 disabled={loading}
                 aria-label="New Chat"
-                className="h-9 px-2.5 rounded-lg bg-violet-500/15 border border-violet-400/20 text-violet-200 flex items-center gap-1.5 text-[11px] font-semibold hover:bg-violet-500/25 transition-all disabled:opacity-40"
+                className="h-8 px-2 rounded-lg bg-violet-500/15 border border-violet-400/20 text-violet-200 flex items-center gap-1.5 text-[11px] font-semibold hover:bg-violet-500/25 transition-all disabled:opacity-40"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>New</span>
@@ -1584,7 +1584,7 @@ const AiTutor = () => {
                 type="button"
                 onClick={() => setShowChatList(true)}
                 aria-label="Recent Chats"
-                className="h-9 px-2.5 rounded-lg bg-white/5 border border-white/10 text-white/75 flex items-center gap-1.5 text-[11px] font-semibold hover:bg-white/10 transition-all"
+                className="h-8 px-2 rounded-lg bg-white/5 border border-white/10 text-white/75 flex items-center gap-1.5 text-[11px] font-semibold hover:bg-white/10 transition-all"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>Chats</span>
@@ -1602,7 +1602,7 @@ const AiTutor = () => {
 
               disabled={loading}
 
-              className="h-9 w-auto px-2 sm:h-10 sm:px-3 md:px-4 shrink-0 rounded-xl bg-white/[0.03] border border-white/10 text-white/45 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-40"
+              className="h-8 w-auto px-1.5 sm:h-10 sm:px-3 md:px-4 shrink-0 rounded-xl bg-white/[0.03] border border-white/10 text-white/45 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-40"
 
             >
 
@@ -1612,7 +1612,7 @@ const AiTutor = () => {
 
 
 
-              <span className="text-[10px] sm:text-sm">
+              <span className="text-[9px] sm:text-sm">
 
                 <span className="sm:hidden">Clear</span>
                 <span className="hidden sm:inline">Clear Chat</span>
