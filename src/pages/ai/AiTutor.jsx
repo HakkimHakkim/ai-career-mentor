@@ -1528,7 +1528,7 @@ const AiTutor = () => {
 
 
 
-                  <h1 className="text-[15px] sm:text-lg md:text-xl font-bold text-white truncate">
+                  <h1 className="text-[12px] sm:text-lg md:text-xl font-bold text-white truncate">
 
                     <span className="sm:hidden">AI Tutor</span>
                     <span className="hidden sm:inline">AI Career Tutor</span>
@@ -1602,7 +1602,7 @@ const AiTutor = () => {
 
               disabled={loading}
 
-              className="h-9 w-9 sm:h-10 sm:w-auto sm:px-3 md:px-4 shrink-0 rounded-xl bg-white/[0.03] border border-white/10 text-white/45 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 disabled:opacity-40"
+              className="h-9 w-auto px-2 sm:h-10 sm:px-3 md:px-4 shrink-0 rounded-xl bg-white/[0.03] border border-white/10 text-white/45 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-40"
 
             >
 
@@ -1612,9 +1612,10 @@ const AiTutor = () => {
 
 
 
-              <span className="hidden sm:block text-sm">
+              <span className="text-[10px] sm:text-sm">
 
-                Clear Chat
+                <span className="sm:hidden">Clear</span>
+                <span className="hidden sm:inline">Clear Chat</span>
 
               </span>
 
