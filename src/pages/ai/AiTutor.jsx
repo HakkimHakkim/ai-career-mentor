@@ -168,47 +168,40 @@ const AiTutor = () => {
   ========================================================= */
 
   const handleNewChat = () => {
-    if (loading) return;
+  if (loading) return;
 
-    const newChat = createNewChat();
+  const newChat = createNewChat();
 
-    setChats((prev) => [
-      newChat,
-      ...prev,
-    ]);
+  // Create and immediately switch to new chat
+  setChats((prev) => [newChat, ...prev]);
+  setActiveChatId(newChat.id);
+  setInput('');
 
-    setActiveChatId(newChat.id);
+  // IMPORTANT: close mobile Recent Chats automatically
+  setShowChatList(false);
 
-    // IMPORTANT:
-    // Mobile chat list automatically closes
-    setShowChatList(false);
-
-    setInput('');
-
-    setTimeout(() => {
-      textareaRef.current?.focus();
-    }, 100);
-  };
-
+  setTimeout(() => {
+    textareaRef.current?.focus();
+  }, 100);
+};
   /* =========================================================
      OPEN OLD CHAT
   ========================================================= */
 
   const handleSelectChat = (chatId) => {
-    if (loading) return;
+  if (loading) return;
 
-    setActiveChatId(chatId);
+  // Immediately switch to selected chat
+  setActiveChatId(chatId);
+  setInput('');
 
-    // IMPORTANT:
-    // Mobile chat list automatically closes
-    setShowChatList(false);
+  // IMPORTANT: close mobile Recent Chats automatically
+  setShowChatList(false);
 
-    setInput('');
-
-    setTimeout(() => {
-      textareaRef.current?.focus();
-    }, 100);
-  };
+  setTimeout(() => {
+    textareaRef.current?.focus();
+  }, 100);
+};
 
   /* =========================================================
      DELETE CURRENT CHAT
@@ -626,12 +619,8 @@ const AiTutor = () => {
 
             <div className="space-y-2">
 
-              {chats
-                .sort(
-                  (a, b) =>
-                    b.updatedAt -
-                    a.updatedAt
-                )
+              {[...chats]
+  .sort((a, b) => b.updatedAt - a.updatedAt)
                 .map((chat) => {
 
                   const isActive =
