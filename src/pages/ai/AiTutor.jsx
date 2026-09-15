@@ -1,241 +1,176 @@
-import React, { useState, useRef, useEffect } from "react";
-import ReactMarkdown from "react-markdown";
-import remarkGfm from "remark-gfm";
-
+import React, { useEffect, useRef, useState } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import {
   Send,
   Bot,
   User,
-  Trash2,
-  MessageSquare,
-  Sparkles,
-  Code2,
-  BriefcaseBusiness,
-  Lightbulb,
   Plus,
-  Menu,
+  MessageSquare,
+  Trash2,
   X,
-  Clock3,
-} from "lucide-react";
+  Menu,
+  Sparkles,
+  Briefcase,
+  Code2,
+  Lightbulb,
+  MessageCircle,
+} from 'lucide-react';
 
-const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://127.0.0.1:8000";
+const API_BASE_URL = 'http://127.0.0.1:8000';
 
-const STORAGE_KEY = "ai_tutor_chat";
-const RECENT_CHATS_KEY = "ai_tutor_recent_chats";
+const CHAT_STORAGE_KEY = 'ai_tutor_chats';
+const ACTIVE_CHAT_KEY = 'ai_tutor_active_chat';
 
-const defaultMessage = {
-  role: "assistant",
-  content:
-    "Hi! I'm your AI Career Tutor. Ask me anything about your learning path. 🚀",
-};
+/* =========================================================
+   DEFAULT CHAT
+========================================================= */
 
-const quickPrompts = [
+const createNewChat = () => ({
+  id: Date.now().toString(),
+  title: 'New Career Chat',
+  messages: [
+    {
+      role: 'assistant',
+      content:
+        "Hi! I'm your AI Career Tutor. Ask me anything about your learning path. 🚀",
+    },
+  ],
+  createdAt: Date.now(),
+  updatedAt: Date.now(),
+});
+
+/* =========================================================
+   QUICK START OPTIONS
+========================================================= */
+
+const quickStartOptions = [
   {
-    title: "Career Guidance",
-    subtitle: "Ask about your career path",
-    icon: BriefcaseBusiness,
-    prompt: "What should I learn to become job ready?",
+    title: 'Career Guidance',
+    subtitle: 'Ask about your career path',
+    icon: Briefcase,
+    prompt:
+      'Help me understand the best career path for me and what skills I should learn.',
   },
   {
-    title: "Coding Help",
-    subtitle: "Get help with programming",
+    title: 'Coding Help',
+    subtitle: 'Get help with programming',
     icon: Code2,
-    prompt: "Help me improve my coding skills as a fresher.",
+    prompt:
+      'I am a beginner programmer. Help me understand what I should learn and practice.',
   },
   {
-    title: "Interview Prep",
-    subtitle: "Practice interview questions",
-    icon: MessageSquare,
-    prompt: "Give me some interview questions for a fresher.",
+    title: 'Interview Prep',
+    subtitle: 'Practice interview questions',
+    icon: MessageCircle,
+    prompt:
+      'Help me prepare for a technical interview as a fresher.',
   },
   {
-    title: "Learning Advice",
-    subtitle: "Build a better study plan",
+    title: 'Learning Advice',
+    subtitle: 'Build a better study plan',
     icon: Lightbulb,
-    prompt: "Create a practical learning plan for me.",
+    prompt:
+      'Create a practical learning plan that will help me become job ready.',
   },
 ];
 
-const createChat = () => ({
-  id: Date.now().toString(),
-  title: "New Career Chat",
-  messages: [defaultMessage],
-  updatedAt: new Date().toISOString(),
-});
+/* =========================================================
+   COMPONENT
+========================================================= */
 
 const AiTutor = () => {
-  // =========================================================
-  // CHAT HISTORY
-  // =========================================================
-
   const [chats, setChats] = useState(() => {
     try {
-      const savedChats = localStorage.getItem(
-        RECENT_CHATS_KEY
-      );
+      const saved = localStorage.getItem(CHAT_STORAGE_KEY);
 
-      if (savedChats) {
-        const parsed = JSON.parse(savedChats);
+      if (saved) {
+        const parsed = JSON.parse(saved);
 
-        if (
-          Array.isArray(parsed) &&
-          parsed.length > 0
-        ) {
+        if (Array.isArray(parsed) && parsed.length > 0) {
           return parsed;
         }
       }
-
-      const oldMessages =
-        localStorage.getItem(STORAGE_KEY);
-
-      if (oldMessages) {
-        const parsedOldMessages =
-          JSON.parse(oldMessages);
-
-        if (
-          Array.isArray(parsedOldMessages) &&
-          parsedOldMessages.length > 0
-        ) {
-          return [
-            {
-              id: "legacy-chat",
-              title: "Career Discussion",
-              messages: parsedOldMessages,
-              updatedAt: new Date().toISOString(),
-            },
-          ];
-        }
-      }
     } catch (error) {
-      console.error(
-        "Chat restore error:",
-        error
-      );
+      console.error('Failed to load chats:', error);
     }
 
-    return [createChat()];
+    return [createNewChat()];
   });
 
-  // =========================================================
-  // ACTIVE CHAT
-  // =========================================================
+  const [activeChatId, setActiveChatId] = useState(() => {
+    return (
+      localStorage.getItem(ACTIVE_CHAT_KEY) || null
+    );
+  });
 
-  const [activeChatId, setActiveChatId] = useState(
-    () => {
-      try {
-        const savedChats =
-          localStorage.getItem(
-            RECENT_CHATS_KEY
-          );
-
-        if (savedChats) {
-          const parsed =
-            JSON.parse(savedChats);
-
-          if (
-            Array.isArray(parsed) &&
-            parsed.length > 0
-          ) {
-            return parsed[0].id;
-          }
-        }
-      } catch (error) {
-        console.error(
-          "Active chat restore error:",
-          error
-        );
-      }
-
-      return null;
-    }
-  );
-
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [sidebarOpen, setSidebarOpen] =
-    useState(true);
+
+  // Mobile recent chat panel
+  const [showChatList, setShowChatList] = useState(false);
 
   const bottomRef = useRef(null);
-  const inputRef = useRef(null);
+  const textareaRef = useRef(null);
 
-  // =========================================================
-  // ACTIVE CHAT SAFETY
-  // =========================================================
+  /* =========================================================
+     ENSURE ACTIVE CHAT
+  ========================================================= */
 
   useEffect(() => {
-    if (!chats.length) {
-      const newChat = createChat();
-      setChats([newChat]);
-      setActiveChatId(newChat.id);
-      return;
-    }
-
-    const activeExists = chats.some(
-      (chat) => chat.id === activeChatId
-    );
-
-    if (!activeExists) {
-      setActiveChatId(chats[0].id);
+    if (!activeChatId || !chats.some((chat) => chat.id === activeChatId)) {
+      setActiveChatId(chats[0]?.id);
     }
   }, [chats, activeChatId]);
 
-  const activeChat =
-    chats.find(
-      (chat) => chat.id === activeChatId
-    ) || chats[0];
-
-  const messages =
-    activeChat?.messages || [];
-
-  // =========================================================
-  // SAVE CHATS
-  // =========================================================
+  /* =========================================================
+     SAVE CHATS
+  ========================================================= */
 
   useEffect(() => {
-    try {
-      localStorage.setItem(
-        RECENT_CHATS_KEY,
-        JSON.stringify(chats)
-      );
+    localStorage.setItem(
+      CHAT_STORAGE_KEY,
+      JSON.stringify(chats)
+    );
+  }, [chats]);
 
-      if (activeChat) {
-        localStorage.setItem(
-          STORAGE_KEY,
-          JSON.stringify(
-            activeChat.messages
-          )
-        );
-      }
-    } catch (error) {
-      console.error(
-        "Chat save error:",
-        error
+  useEffect(() => {
+    if (activeChatId) {
+      localStorage.setItem(
+        ACTIVE_CHAT_KEY,
+        activeChatId
       );
     }
-  }, [chats, activeChat]);
+  }, [activeChatId]);
 
-  // =========================================================
-  // SCROLL
-  // =========================================================
+  /* =========================================================
+     ACTIVE CHAT
+  ========================================================= */
+
+  const activeChat =
+    chats.find((chat) => chat.id === activeChatId) ||
+    chats[0];
+
+  const messages = activeChat?.messages || [];
+
+  /* =========================================================
+     AUTO SCROLL
+  ========================================================= */
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      bottomRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "end",
-      });
-    }, 50);
-
-    return () => clearTimeout(timer);
+    bottomRef.current?.scrollIntoView({
+      behavior: 'smooth',
+    });
   }, [messages, loading]);
 
-  // =========================================================
-  // NEW CHAT
-  // =========================================================
+  /* =========================================================
+     CREATE NEW CHAT
+  ========================================================= */
 
   const handleNewChat = () => {
-    const newChat = createChat();
+    if (loading) return;
+
+    const newChat = createNewChat();
 
     setChats((prev) => [
       newChat,
@@ -243,253 +178,236 @@ const AiTutor = () => {
     ]);
 
     setActiveChatId(newChat.id);
-    setInput("");
+
+    // IMPORTANT:
+    // Mobile chat list automatically closes
+    setShowChatList(false);
+
+    setInput('');
 
     setTimeout(() => {
-      inputRef.current?.focus();
-    }, 150);
-  };
-
-  // =========================================================
-  // OPEN CHAT
-  // =========================================================
-
-  const handleOpenChat = (chatId) => {
-    setActiveChatId(chatId);
-    setInput("");
-
-    if (window.innerWidth < 1024) {
-      setSidebarOpen(false);
-    }
-
-    setTimeout(() => {
-      inputRef.current?.focus();
+      textareaRef.current?.focus();
     }, 100);
   };
 
-  // =========================================================
-  // DELETE CHAT
-  // =========================================================
+  /* =========================================================
+     OPEN OLD CHAT
+  ========================================================= */
 
-  const handleDeleteChat = (chatId) => {
-    setChats((prev) => {
-      const filtered = prev.filter(
-        (chat) => chat.id !== chatId
-      );
+  const handleSelectChat = (chatId) => {
+    if (loading) return;
 
-      if (filtered.length === 0) {
-        const newChat = createChat();
+    setActiveChatId(chatId);
 
-        setTimeout(() => {
-          setActiveChatId(newChat.id);
-        }, 0);
+    // IMPORTANT:
+    // Mobile chat list automatically closes
+    setShowChatList(false);
 
-        return [newChat];
-      }
+    setInput('');
 
-      if (chatId === activeChatId) {
-        setTimeout(() => {
-          setActiveChatId(
-            filtered[0].id
-          );
-        }, 0);
-      }
-
-      return filtered;
-    });
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    }, 100);
   };
 
-  // =========================================================
-  // CLEAR CHAT
-  // =========================================================
+  /* =========================================================
+     DELETE CURRENT CHAT
+  ========================================================= */
 
   const handleClearChat = () => {
     if (!activeChat) return;
 
     const confirmed = window.confirm(
-      "Clear this conversation?"
+      'Clear this conversation?'
     );
 
     if (!confirmed) return;
 
+    const freshChat = {
+      ...createNewChat(),
+      id: activeChat.id,
+    };
+
     setChats((prev) =>
       prev.map((chat) =>
-        chat.id === activeChatId
+        chat.id === activeChat.id
+          ? freshChat
+          : chat
+      )
+    );
+
+    setInput('');
+  };
+
+  /* =========================================================
+     UPDATE MESSAGES
+  ========================================================= */
+
+  const updateChatMessages = (chatId, newMessages) => {
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === chatId
           ? {
               ...chat,
-              title: "New Career Chat",
+              messages: newMessages,
+              updatedAt: Date.now(),
+            }
+          : chat
+      )
+    );
+  };
+
+  /* =========================================================
+     UPDATE CHAT TITLE
+  ========================================================= */
+
+  const updateChatTitle = (chatId, firstMessage) => {
+    const cleanTitle = firstMessage
+      .replace(/\s+/g, ' ')
+      .trim();
+
+    const title =
+      cleanTitle.length > 32
+        ? `${cleanTitle.substring(0, 32)}...`
+        : cleanTitle;
+
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === chatId
+          ? {
+              ...chat,
+              title:
+                title || 'New Career Chat',
+              updatedAt: Date.now(),
+            }
+          : chat
+      )
+    );
+  };
+
+  /* =========================================================
+     TYPE AI RESPONSE
+  ========================================================= */
+
+  const typeOutResponse = (chatId, fullText) => {
+    const words = fullText.split(' ');
+    let index = 0;
+
+    setChats((prev) =>
+      prev.map((chat) =>
+        chat.id === chatId
+          ? {
+              ...chat,
               messages: [
-                defaultMessage,
+                ...chat.messages,
+                {
+                  role: 'assistant',
+                  content: '',
+                },
               ],
-              updatedAt:
-                new Date().toISOString(),
+              updatedAt: Date.now(),
             }
           : chat
       )
     );
 
-    setTimeout(() => {
-      inputRef.current?.focus();
-    }, 100);
-  };
-
-  // =========================================================
-  // UPDATE ACTIVE CHAT
-  // =========================================================
-
-  const updateActiveChat = (updater) => {
-    setChats((prev) =>
-      prev.map((chat) => {
-        if (
-          chat.id !== activeChatId
-        ) {
-          return chat;
-        }
-
-        const updates =
-          typeof updater === "function"
-            ? updater(chat)
-            : updater;
-
-        return {
-          ...chat,
-          ...updates,
-          updatedAt:
-            new Date().toISOString(),
-        };
-      })
-    );
-  };
-
-  // =========================================================
-  // TYPE RESPONSE
-  // =========================================================
-
-  const typeOutResponse = (fullText) => {
-    const words =
-      fullText.split(" ");
-
-    updateActiveChat((chat) => ({
-      messages: [
-        ...chat.messages,
-        {
-          role: "assistant",
-          content: "",
-        },
-      ],
-    }));
-
-    let i = 0;
-
     const interval = setInterval(() => {
-      i++;
+      index++;
 
-      updateActiveChat((chat) => {
-        const updatedMessages = [
-          ...chat.messages,
-        ];
+      setChats((prev) =>
+        prev.map((chat) => {
+          if (chat.id !== chatId) {
+            return chat;
+          }
 
-        updatedMessages[
-          updatedMessages.length - 1
-        ] = {
-          role: "assistant",
-          content: words
-            .slice(0, i)
-            .join(" "),
-        };
+          const updatedMessages = [
+            ...chat.messages,
+          ];
 
-        return {
-          messages: updatedMessages,
-        };
-      });
+          updatedMessages[
+            updatedMessages.length - 1
+          ] = {
+            role: 'assistant',
+            content: words
+              .slice(0, index)
+              .join(' '),
+          };
 
-      if (i >= words.length) {
+          return {
+            ...chat,
+            messages: updatedMessages,
+            updatedAt: Date.now(),
+          };
+        })
+      );
+
+      if (index >= words.length) {
         clearInterval(interval);
       }
     }, 25);
   };
 
-  // =========================================================
-  // SEND MESSAGE
-  // =========================================================
+  /* =========================================================
+     SEND MESSAGE
+  ========================================================= */
 
-  const handleSend = async (
-    messageOverride = null
-  ) => {
+  const handleSend = async (customMessage = null) => {
     const userMessage = (
-      messageOverride !== null
-        ? messageOverride
-        : input
+      customMessage ?? input
     ).trim();
 
-    if (!userMessage || loading)
+    if (!userMessage || loading || !activeChat) {
       return;
+    }
 
-    const currentChat = activeChat;
+    const chatId = activeChat.id;
 
-    if (!currentChat) return;
+    const updatedMessages = [
+      ...activeChat.messages,
+      {
+        role: 'user',
+        content: userMessage,
+      },
+    ];
 
-    const userMsg = {
-      role: "user",
-      content: userMessage,
-    };
+    updateChatMessages(
+      chatId,
+      updatedMessages
+    );
 
-    const currentUserMessages =
-      currentChat.messages.filter(
-        (msg) => msg.role === "user"
-      );
+    updateChatTitle(
+      chatId,
+      userMessage
+    );
 
-    const shouldUpdateTitle =
-      currentUserMessages.length === 0;
-
-    updateActiveChat((chat) => ({
-      title: shouldUpdateTitle
-        ? userMessage.length > 32
-          ? `${userMessage.substring(
-              0,
-              32
-            )}...`
-          : userMessage
-        : chat.title,
-
-      messages: [
-        ...chat.messages,
-        userMsg,
-      ],
-    }));
-
-    setInput("");
+    setInput('');
     setLoading(true);
 
     try {
       const token =
-        localStorage.getItem(
-          "ra_token"
-        );
+        localStorage.getItem('ra_token');
 
       if (!token) {
         throw new Error(
-          "Authentication token not found. Please login again."
+          'Authentication token not found. Please login again.'
         );
       }
 
       const response = await fetch(
         `${API_BASE_URL}/api/v1/ai/tutor`,
         {
-          method: "POST",
-
+          method: 'POST',
           headers: {
-            "Content-Type":
-              "application/json",
+            'Content-Type':
+              'application/json',
             Accept:
-              "application/json",
+              'application/json',
             Authorization:
               `Bearer ${token}`,
           },
-
           body: JSON.stringify({
             message: userMessage,
-            language: "en",
+            language: 'en',
           }),
         }
       );
@@ -503,41 +421,43 @@ const AiTutor = () => {
       ) {
         throw new Error(
           data?.detail ||
-            "AI Tutor request failed"
+            'AI Tutor request failed'
         );
       }
 
       typeOutResponse(
+        chatId,
         data.data.response
       );
     } catch (error) {
       console.error(
-        "AI Tutor error:",
+        'AI Tutor error:',
         error
       );
 
-      updateActiveChat((chat) => ({
-        messages: [
-          ...chat.messages,
+      updateChatMessages(
+        chatId,
+        [
+          ...updatedMessages,
           {
-            role: "assistant",
+            role: 'assistant',
             content:
-              "⚠️ Something went wrong. Please try again.",
+              '⚠️ Something went wrong. Please try again.',
           },
-        ],
-      }));
+        ]
+      );
     } finally {
       setLoading(false);
     }
   };
 
-  // =========================================================
-  // ENTER
-  // =========================================================
+  /* =========================================================
+     ENTER KEY
+  ========================================================= */
 
   const handleKeyDown = (e) => {
     if (
-      e.key === "Enter" &&
+      e.key === 'Enter' &&
       !e.shiftKey
     ) {
       e.preventDefault();
@@ -545,541 +465,622 @@ const AiTutor = () => {
     }
   };
 
-  // =========================================================
-  // TIME
-  // =========================================================
+  /* =========================================================
+     QUICK START
+  ========================================================= */
 
-  const formatTime = (date) => {
-    if (!date) return "";
+  const handleQuickStart = (prompt) => {
+    handleSend(prompt);
+  };
 
-    const now = new Date();
-    const chatDate = new Date(date);
+  /* =========================================================
+     FORMAT CHAT DATE
+  ========================================================= */
 
-    const diff =
-      now - chatDate;
+  const formatDate = (timestamp) => {
+    const date =
+      new Date(timestamp);
 
-    if (diff < 60000) {
-      return "Now";
+    const today =
+      new Date();
+
+    if (
+      date.toDateString() ===
+      today.toDateString()
+    ) {
+      return 'Now';
     }
 
-    if (diff < 3600000) {
-      return `${Math.floor(
-        diff / 60000
-      )}m`;
-    }
-
-    if (diff < 86400000) {
-      return `${Math.floor(
-        diff / 3600000
-      )}h`;
-    }
-
-    return chatDate.toLocaleDateString(
-      [],
+    return date.toLocaleDateString(
+      'en-US',
       {
-        day: "2-digit",
-        month: "short",
+        month: 'short',
+        day: '2-digit',
       }
     );
   };
 
-  // =========================================================
-  // UI
-  // =========================================================
+  /* =========================================================
+     UI
+  ========================================================= */
 
   return (
-    /*
-      IMPORTANT:
-      DO NOT USE fixed inset-0 HERE.
-
-      This component lives INSIDE your existing
-      application navigation/content layout.
-    */
-
-    <div className="relative flex h-full min-h-0 w-full overflow-hidden bg-[#070b20] text-white">
-      {/* =====================================================
-          BACKGROUND
-      ====================================================== */}
-
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-40 -top-40 h-[500px] w-[500px] rounded-full bg-violet-600/10 blur-[140px]" />
-
-        <div className="absolute right-[-150px] top-[10%] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[150px]" />
-
-        <div className="absolute bottom-[-200px] left-[35%] h-[500px] w-[500px] rounded-full bg-purple-600/10 blur-[150px]" />
-      </div>
+    <div className="relative w-full h-[100dvh] min-h-0 overflow-hidden bg-[#070b22] text-white">
 
       {/* =====================================================
-          CONTENT LAYOUT
-      ====================================================== */}
+          MOBILE OVERLAY
+      ===================================================== */}
 
-      <div className="relative flex h-full min-h-0 w-full overflow-hidden">
+      {showChatList && (
+        <div
+          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          onClick={() =>
+            setShowChatList(false)
+          }
+        />
+      )}
+
+      {/* =====================================================
+          MAIN LAYOUT
+      ===================================================== */}
+
+      <div className="flex h-full min-h-0">
+
         {/* ===================================================
-            RECENT CHAT SIDEBAR
-        ==================================================== */}
+            RECENT CHATS SIDEBAR
+        =================================================== */}
 
         <aside
           className={`
-            absolute inset-y-0 left-0 z-50
-            flex w-[310px] shrink-0 flex-col
-            border-r border-white/[0.07]
-            bg-[#0b102b]/98
-            backdrop-blur-2xl
-
-            transition-transform
-            duration-300
-            ease-out
-
-            lg:relative
-            lg:z-20
-            lg:translate-x-0
-
+            fixed lg:relative
+            z-50 lg:z-auto
+            top-0 left-0
+            h-full
+            w-[300px]
+            shrink-0
+            bg-[#0c112f]
+            border-r border-white/10
+            flex flex-col
+            transition-transform duration-300
             ${
-              sidebarOpen
-                ? "translate-x-0"
-                : "-translate-x-full"
+              showChatList
+                ? 'translate-x-0'
+                : '-translate-x-full lg:translate-x-0'
             }
           `}
         >
+
           {/* SIDEBAR HEADER */}
 
-          <div className="flex h-[82px] shrink-0 items-center justify-between border-b border-white/[0.07] px-5">
+          <div className="h-[76px] shrink-0 px-5 border-b border-white/10 flex items-center justify-between">
+
             <div className="flex items-center gap-3">
-              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-gradient-to-br from-violet-500 to-blue-500 shadow-[0_0_30px_rgba(139,92,246,0.25)]">
-                <Bot className="h-5 w-5" />
+
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+
+                <Sparkles className="w-5 h-5 text-white" />
+
               </div>
 
               <div>
-                <h2 className="text-sm font-bold">
+
+                <h2 className="font-bold text-white">
                   AI Tutor
                 </h2>
 
-                <p className="text-[10px] uppercase tracking-[0.18em] text-white/30">
+                <p className="text-[11px] text-white/40">
                   Career Intelligence
                 </p>
+
               </div>
+
             </div>
+
+            {/* MOBILE CLOSE */}
 
             <button
               onClick={() =>
-                setSidebarOpen(false)
+                setShowChatList(false)
               }
-              className="rounded-xl border border-white/[0.07] bg-white/[0.04] p-2 text-white/40 hover:bg-white/[0.08] hover:text-white lg:hidden"
+              className="lg:hidden w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"
             >
-              <X className="h-4 w-4" />
+              <X className="w-4 h-4" />
             </button>
+
           </div>
 
           {/* NEW CHAT */}
 
-          <div className="shrink-0 p-4">
+          <div className="p-4">
+
             <button
               onClick={handleNewChat}
-              className="flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-violet-600 to-blue-600 px-4 py-3 text-sm font-semibold shadow-[0_10px_30px_rgba(99,102,241,0.18)] transition hover:-translate-y-0.5 hover:from-violet-500 hover:to-blue-500"
+              className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center gap-2 font-semibold shadow-lg shadow-indigo-900/30 transition-all"
             >
-              <Plus className="h-4 w-4" />
+
+              <Plus className="w-5 h-5" />
+
               New Chat
+
             </button>
+
           </div>
 
-          {/* RECENT TITLE */}
+          {/* RECENT CHATS */}
 
-          <div className="shrink-0 px-5 pb-3">
-            <div className="flex items-center gap-2">
-              <Clock3 className="h-3.5 w-3.5 text-violet-300/60" />
+          <div className="px-4 pb-2">
 
-              <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/30">
+            <div className="flex items-center gap-2 px-2 mb-3">
+
+              <MessageSquare className="w-4 h-4 text-white/40" />
+
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-white/40">
                 Recent Chats
               </span>
+
             </div>
+
           </div>
 
-          {/* CHAT LIST */}
+          <div className="flex-1 min-h-0 overflow-y-auto px-3 pb-4">
 
-          <div className="min-h-0 flex-1 overflow-y-auto px-3 pb-6">
             <div className="space-y-2">
-              {chats.map((chat) => {
-                const isActive =
-                  chat.id ===
-                  activeChatId;
 
-                const messageCount =
-                  chat.messages.filter(
-                    (m) =>
-                      m.role === "user"
-                  ).length;
+              {chats
+                .sort(
+                  (a, b) =>
+                    b.updatedAt -
+                    a.updatedAt
+                )
+                .map((chat) => {
 
-                return (
-                  <div
-                    key={chat.id}
-                    className={`
-                      group relative rounded-2xl border
-                      transition-all duration-200
+                  const isActive =
+                    chat.id ===
+                    activeChatId;
 
-                      ${
-                        isActive
-                          ? "border-violet-400/20 bg-violet-500/[0.10]"
-                          : "border-transparent hover:border-white/[0.06] hover:bg-white/[0.035]"
-                      }
-                    `}
-                  >
+                  const messageCount =
+                    chat.messages.filter(
+                      (message) =>
+                        message.role ===
+                        'user'
+                    ).length;
+
+                  return (
                     <button
+                      key={chat.id}
                       onClick={() =>
-                        handleOpenChat(
+                        handleSelectChat(
                           chat.id
                         )
                       }
-                      className="w-full px-4 py-3.5 text-left"
+                      className={`
+                        w-full
+                        text-left
+                        rounded-xl
+                        p-3
+                        border
+                        transition-all
+                        ${
+                          isActive
+                            ? 'bg-violet-500/10 border-violet-500/30'
+                            : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10'
+                        }
+                      `}
                     >
-                      <div className="flex items-start gap-3">
+
+                      <div className="flex gap-3">
+
                         <div
                           className={`
-                            mt-0.5 flex h-9 w-9 shrink-0
-                            items-center justify-center
-                            rounded-xl
-
+                            w-9 h-9
+                            shrink-0
+                            rounded-lg
+                            flex
+                            items-center
+                            justify-center
                             ${
                               isActive
-                                ? "bg-violet-500/15 text-violet-300"
-                                : "bg-white/[0.04] text-white/30"
+                                ? 'bg-violet-500/20 text-violet-300'
+                                : 'bg-white/5 text-white/40'
                             }
                           `}
                         >
-                          <MessageSquare className="h-4 w-4" />
+                          <MessageSquare className="w-4 h-4" />
                         </div>
 
-                        <div className="min-w-0 flex-1 pr-5">
-                          <p
-                            className={`
-                              truncate text-sm font-medium
+                        <div className="min-w-0 flex-1">
 
-                              ${
-                                isActive
-                                  ? "text-white"
-                                  : "text-white/65"
-                              }
-                            `}
-                          >
+                          <p className="text-sm font-medium text-white truncate">
                             {chat.title}
                           </p>
 
-                          <div className="mt-1 flex items-center gap-2">
-                            <span className="text-[10px] text-white/25">
-                              {messageCount}{" "}
-                              messages
-                            </span>
+                          <p className="mt-1 text-[11px] text-white/35">
+                            {messageCount}{' '}
+                            {messageCount === 1
+                              ? 'message'
+                              : 'messages'}
+                            {' • '}
+                            {formatDate(
+                              chat.updatedAt
+                            )}
+                          </p>
 
-                            <span className="text-white/15">
-                              •
-                            </span>
-
-                            <span className="text-[10px] text-white/25">
-                              {formatTime(
-                                chat.updatedAt
-                              )}
-                            </span>
-                          </div>
                         </div>
-                      </div>
-                    </button>
 
-                    <button
-                      onClick={() =>
-                        handleDeleteChat(
-                          chat.id
-                        )
-                      }
-                      aria-label="Delete chat"
-                      className="absolute right-3 top-3 hidden rounded-lg p-1.5 text-white/20 transition hover:bg-red-500/10 hover:text-red-400 group-hover:block"
-                    >
-                      <Trash2 className="h-3.5 w-3.5" />
+                      </div>
+
                     </button>
-                  </div>
-                );
-              })}
+                  );
+                })}
+
             </div>
+
           </div>
+
+          {/* SIDEBAR FOOTER */}
+
+          <div className="shrink-0 p-4 border-t border-white/10">
+
+            <div className="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+
+              <div className="flex items-center gap-2">
+
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+
+                <span className="text-xs text-white/60">
+                  AI Tutor Ready
+                </span>
+
+              </div>
+
+              <p className="text-[11px] text-white/30 mt-2">
+                Your conversations are
+                saved automatically.
+              </p>
+
+            </div>
+
+          </div>
+
         </aside>
 
         {/* ===================================================
-            MOBILE OVERLAY
-        ==================================================== */}
+            CHAT AREA
+        =================================================== */}
 
-        {sidebarOpen && (
-          <div
-            onClick={() =>
-              setSidebarOpen(false)
-            }
-            className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
-          />
-        )}
+        <main className="flex-1 min-w-0 min-h-0 flex flex-col bg-[#080c27]">
 
-        {/* ===================================================
-            CHAT WORKSPACE
-        ==================================================== */}
-
-        <main className="relative flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
           {/* =================================================
-              HEADER
-          ================================================== */}
+              CHAT HEADER
+          ================================================= */}
 
-          <header className="flex h-[82px] shrink-0 items-center justify-between border-b border-white/[0.07] bg-[#080c24]/90 px-4 backdrop-blur-2xl sm:px-6">
-            <div className="flex min-w-0 items-center gap-3">
+          <header className="h-[76px] shrink-0 border-b border-white/10 px-4 md:px-7 flex items-center justify-between bg-[#090d29]/90 backdrop-blur-xl">
+
+            <div className="flex items-center gap-3">
+
               {/* MOBILE MENU */}
 
               <button
                 onClick={() =>
-                  setSidebarOpen(true)
+                  setShowChatList(true)
                 }
-                className="rounded-xl border border-white/[0.07] bg-white/[0.04] p-2.5 text-white/50 hover:bg-white/[0.08] hover:text-white lg:hidden"
+                className="lg:hidden w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center"
               >
-                <Menu className="h-5 w-5" />
+                <Menu className="w-5 h-5" />
               </button>
 
-              {/* ICON */}
+              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-violet-500/30 to-indigo-500/30 border border-violet-400/20 flex items-center justify-center">
 
-              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-violet-400/10 bg-violet-500/[0.08]">
-                <Sparkles className="h-5 w-5 text-violet-300" />
+                <Bot className="w-6 h-6 text-violet-300" />
+
               </div>
 
-              <div className="min-w-0">
+              <div>
+
                 <div className="flex items-center gap-2">
-                  <h1 className="truncate text-lg font-bold tracking-tight sm:text-xl">
+
+                  <h1 className="text-lg md:text-xl font-bold text-white">
                     AI Career Tutor
                   </h1>
 
-                  <span className="shrink-0 rounded-full border border-emerald-400/20 bg-emerald-400/10 px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-emerald-300">
-                    Online
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[10px] font-bold">
+                    ONLINE
                   </span>
+
                 </div>
 
-                <p className="truncate text-[11px] text-white/30">
+                <p className="text-xs text-white/35">
                   Your personal AI learning companion
                 </p>
+
               </div>
+
             </div>
 
-            {/* CLEAR */}
+            {/* CLEAR CHAT */}
 
             <button
               onClick={handleClearChat}
-              className="flex shrink-0 items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.035] px-3 py-2 text-xs font-medium text-white/40 transition hover:border-red-400/20 hover:bg-red-500/[0.06] hover:text-red-300"
+              disabled={loading}
+              className="h-10 px-3 md:px-4 rounded-xl bg-white/[0.03] border border-white/10 text-white/45 hover:text-white hover:bg-white/10 transition-all flex items-center gap-2 disabled:opacity-40"
             >
-              <Trash2 className="h-3.5 w-3.5" />
 
-              <span className="hidden sm:block">
+              <Trash2 className="w-4 h-4" />
+
+              <span className="hidden sm:block text-sm">
                 Clear Chat
               </span>
+
             </button>
+
           </header>
 
           {/* =================================================
-              CHAT MESSAGES
-          ================================================== */}
+              MESSAGES AREA
+          ================================================= */}
 
-          <div className="min-h-0 flex-1 overflow-y-auto">
-            <div className="mx-auto w-full max-w-5xl px-4 py-8 pb-40 sm:px-6 lg:px-8">
-              {/* WELCOME */}
+          <div className="flex-1 min-h-0 overflow-y-auto">
+
+            <div className="max-w-5xl mx-auto w-full px-4 md:px-8 py-6 md:py-8">
+
+              {/* EMPTY / WELCOME */}
 
               {messages.length === 1 &&
                 messages[0].role ===
-                  "assistant" &&
-                messages[0].content ===
-                  defaultMessage.content && (
-                  <div className="mb-10">
-                    <div className="mx-auto max-w-3xl py-8 text-center sm:py-12">
-                      <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[26px] border border-violet-400/15 bg-gradient-to-br from-violet-500/15 to-blue-500/10 shadow-[0_0_60px_rgba(139,92,246,0.14)]">
-                        <Bot className="h-9 w-9 text-violet-300" />
-                      </div>
+                  'assistant' &&
+                messages[0].content.startsWith(
+                  "Hi! I'm your AI Career Tutor"
+                ) ? (
 
-                      <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl">
-                        How can I help your career?
-                      </h2>
+                <div className="min-h-[calc(100vh-220px)] flex flex-col justify-center">
 
-                      <p className="mx-auto mt-4 max-w-xl text-sm leading-6 text-white/35 sm:text-base">
-                        Ask questions,
-                        understand concepts,
-                        prepare for
-                        interviews, and
-                        build the skills
-                        you need for your
-                        dream job.
-                      </p>
+                  <div className="text-center max-w-3xl mx-auto">
+
+                    <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-400/20 flex items-center justify-center">
+
+                      <Sparkles className="w-8 h-8 text-violet-300" />
+
                     </div>
 
-                    {/* QUICK START */}
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
 
-                    <div className="mx-auto max-w-4xl">
-                      <div className="mb-4 flex items-center gap-2">
-                        <Sparkles className="h-3.5 w-3.5 text-violet-300/60" />
+                      How can I help your
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">
+                        {' '}career?
+                      </span>
 
-                        <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/25">
-                          Quick Start
-                        </span>
-                      </div>
+                    </h2>
 
-                      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
-                        {quickPrompts.map(
-                          (item) => {
-                            const Icon =
-                              item.icon;
+                    <p className="text-sm md:text-base text-white/40 leading-7 max-w-2xl mx-auto">
+                      Ask questions, understand
+                      concepts, prepare for
+                      interviews, and build the
+                      skills you need for your
+                      dream job.
+                    </p>
 
-                            return (
-                              <button
-                                key={
-                                  item.title
-                                }
-                                onClick={() =>
-                                  handleSend(
-                                    item.prompt
-                                  )
-                                }
-                                disabled={
-                                  loading
-                                }
-                                className="group flex items-center gap-4 rounded-2xl border border-white/[0.07] bg-white/[0.025] p-4 text-left transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-400/15 hover:bg-violet-500/[0.05] disabled:cursor-not-allowed disabled:opacity-50"
-                              >
-                                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-white/[0.06] bg-white/[0.04] text-violet-300/70 group-hover:bg-violet-500/10 group-hover:text-violet-300">
-                                  <Icon className="h-5 w-5" />
+                  </div>
+
+                  {/* QUICK START */}
+
+                  <div className="mt-10">
+
+                    <div className="flex items-center gap-2 mb-4">
+
+                      <Sparkles className="w-4 h-4 text-violet-400" />
+
+                      <span className="text-xs font-bold uppercase tracking-[0.18em] text-white/35">
+                        Quick Start
+                      </span>
+
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+
+                      {quickStartOptions.map(
+                        (item) => {
+
+                          const Icon =
+                            item.icon;
+
+                          return (
+                            <button
+                              key={
+                                item.title
+                              }
+                              onClick={() =>
+                                handleQuickStart(
+                                  item.prompt
+                                )
+                              }
+                              disabled={
+                                loading
+                              }
+                              className="group text-left p-4 rounded-2xl bg-white/[0.025] border border-white/10 hover:border-violet-400/30 hover:bg-violet-500/[0.06] transition-all disabled:opacity-50"
+                            >
+
+                              <div className="flex items-center gap-4">
+
+                                <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-violet-500/10 group-hover:border-violet-400/20 transition-all">
+
+                                  <Icon className="w-5 h-5 text-white/50 group-hover:text-violet-300" />
+
                                 </div>
 
-                                <div className="min-w-0">
-                                  <p className="text-sm font-semibold text-white/75 group-hover:text-white">
-                                    {
-                                      item.title
-                                    }
-                                  </p>
+                                <div>
 
-                                  <p className="mt-0.5 text-xs text-white/25">
+                                  <h3 className="font-semibold text-white/80">
+                                    {item.title}
+                                  </h3>
+
+                                  <p className="text-xs text-white/30 mt-1">
                                     {
                                       item.subtitle
                                     }
                                   </p>
+
                                 </div>
-                              </button>
-                            );
-                          }
-                        )}
-                      </div>
+
+                              </div>
+
+                            </button>
+                          );
+                        }
+                      )}
+
                     </div>
+
                   </div>
-                )}
 
-              {/* =================================================
-                  MESSAGES
-              ================================================== */}
+                </div>
 
-              <div className="space-y-7">
-                {messages.map(
-                  (msg, idx) => {
-                    if (
-                      idx === 0 &&
-                      msg.role ===
-                        "assistant" &&
-                      msg.content ===
-                        defaultMessage.content
-                    ) {
-                      return null;
-                    }
+              ) : (
 
-                    const isUser =
-                      msg.role === "user";
+                /* =================================================
+                   CHAT MESSAGES
+                ================================================= */
 
-                    return (
-                      <div
-                        key={idx}
-                        className={`flex gap-3 sm:gap-4 ${
-                          isUser
-                            ? "justify-end"
-                            : "justify-start"
-                        }`}
-                      >
-                        {!isUser && (
-                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-violet-400/15 bg-violet-500/[0.10]">
-                            <Bot className="h-4 w-4 text-violet-300" />
-                          </div>
-                        )}
+                <div className="space-y-6">
 
+                  {messages.map(
+                    (msg, index) => {
+
+                      const isUser =
+                        msg.role ===
+                        'user';
+
+                      return (
                         <div
-                          className={`
-                            max-w-[88%]
-                            sm:max-w-[75%]
-
-                            ${
-                              isUser
-                                ? "rounded-2xl rounded-br-md bg-gradient-to-br from-violet-600 to-indigo-600 px-4 py-3 text-white"
-                                : "rounded-2xl rounded-bl-md border border-white/[0.07] bg-white/[0.035] px-5 py-4 text-white/80 backdrop-blur-xl"
-                            }
-                          `}
+                          key={index}
+                          className={`flex gap-3 md:gap-4 ${
+                            isUser
+                              ? 'justify-end'
+                              : 'justify-start'
+                          }`}
                         >
-                          {isUser ? (
-                            <p className="whitespace-pre-wrap text-sm leading-6">
-                              {
-                                msg.content
+
+                          {/* AI ICON */}
+
+                          {!isUser && (
+                            <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+
+                              <Bot className="w-5 h-5 text-white" />
+
+                            </div>
+                          )}
+
+                          {/* MESSAGE */}
+
+                          <div
+                            className={`
+                              max-w-[85%]
+                              md:max-w-[75%]
+                              rounded-2xl
+                              px-4
+                              md:px-5
+                              py-3
+                              md:py-4
+                              ${
+                                isUser
+                                  ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-br-md'
+                                  : 'bg-white/[0.045] border border-white/10 text-white/85 rounded-bl-md'
                               }
-                            </p>
-                          ) : (
-                            <div className="prose prose-sm prose-invert max-w-none text-sm leading-7">
-                              <ReactMarkdown
-                                remarkPlugins={[
-                                  remarkGfm,
-                                ]}
-                              >
+                            `}
+                          >
+
+                            {isUser ? (
+
+                              <p className="text-sm md:text-[15px] leading-7 whitespace-pre-wrap">
                                 {
                                   msg.content
                                 }
-                              </ReactMarkdown>
+                              </p>
+
+                            ) : (
+
+                              <div className="prose prose-sm prose-invert max-w-none prose-p:leading-7 prose-pre:bg-black/30 prose-pre:border prose-pre:border-white/10 prose-code:text-violet-300">
+
+                                <ReactMarkdown
+                                  remarkPlugins={[
+                                    remarkGfm,
+                                  ]}
+                                >
+                                  {
+                                    msg.content
+                                  }
+                                </ReactMarkdown>
+
+                              </div>
+
+                            )}
+
+                          </div>
+
+                          {/* USER ICON */}
+
+                          {isUser && (
+                            <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
+
+                              <User className="w-5 h-5 text-white/60" />
+
                             </div>
                           )}
+
+                        </div>
+                      );
+                    }
+                  )}
+
+                  {/* LOADING */}
+
+                  {loading && (
+                    <div className="flex gap-3 md:gap-4">
+
+                      <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+
+                        <Bot className="w-5 h-5 text-white" />
+
+                      </div>
+
+                      <div className="px-5 py-4 rounded-2xl rounded-bl-md bg-white/[0.045] border border-white/10">
+
+                        <div className="flex gap-1.5">
+
+                          <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
+
+                          <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
+
+                          <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce" />
+
                         </div>
 
-                        {isUser && (
-                          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-white/[0.08] bg-white/[0.07]">
-                            <User className="h-4 w-4 text-white/60" />
-                          </div>
-                        )}
                       </div>
-                    );
-                  }
-                )}
 
-                {/* LOADING */}
-
-                {loading && (
-                  <div className="flex gap-3 sm:gap-4">
-                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl border border-violet-400/15 bg-violet-500/[0.10]">
-                      <Bot className="h-4 w-4 text-violet-300" />
                     </div>
+                  )}
 
-                    <div className="rounded-2xl rounded-bl-md border border-white/[0.07] bg-white/[0.035] px-5 py-4">
-                      <div className="flex items-center gap-1.5">
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-violet-300" />
+                  <div ref={bottomRef} />
 
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-violet-300 [animation-delay:-0.15s]" />
+                </div>
 
-                        <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-violet-300 [animation-delay:-0.3s]" />
-                      </div>
-                    </div>
-                  </div>
-                )}
+              )}
 
-                <div
-                  ref={bottomRef}
-                  className="h-1"
-                />
-              </div>
             </div>
+
           </div>
 
           {/* =================================================
-              NORMAL BOTTOM CHAT BOX
-          ================================================== */}
+              FIXED BOTTOM INPUT AREA
+          ================================================= */}
 
-          <div className="shrink-0 border-t border-white/[0.05] bg-[#070b20]/95 px-4 pb-4 pt-3 backdrop-blur-xl sm:px-6 lg:px-8">
-            <div className="mx-auto max-w-4xl">
-              <div className="relative flex items-end gap-2 rounded-2xl border border-white/[0.10] bg-[#111633]/95 p-2 shadow-[0_20px_70px_rgba(0,0,0,0.35)] backdrop-blur-2xl transition-all focus-within:border-violet-400/20">
+          <div className="shrink-0 border-t border-white/10 bg-[#080c27]/95 backdrop-blur-xl">
+
+            <div className="max-w-5xl mx-auto w-full px-4 md:px-8 pt-4 pb-4 md:pb-5">
+
+              <div className="relative flex items-end gap-2 rounded-2xl bg-white/[0.045] border border-white/10 focus-within:border-violet-400/30 focus-within:bg-white/[0.06] transition-all p-2">
+
                 <textarea
-                  ref={inputRef}
+                  ref={textareaRef}
                   value={input}
                   onChange={(e) =>
                     setInput(
@@ -1092,7 +1093,7 @@ const AiTutor = () => {
                   placeholder="Ask your AI tutor anything..."
                   disabled={loading}
                   rows={1}
-                  className="max-h-32 min-h-[46px] flex-1 resize-none bg-transparent px-3 py-3 text-sm text-white outline-none placeholder:text-white/25 disabled:cursor-not-allowed"
+                  className="flex-1 resize-none bg-transparent px-3 py-3 text-sm md:text-[15px] text-white placeholder-white/30 focus:outline-none min-h-[46px] max-h-32 overflow-y-auto"
                 />
 
                 <button
@@ -1103,20 +1104,28 @@ const AiTutor = () => {
                     loading ||
                     !input.trim()
                   }
-                  className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-[0_8px_25px_rgba(99,102,241,0.25)] transition-all hover:-translate-y-0.5 hover:from-violet-400 hover:to-indigo-500 disabled:cursor-not-allowed disabled:opacity-30"
+                  className="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-900/30"
                 >
-                  <Send className="h-4 w-4" />
+
+                  <Send className="w-5 h-5 text-white" />
+
                 </button>
+
               </div>
 
-              <p className="mt-2 text-center text-[9px] text-white/15">
+              <p className="text-[10px] text-white/20 text-center mt-2">
                 AI Tutor can make mistakes.
                 Verify important information.
               </p>
+
             </div>
+
           </div>
+
         </main>
+
       </div>
+
     </div>
   );
 };
