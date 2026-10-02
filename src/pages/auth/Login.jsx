@@ -11,6 +11,9 @@ import {
   Loader2,
   ShieldCheck,
   CheckCircle2,
+  Compass,
+  Map,
+  Bot,
 } from 'lucide-react';
 
 const API_BASE_URL =
@@ -306,288 +309,196 @@ const Login = ({
   // =========================================================
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#080d24] text-white">
+    <div className="min-h-screen bg-[#F6F1E8] text-[#173B32] lg:grid lg:grid-cols-[1.05fr_1fr]">
 
       {/* =====================================================
-          BACKGROUND
+          LEFT BRAND PANEL (DESKTOP)
       ===================================================== */}
 
-      <div className="absolute inset-0 overflow-hidden">
+      <aside className="relative hidden overflow-hidden bg-[#173B32] lg:flex lg:flex-col lg:justify-between lg:p-12 xl:p-16">
 
-        {/* Base gradient */}
-
-        <div
-          className="
-            absolute inset-0
-            bg-gradient-to-br
-            from-[#080d24]
-            via-[#101642]
-            to-[#24134d]
-          "
-        />
-
-        {/* Soft glow */}
+        {/* Subtle line pattern */}
 
         <div
           className="
+            pointer-events-none
             absolute
-            -left-32
-            top-20
-            h-[420px]
-            w-[420px]
-            rounded-full
-            bg-violet-600/10
-            blur-[100px]
+            inset-0
+            opacity-[0.07]
+            [background-image:linear-gradient(#F6F1E8_1px,transparent_1px),linear-gradient(90deg,#F6F1E8_1px,transparent_1px)]
+            [background-size:48px_48px]
           "
         />
 
-        <div
-          className="
-            absolute
-            -right-32
-            bottom-0
-            h-[450px]
-            w-[450px]
-            rounded-full
-            bg-indigo-600/10
-            blur-[110px]
-          "
-        />
+        {/* Concentric rings */}
 
-        {/* =================================================
-            3D FLOATING OBJECTS
-        ================================================= */}
+        <div className="pointer-events-none absolute -bottom-40 -right-40 h-[520px] w-[520px] rounded-full border border-[#F6F1E8]/10" />
+        <div className="pointer-events-none absolute -bottom-24 -right-24 h-[400px] w-[400px] rounded-full border border-[#F6F1E8]/10" />
+        <div className="pointer-events-none absolute -bottom-8 -right-8 h-[280px] w-[280px] rounded-full border border-[#E4B84A]/30" />
 
-        <div className="absolute inset-0 pointer-events-none">
+        {/* Accent dots */}
 
-          {/* Orb 1 */}
+        <span className="pointer-events-none absolute right-[18%] top-[16%] h-3 w-3 rounded-full bg-[#E4B84A]" />
+        <span className="pointer-events-none absolute right-[30%] top-[28%] h-2 w-2 rounded-full bg-[#D66A4A]" />
 
-          <div
-            className="
-              absolute
-              left-[10%]
-              top-[18%]
-              h-20
-              w-20
-              rounded-full
-              border
-              border-violet-300/10
-              bg-violet-400/[0.04]
-              shadow-[inset_-10px_-10px_30px_rgba(139,92,246,0.08)]
-              backdrop-blur-sm
-              animate-[floatOne_8s_ease-in-out_infinite]
-            "
-          />
+        {/* ---------- BRAND ---------- */}
 
-          {/* Orb 2 */}
+        <div className="relative flex items-center gap-3">
 
-          <div
-            className="
-              absolute
-              right-[12%]
-              top-[20%]
-              h-14
-              w-14
-              rounded-full
-              border
-              border-indigo-300/10
-              bg-indigo-400/[0.04]
-              animate-[floatTwo_10s_ease-in-out_infinite]
-            "
-          />
+          <div className="relative">
 
-          {/* Rotating cube */}
+            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#F6F1E8] text-[#173B32]">
+              <BookOpen
+                className="h-6 w-6"
+                strokeWidth={2.2}
+              />
+            </div>
 
-          <div
-            className="
-              absolute
-              left-[16%]
-              bottom-[18%]
-              h-16
-              w-16
-              rotate-45
-              rounded-xl
-              border
-              border-violet-300/10
-              bg-white/[0.025]
-              backdrop-blur-sm
-              animate-[rotateCube_14s_linear_infinite]
-            "
-          />
+            <div className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#173B32] bg-[#D66A4A]">
+              <Sparkles className="h-2.5 w-2.5 text-[#FFFDF8]" />
+            </div>
 
-          {/* Diamond */}
+          </div>
 
-          <div
-            className="
-              absolute
-              right-[17%]
-              bottom-[24%]
-              h-20
-              w-20
-              rotate-45
-              rounded-2xl
-              border
-              border-purple-300/10
-              bg-purple-500/[0.035]
-              backdrop-blur-sm
-              animate-[floatThree_9s_ease-in-out_infinite]
-            "
-          />
+          <div>
+            <h1 className="text-xl font-bold tracking-tight text-[#F6F1E8]">
+              Career Mentor
+            </h1>
 
-          {/* Small particles */}
-
-          <span
-            className="
-              absolute
-              left-[28%]
-              top-[22%]
-              h-2
-              w-2
-              rounded-full
-              bg-violet-300/30
-              animate-pulse
-            "
-          />
-
-          <span
-            className="
-              absolute
-              right-[30%]
-              bottom-[20%]
-              h-1.5
-              w-1.5
-              rounded-full
-              bg-indigo-300/30
-              animate-pulse
-            "
-          />
-
-          <span
-            className="
-              absolute
-              right-[24%]
-              top-[45%]
-              h-1
-              w-1
-              rounded-full
-              bg-purple-300/40
-              animate-pulse
-            "
-          />
+            <p className="mt-0.5 text-[10px] font-semibold uppercase tracking-[0.25em] text-[#E4B84A]">
+              Intelligence
+            </p>
+          </div>
 
         </div>
 
-        {/* Background grid */}
+        {/* ---------- MESSAGE ---------- */}
 
-        <div
-          className="
-            absolute
-            inset-0
-            opacity-[0.025]
-            [background-image:linear-gradient(rgba(255,255,255,0.5)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.5)_1px,transparent_1px)]
-            [background-size:60px_60px]
-          "
-        />
+        <div className="relative max-w-lg">
 
-      </div>
+          <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-[#E4B84A]/40 bg-[#E4B84A]/15 px-3 py-1.5">
+
+            <Sparkles className="h-3.5 w-3.5 text-[#E4B84A]" />
+
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#E4B84A]">
+              Learn · Plan · Grow
+            </span>
+
+          </div>
+
+          <h2 className="text-4xl font-bold leading-tight tracking-tight text-[#F6F1E8] xl:text-5xl">
+            Build your career,
+            <span className="block text-[#E4B84A]">
+              one skill at a time.
+            </span>
+          </h2>
+
+          <p className="mt-5 text-base leading-7 text-[#F6F1E8]/70">
+            Discover the right career path, follow a personalized
+            roadmap and learn with guidance made for you.
+          </p>
+
+          {/* Features */}
+
+          <div className="mt-10 space-y-4">
+
+            {[
+              {
+                icon: Compass,
+                title: 'Career discovery',
+                text: 'Find paths that match your skills and interests.',
+              },
+              {
+                icon: Map,
+                title: 'Personalized roadmap',
+                text: 'A step-by-step plan built around your goal.',
+              },
+              {
+                icon: Bot,
+                title: 'AI tutor',
+                text: 'Ask questions and get help whenever you need it.',
+              },
+            ].map((item) => {
+              const Icon = item.icon;
+
+              return (
+                <div
+                  key={item.title}
+                  className="flex items-start gap-4 rounded-xl border border-[#F6F1E8]/10 bg-[#F6F1E8]/[0.06] p-4"
+                >
+
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#F6F1E8]/10">
+                    <Icon className="h-5 w-5 text-[#E4B84A]" />
+                  </div>
+
+                  <div>
+                    <p className="text-sm font-semibold text-[#F6F1E8]">
+                      {item.title}
+                    </p>
+
+                    <p className="mt-0.5 text-xs leading-5 text-[#F6F1E8]/60">
+                      {item.text}
+                    </p>
+                  </div>
+
+                </div>
+              );
+            })}
+
+          </div>
+
+        </div>
+
+        {/* ---------- FOOT ---------- */}
+
+        <div className="relative flex items-center gap-2 text-xs text-[#F6F1E8]/50">
+          <ShieldCheck className="h-4 w-4" />
+          Your career data stays protected
+        </div>
+
+      </aside>
 
       {/* =====================================================
-          CONTENT
+          RIGHT FORM PANEL
       ===================================================== */}
 
-      <div
-        className="
-          relative
-          z-10
-          flex
-          min-h-screen
-          items-center
-          justify-center
-          px-4
-          py-10
-        "
-      >
+      <main className="relative flex min-h-screen items-center justify-center px-4 py-10 sm:px-8">
 
-        <div className="w-full max-w-[470px]">
+        {/* Soft corner accent */}
+
+        <div className="pointer-events-none absolute right-0 top-0 h-2 w-full bg-[#D66A4A] lg:hidden" />
+
+        <div className="w-full max-w-[460px]">
 
           {/* =================================================
-              BRAND
+              MOBILE BRAND
           ================================================= */}
 
-          <div className="mb-8 flex justify-center">
+          <div className="mb-8 flex justify-center lg:hidden">
 
             <div className="flex items-center gap-3">
 
-              {/* BOOK LOGO */}
-
               <div className="relative">
 
-                <div
-                  className="
-                    flex
-                    h-12
-                    w-12
-                    items-center
-                    justify-center
-                    rounded-2xl
-                    bg-gradient-to-br
-                    from-violet-500
-                    via-purple-500
-                    to-indigo-500
-                    shadow-[0_12px_35px_rgba(139,92,246,0.25)]
-                  "
-                >
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#173B32]">
                   <BookOpen
-                    className="h-6 w-6 text-white"
+                    className="h-6 w-6 text-[#F6F1E8]"
                     strokeWidth={2.2}
                   />
                 </div>
 
-                <div
-                  className="
-                    absolute
-                    -right-1
-                    -top-1
-                    flex
-                    h-5
-                    w-5
-                    items-center
-                    justify-center
-                    rounded-full
-                    border-2
-                    border-[#080d24]
-                    bg-indigo-500
-                  "
-                >
-                  <Sparkles
-                    className="h-2.5 w-2.5 text-white"
-                  />
+                <div className="absolute -right-1.5 -top-1.5 flex h-5 w-5 items-center justify-center rounded-full border-2 border-[#F6F1E8] bg-[#D66A4A]">
+                  <Sparkles className="h-2.5 w-2.5 text-[#FFFDF8]" />
                 </div>
 
               </div>
 
               <div>
-                <h1
-                  className="
-                    text-xl
-                    font-bold
-                    tracking-tight
-                    text-white
-                  "
-                >
+                <h1 className="text-xl font-bold tracking-tight text-[#173B32]">
                   Career Mentor
                 </h1>
 
-                <p
-                  className="
-                    mt-0.5
-                    text-[9px]
-                    font-semibold
-                    uppercase
-                    tracking-[0.28em]
-                    text-violet-300/60
-                  "
-                >
+                <p className="mt-0.5 text-[9px] font-semibold uppercase tracking-[0.25em] text-[#D66A4A]">
                   Intelligence
                 </p>
               </div>
@@ -597,41 +508,20 @@ const Login = ({
           </div>
 
           {/* =================================================
-              LOGIN CARD
+              FORM CARD
           ================================================= */}
 
-          <div
-            className="
-              relative
-              overflow-hidden
-              rounded-[28px]
-              border
-              border-white/[0.09]
-              bg-[#101633]/90
-              p-7
-              shadow-[0_30px_90px_rgba(0,0,0,0.38)]
-              backdrop-blur-2xl
-              sm:p-9
-            "
-          >
+          <div className="overflow-hidden rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] shadow-[0_4px_20px_rgba(23,59,50,0.08)]">
 
-            {/* Card glow */}
+            {/* Top accent */}
 
-            <div
-              className="
-                pointer-events-none
-                absolute
-                -right-20
-                -top-20
-                h-48
-                w-48
-                rounded-full
-                bg-violet-500/[0.07]
-                blur-3xl
-              "
-            />
+            <div className="flex h-1.5 w-full">
+              <span className="h-full flex-1 bg-[#173B32]" />
+              <span className="h-full w-16 bg-[#D66A4A]" />
+              <span className="h-full w-10 bg-[#E4B84A]" />
+            </div>
 
-            <div className="relative">
+            <div className="p-7 sm:p-9">
 
               {/* =================================================
                   HEADER
@@ -639,38 +529,15 @@ const Login = ({
 
               <div className="mb-8">
 
-                <p
-                  className="
-                    mb-2
-                    text-[10px]
-                    font-bold
-                    uppercase
-                    tracking-[0.22em]
-                    text-violet-300/70
-                  "
-                >
+                <p className="mb-2 text-[11px] font-bold uppercase tracking-[0.2em] text-[#D66A4A]">
                   Career Intelligence
                 </p>
 
-                <h2
-                  className="
-                    text-3xl
-                    font-bold
-                    tracking-tight
-                    text-white
-                  "
-                >
+                <h2 className="text-3xl font-bold tracking-tight text-[#173B32]">
                   {pageTitle}
                 </h2>
 
-                <p
-                  className="
-                    mt-2
-                    text-sm
-                    leading-6
-                    text-slate-400
-                  "
-                >
+                <p className="mt-2 text-sm leading-6 text-[#66736B]">
                   {pageSubtitle}
                 </p>
 
@@ -686,12 +553,12 @@ const Login = ({
                     mb-5
                     rounded-xl
                     border
-                    border-red-400/15
-                    bg-red-500/[0.07]
+                    border-[#B94F35]/30
+                    bg-[#B94F35]/10
                     px-4
                     py-3
                     text-sm
-                    text-red-300
+                    text-[#B94F35]
                   "
                 >
                   {error}
@@ -707,15 +574,15 @@ const Login = ({
                     gap-2
                     rounded-xl
                     border
-                    border-emerald-400/15
-                    bg-emerald-500/[0.07]
+                    border-[#78927A]/40
+                    bg-[#78927A]/15
                     px-4
                     py-3
                     text-sm
-                    text-emerald-300
+                    text-[#173B32]
                   "
                 >
-                  <CheckCircle2 className="h-4 w-4" />
+                  <CheckCircle2 className="h-4 w-4 text-[#78927A]" />
                   {success}
                 </div>
               )}
@@ -739,7 +606,7 @@ const Login = ({
                         block
                         text-xs
                         font-semibold
-                        text-slate-300
+                        text-[#173B32]
                       "
                     >
                       Full Name
@@ -755,7 +622,7 @@ const Login = ({
                           h-5
                           w-5
                           -translate-y-1/2
-                          text-slate-500
+                          text-[#8A948D]
                         "
                       />
 
@@ -769,21 +636,20 @@ const Login = ({
                         className="
                           h-14
                           w-full
-                          rounded-2xl
+                          rounded-xl
                           border
-                          border-white/[0.08]
-                          bg-[#0a1029]
+                          border-[#DED8CC]
+                          bg-[#FFFDF8]
                           pl-12
                           pr-4
                           text-sm
-                          text-white
+                          text-[#173B32]
                           outline-none
-                          placeholder:text-slate-600
+                          placeholder:text-[#8A948D]
                           transition
-                          focus:border-violet-500/50
-                          focus:bg-[#0c1230]
+                          focus:border-[#173B32]
                           focus:ring-4
-                          focus:ring-violet-500/[0.06]
+                          focus:ring-[#173B32]/10
                         "
                       />
 
@@ -800,7 +666,7 @@ const Login = ({
                       block
                       text-xs
                       font-semibold
-                      text-slate-300
+                      text-[#173B32]
                     "
                   >
                     Email
@@ -816,7 +682,7 @@ const Login = ({
                         h-5
                         w-5
                         -translate-y-1/2
-                        text-slate-500
+                        text-[#8A948D]
                       "
                     />
 
@@ -829,21 +695,20 @@ const Login = ({
   className="
     h-14
     w-full
-    rounded-2xl
+    rounded-xl
     border
-    border-white/[0.08]
-    bg-[#0a1029]
+    border-[#DED8CC]
+    bg-[#FFFDF8]
     pl-12
     pr-4
     text-sm
-    text-white
+    text-[#173B32]
     outline-none
-    placeholder:text-slate-600
+    placeholder:text-[#8A948D]
     transition
-    focus:border-violet-500/50
-    focus:bg-[#0c1230]
+    focus:border-[#173B32]
     focus:ring-4
-    focus:ring-violet-500/[0.06]
+    focus:ring-[#173B32]/10
   "
 />
                   </div>
@@ -860,7 +725,7 @@ const Login = ({
                           block
                           text-xs
                           font-semibold
-                          text-slate-300
+                          text-[#173B32]
                         "
                       >
                         Password
@@ -877,9 +742,9 @@ const Login = ({
                           className="
                             text-xs
                             font-medium
-                            text-violet-400
+                            text-[#D66A4A]
                             transition
-                            hover:text-violet-300
+                            hover:text-[#B94F35]
                           "
                         >
                           Forgot password?
@@ -898,7 +763,7 @@ const Login = ({
                           h-5
                           w-5
                           -translate-y-1/2
-                          text-slate-500
+                          text-[#8A948D]
                         "
                       />
 
@@ -923,21 +788,20 @@ const Login = ({
                         className="
                           h-14
                           w-full
-                          rounded-2xl
+                          rounded-xl
                           border
-                          border-white/[0.08]
-                          bg-[#0a1029]
+                          border-[#DED8CC]
+                          bg-[#FFFDF8]
                           pl-12
                           pr-12
                           text-sm
-                          text-white
+                          text-[#173B32]
                           outline-none
-                          placeholder:text-slate-600
+                          placeholder:text-[#8A948D]
                           transition
-                          focus:border-violet-500/50
-                          focus:bg-[#0c1230]
+                          focus:border-[#173B32]
                           focus:ring-4
-                          focus:ring-violet-500/[0.06]
+                          focus:ring-[#173B32]/10
                         "
                       />
 
@@ -953,9 +817,9 @@ const Login = ({
                           right-4
                           top-1/2
                           -translate-y-1/2
-                          text-slate-500
+                          text-[#8A948D]
                           transition
-                          hover:text-slate-300
+                          hover:text-[#173B32]
                         "
                       >
                         {showPassword ? (
@@ -982,7 +846,7 @@ const Login = ({
                         items-center
                         gap-3
                         text-xs
-                        text-slate-400
+                        text-[#66736B]
                       "
                     >
                       <input
@@ -992,9 +856,9 @@ const Login = ({
                           h-4
                           w-4
                           rounded
-                          border-white/10
-                          bg-[#0a1029]
-                          accent-violet-500
+                          border-[#DED8CC]
+                          bg-[#FFFDF8]
+                          accent-[#173B32]
                         "
                       />
 
@@ -1017,18 +881,15 @@ const Login = ({
                     items-center
                     justify-center
                     gap-2
-                    rounded-2xl
-                    bg-gradient-to-r
-                    from-violet-600
-                    to-indigo-600
+                    rounded-xl
+                    bg-[#D66A4A]
                     text-sm
                     font-bold
-                    text-white
-                    shadow-[0_12px_30px_rgba(99,102,241,0.18)]
-                    transition-all
+                    text-[#FFFDF8]
+                    shadow-[0_2px_8px_rgba(214,106,74,0.3)]
+                    transition-colors
                     duration-200
-                    hover:-translate-y-0.5
-                    hover:shadow-[0_16px_40px_rgba(99,102,241,0.25)]
+                    hover:bg-[#C45C3D]
                     disabled:cursor-not-allowed
                     disabled:opacity-60
                   "
@@ -1073,7 +934,7 @@ const Login = ({
                   SWITCH AUTH MODE
               ================================================= */}
 
-              <div className="mt-7 text-center">
+              <div className="mt-7 border-t border-[#DED8CC] pt-6 text-center">
 
                 {isForgotPassword ? (
                   <button
@@ -1083,14 +944,14 @@ const Login = ({
                     className="
                       text-sm
                       font-medium
-                      text-violet-400
-                      hover:text-violet-300
+                      text-[#D66A4A]
+                      hover:text-[#B94F35]
                     "
                   >
                     ← Back to sign in
                   </button>
                 ) : isRegister ? (
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-[#66736B]">
                     Already have an account?{' '}
                     <button
                       onClick={() =>
@@ -1098,15 +959,15 @@ const Login = ({
                       }
                       className="
                         font-semibold
-                        text-violet-400
-                        hover:text-violet-300
+                        text-[#D66A4A]
+                        hover:text-[#B94F35]
                       "
                     >
                       Sign in
                     </button>
                   </p>
                 ) : (
-                  <p className="text-sm text-slate-500">
+                  <p className="text-sm text-[#66736B]">
                     Don't have an account?{' '}
                     <button
                       onClick={() =>
@@ -1114,8 +975,8 @@ const Login = ({
                       }
                       className="
                         font-semibold
-                        text-violet-400
-                        hover:text-violet-300
+                        text-[#D66A4A]
+                        hover:text-[#B94F35]
                       "
                     >
                       Create one
@@ -1131,16 +992,16 @@ const Login = ({
 
               <div
                 className="
-                  mt-7
+                  mt-6
                   flex
                   items-center
                   justify-center
                   gap-2
                   text-[11px]
-                  text-slate-600
+                  text-[#8A948D]
                 "
               >
-                <ShieldCheck className="h-4 w-4" />
+                <ShieldCheck className="h-4 w-4 text-[#78927A]" />
 
                 Secure career workspace
               </div>
@@ -1155,9 +1016,10 @@ const Login = ({
             className="
               mt-6
               text-center
-              text-[10px]
+              text-[11px]
               tracking-wide
-              text-slate-700
+              text-[#8A948D]
+              lg:hidden
             "
           >
             Your career data stays protected
@@ -1165,53 +1027,7 @@ const Login = ({
 
         </div>
 
-      </div>
-
-      {/* =======================================================
-          ANIMATION KEYFRAMES
-      ======================================================= */}
-
-      <style>{`
-        @keyframes floatOne {
-          0%, 100% {
-            transform: translate3d(0, 0, 0) rotate(0deg);
-          }
-
-          50% {
-            transform: translate3d(18px, -22px, 0) rotate(8deg);
-          }
-        }
-
-        @keyframes floatTwo {
-          0%, 100% {
-            transform: translate3d(0, 0, 0);
-          }
-
-          50% {
-            transform: translate3d(-20px, 25px, 0);
-          }
-        }
-
-        @keyframes floatThree {
-          0%, 100% {
-            transform: translate3d(0, 0, 0) rotate(45deg);
-          }
-
-          50% {
-            transform: translate3d(-18px, -20px, 0) rotate(65deg);
-          }
-        }
-
-        @keyframes rotateCube {
-          from {
-            transform: rotate(45deg);
-          }
-
-          to {
-            transform: rotate(405deg);
-          }
-        }
-      `}</style>
+      </main>
 
     </div>
   );

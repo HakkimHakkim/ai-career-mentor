@@ -133,66 +133,52 @@ const Resume = () => {
 
   if (!uploaded) {
     return (
-      <div className="relative min-h-full w-full overflow-x-hidden bg-[#070b20] text-white">
-
-        {/* =====================================================
-            BACKGROUND
-        ====================================================== */}
-
-        <div className="pointer-events-none fixed inset-0 overflow-hidden">
-
-          <div className="absolute -left-40 -top-40 h-[420px] w-[420px] rounded-full bg-violet-600/[0.08] blur-[130px]" />
-
-          <div className="absolute right-[-180px] top-[10%] h-[480px] w-[480px] rounded-full bg-blue-600/[0.07] blur-[150px]" />
-
-          <div className="absolute bottom-[-200px] left-[40%] h-[450px] w-[450px] rounded-full bg-purple-600/[0.06] blur-[140px]" />
-
-        </div>
+      <div className="min-h-full w-full overflow-x-hidden bg-[#F6F1E8] text-[#173B32]">
 
         {/* =====================================================
             CONTENT
         ====================================================== */}
 
-        <div className="relative mx-auto w-full max-w-[1400px] px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-[1400px] px-4 pb-12 pt-6 sm:px-6 lg:px-8">
 
           {/* =================================================
               HEADER
           ================================================= */}
 
-          <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+          <div className="mb-8 flex flex-col gap-4 border-b border-[#DED8CC] pb-8 sm:flex-row sm:items-end sm:justify-between">
 
             <div>
 
               <div className="mb-3 flex items-center gap-2">
 
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-violet-400/15 bg-violet-500/[0.10]">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#E4B84A]/40 bg-[#E4B84A]/20">
 
-                  <FileText className="h-4 w-4 text-violet-300" />
+                  <FileText className="h-4 w-4 text-[#173B32]" />
 
                 </div>
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-300/60">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D66A4A]">
                   Resume Intelligence
                 </span>
 
               </div>
 
-              <h1 className="text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-[42px]">
+              <h1 className="text-3xl font-bold tracking-tight text-[#173B32] sm:text-4xl lg:text-[42px]">
                 Resume Analyzer
               </h1>
 
-              <p className="mt-2 max-w-2xl text-sm leading-6 text-white/40 sm:text-base">
+              <p className="mt-2 max-w-2xl text-sm leading-6 text-[#66736B] sm:text-base">
                 Upload your resume and let AI analyze your skills,
                 career fit, ATS readiness, and improvement areas.
               </p>
 
             </div>
 
-            <div className="hidden items-center gap-2 rounded-full border border-emerald-400/15 bg-emerald-400/[0.06] px-3 py-2 sm:flex">
+            <div className="hidden items-center gap-2 rounded-full border border-[#78927A]/40 bg-[#78927A]/15 px-3 py-2 sm:flex">
 
-              <span className="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_12px_rgba(52,211,153,0.7)]" />
+              <span className="h-2 w-2 rounded-full bg-[#78927A]" />
 
-              <span className="text-[10px] font-semibold uppercase tracking-wider text-emerald-300">
+              <span className="text-[10px] font-semibold uppercase tracking-wider text-[#173B32]">
                 AI Analysis Ready
               </span>
 
@@ -210,35 +196,31 @@ const Resume = () => {
                 UPLOAD CARD
             ================================================= */}
 
-            <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-[#0d1330]/80 shadow-[0_25px_80px_rgba(0,0,0,0.25)] backdrop-blur-2xl">
+            <div className="overflow-hidden rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] shadow-[0_2px_10px_rgba(23,59,50,0.07)]">
 
-              {/* top glow */}
-
-              <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-80 -translate-x-1/2 rounded-full bg-violet-600/[0.08] blur-[80px]" />
-
-              <div className="relative p-6 sm:p-10 lg:p-14">
+              <div className="p-6 sm:p-10 lg:p-14">
 
                 {/* Upload area */}
 
-                <div className="rounded-[24px] border border-dashed border-violet-400/20 bg-[#090e27]/70 px-5 py-12 text-center transition-all hover:border-violet-400/35 sm:px-10 sm:py-16">
+                <div className="rounded-2xl border border-dashed border-[#78927A] bg-[#F6F1E8]/60 px-5 py-12 text-center transition-colors hover:border-[#D66A4A] sm:px-10 sm:py-16">
 
-                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-[24px] border border-violet-400/15 bg-gradient-to-br from-violet-500/15 to-blue-500/10 shadow-[0_0_60px_rgba(139,92,246,0.12)]">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-2xl border border-[#D66A4A]/20 bg-[#D66A4A]/10">
 
                     {analyzing ? (
-                      <RefreshCw className="h-9 w-9 animate-spin text-violet-300" />
+                      <RefreshCw className="h-9 w-9 animate-spin text-[#D66A4A]" />
                     ) : (
-                      <Upload className="h-9 w-9 text-violet-300" />
+                      <Upload className="h-9 w-9 text-[#D66A4A]" />
                     )}
 
                   </div>
 
-                  <h2 className="text-xl font-bold text-white sm:text-2xl">
+                  <h2 className="text-xl font-bold text-[#173B32] sm:text-2xl">
                     {analyzing
                       ? 'Analyzing your resume...'
                       : 'Upload your resume'}
                   </h2>
 
-                  <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-white/35">
+                  <p className="mx-auto mt-3 max-w-md text-sm leading-6 text-[#66736B]">
                     {analyzing
                       ? 'Our AI is reviewing your skills, keywords, projects and career compatibility.'
                       : 'Drop your resume here or select a file to get your personalized AI analysis.'}
@@ -257,10 +239,10 @@ const Resume = () => {
 
                   <label
                     htmlFor="resume-file"
-                    className={`mx-auto mt-7 flex max-w-md cursor-pointer items-center justify-center gap-3 rounded-2xl border px-5 py-4 text-sm font-semibold transition-all ${
+                    className={`mx-auto mt-7 flex max-w-md cursor-pointer items-center justify-center gap-3 rounded-xl border px-5 py-4 text-sm font-semibold transition-colors ${
                       selectedFile
-                        ? 'border-violet-400/20 bg-violet-500/[0.08] text-violet-200'
-                        : 'border-white/[0.08] bg-white/[0.035] text-white/70 hover:border-violet-400/20 hover:bg-violet-500/[0.06] hover:text-white'
+                        ? 'border-[#173B32] bg-[#FFFDF8] text-[#173B32]'
+                        : 'border-[#DED8CC] bg-[#FFFDF8] text-[#173B32] hover:border-[#173B32] hover:bg-[#173B32]/5'
                     }`}
                   >
 
@@ -278,23 +260,23 @@ const Resume = () => {
 
                   {selectedFile && !analyzing && (
 
-                    <div className="mx-auto mt-4 flex max-w-md items-center justify-between rounded-xl border border-white/[0.06] bg-white/[0.025] px-4 py-3 text-left">
+                    <div className="mx-auto mt-4 flex max-w-md items-center justify-between rounded-xl border border-[#DED8CC] bg-[#FFFDF8] px-4 py-3 text-left">
 
                       <div className="flex min-w-0 items-center gap-3">
 
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-violet-500/10">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E4B84A]/20">
 
-                          <FileText className="h-4 w-4 text-violet-300" />
+                          <FileText className="h-4 w-4 text-[#173B32]" />
 
                         </div>
 
                         <div className="min-w-0">
 
-                          <p className="truncate text-xs font-medium text-white/75">
+                          <p className="truncate text-xs font-medium text-[#173B32]">
                             {selectedFile.name}
                           </p>
 
-                          <p className="mt-0.5 text-[10px] text-white/25">
+                          <p className="mt-0.5 text-[10px] text-[#8A948D]">
                             {(selectedFile.size / 1024 / 1024).toFixed(2)} MB
                           </p>
 
@@ -304,7 +286,7 @@ const Resume = () => {
 
                       <button
                         onClick={() => setSelectedFile(null)}
-                        className="rounded-lg p-2 text-white/25 transition hover:bg-red-500/10 hover:text-red-300"
+                        className="rounded-lg p-2 text-[#8A948D] transition hover:bg-[#B94F35]/10 hover:text-[#B94F35]"
                       >
                         <X className="h-4 w-4" />
                       </button>
@@ -319,7 +301,7 @@ const Resume = () => {
                     <button
                       onClick={handleUpload}
                       disabled={analyzing}
-                      className="mt-5 inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-violet-600 to-blue-600 px-7 py-3.5 text-sm font-semibold text-white shadow-[0_12px_35px_rgba(99,102,241,0.22)] transition-all hover:-translate-y-0.5 hover:from-violet-500 hover:to-blue-500 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="mt-5 inline-flex items-center justify-center gap-2 rounded-xl bg-[#D66A4A] px-7 py-3.5 text-sm font-semibold text-[#FFFDF8] shadow-[0_2px_8px_rgba(214,106,74,0.25)] transition-colors hover:bg-[#C45C3D] disabled:cursor-not-allowed disabled:opacity-50"
                     >
 
                       {analyzing ? (
@@ -338,7 +320,7 @@ const Resume = () => {
 
                   )}
 
-                  <p className="mt-5 text-[10px] text-white/20">
+                  <p className="mt-5 text-[11px] text-[#8A948D]">
                     Supported: PDF, DOC, DOCX • Maximum 5MB
                   </p>
 
@@ -348,11 +330,11 @@ const Resume = () => {
 
                 {error && (
 
-                  <div className="mt-5 flex items-start gap-3 rounded-2xl border border-red-400/15 bg-red-500/[0.06] p-4">
+                  <div className="mt-5 flex items-start gap-3 rounded-xl border border-[#B94F35]/30 bg-[#B94F35]/10 p-4">
 
-                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-red-300" />
+                    <AlertCircle className="mt-0.5 h-5 w-5 shrink-0 text-[#B94F35]" />
 
-                    <p className="text-sm leading-6 text-red-200/80">
+                    <p className="text-sm leading-6 text-[#B94F35]">
                       {error}
                     </p>
 
@@ -370,23 +352,23 @@ const Resume = () => {
 
             <div className="space-y-4">
 
-              <div className="rounded-[24px] border border-white/[0.07] bg-[#0d1330]/75 p-6 backdrop-blur-xl">
+              <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
                 <div className="mb-5 flex items-center gap-3">
 
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E4B84A]/20">
 
-                    <Sparkles className="h-5 w-5 text-violet-300" />
+                    <Sparkles className="h-5 w-5 text-[#173B32]" />
 
                   </div>
 
                   <div>
 
-                    <h3 className="text-sm font-bold text-white">
+                    <h3 className="text-sm font-bold text-[#173B32]">
                       Better Analysis
                     </h3>
 
-                    <p className="text-[10px] text-white/30">
+                    <p className="text-[11px] text-[#8A948D]">
                       Make your resume stronger
                     </p>
 
@@ -408,13 +390,13 @@ const Resume = () => {
                       className="flex items-start gap-3"
                     >
 
-                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-400/10">
+                      <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#78927A]/20">
 
-                        <CheckCircle2 className="h-3.5 w-3.5 text-emerald-300" />
+                        <CheckCircle2 className="h-3.5 w-3.5 text-[#78927A]" />
 
                       </div>
 
-                      <p className="text-xs leading-5 text-white/45">
+                      <p className="text-xs leading-5 text-[#66736B]">
                         {tip}
                       </p>
 
@@ -428,13 +410,13 @@ const Resume = () => {
 
               {/* AI capabilities */}
 
-              <div className="rounded-[24px] border border-white/[0.07] bg-gradient-to-br from-violet-500/[0.08] to-blue-500/[0.04] p-6">
+              <div className="rounded-2xl bg-[#173B32] p-6 shadow-[0_6px_20px_rgba(23,59,50,0.18)]">
 
                 <div className="mb-5 flex items-center gap-2">
 
-                  <Brain className="h-4 w-4 text-violet-300" />
+                  <Brain className="h-4 w-4 text-[#E4B84A]" />
 
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/35">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F6F1E8]/70">
                     AI checks
                   </span>
 
@@ -451,12 +433,12 @@ const Resume = () => {
 
                     <div
                       key={title}
-                      className="rounded-xl border border-white/[0.06] bg-white/[0.025] p-3"
+                      className="rounded-xl border border-[#F6F1E8]/15 bg-[#F6F1E8]/10 p-3"
                     >
 
-                      <Icon className="mb-2 h-4 w-4 text-violet-300/70" />
+                      <Icon className="mb-2 h-4 w-4 text-[#E4B84A]" />
 
-                      <p className="text-[11px] font-medium text-white/50">
+                      <p className="text-[11px] font-medium text-[#F6F1E8]/85">
                         {title}
                       </p>
 
@@ -470,11 +452,11 @@ const Resume = () => {
 
               {/* Privacy */}
 
-              <div className="flex items-center gap-3 rounded-2xl border border-white/[0.06] bg-white/[0.02] p-4">
+              <div className="flex items-center gap-3 rounded-xl border border-[#DED8CC] bg-[#FFFDF8] p-4">
 
-                <ShieldCheck className="h-5 w-5 shrink-0 text-emerald-300/70" />
+                <ShieldCheck className="h-5 w-5 shrink-0 text-[#78927A]" />
 
-                <p className="text-[10px] leading-5 text-white/25">
+                <p className="text-[11px] leading-5 text-[#66736B]">
                   Your resume is processed securely for career analysis.
                 </p>
 
@@ -545,53 +527,41 @@ const Resume = () => {
   // ===========================================================
 
   return (
-    <div className="relative min-h-full w-full overflow-x-hidden bg-[#070b20] text-white">
-
-      {/* =====================================================
-          BACKGROUND
-      ====================================================== */}
-
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-
-        <div className="absolute -left-40 -top-40 h-[450px] w-[450px] rounded-full bg-violet-600/[0.07] blur-[140px]" />
-
-        <div className="absolute right-[-150px] top-[20%] h-[450px] w-[450px] rounded-full bg-blue-600/[0.06] blur-[150px]" />
-
-      </div>
+    <div className="min-h-full w-full overflow-x-hidden bg-[#F6F1E8] text-[#173B32]">
 
       {/* =====================================================
           CONTENT
       ====================================================== */}
 
-      <div className="relative mx-auto w-full max-w-[1450px] px-4 pb-12 pt-6 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-[1450px] px-4 pb-12 pt-6 sm:px-6 lg:px-8">
 
         {/* =================================================
             HEADER
         ================================================= */}
 
-        <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="mb-7 flex flex-col gap-4 border-b border-[#DED8CC] pb-7 sm:flex-row sm:items-end sm:justify-between">
 
           <div>
 
             <div className="mb-3 flex items-center gap-2">
 
-              <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-500/10">
+              <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#E4B84A]/40 bg-[#E4B84A]/20">
 
-                <FileText className="h-4 w-4 text-violet-300" />
+                <FileText className="h-4 w-4 text-[#173B32]" />
 
               </div>
 
-              <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-violet-300/60">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D66A4A]">
                 Resume Intelligence
               </span>
 
             </div>
 
-            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
+            <h1 className="text-3xl font-bold tracking-tight text-[#173B32] sm:text-4xl">
               Resume Analysis
             </h1>
 
-            <p className="mt-2 text-sm text-white/35">
+            <p className="mt-2 text-sm text-[#66736B]">
               AI-powered insights from your resume
             </p>
 
@@ -599,7 +569,7 @@ const Resume = () => {
 
           <button
             onClick={handleUploadAnother}
-            className="inline-flex items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.035] px-4 py-2.5 text-xs font-medium text-white/55 transition hover:border-violet-400/20 hover:bg-violet-500/[0.06] hover:text-white"
+            className="inline-flex items-center justify-center gap-2 rounded-xl border border-[#173B32] bg-[#FFFDF8] px-4 py-2.5 text-xs font-semibold text-[#173B32] transition-colors hover:bg-[#173B32]/5"
           >
 
             <RefreshCw className="h-3.5 w-3.5" />
@@ -618,33 +588,31 @@ const Resume = () => {
 
           {/* Overall score */}
 
-          <div className="relative overflow-hidden rounded-[26px] border border-violet-400/10 bg-gradient-to-br from-violet-600/20 via-[#111638] to-blue-600/10 p-6 sm:p-7">
+          <div className="rounded-2xl bg-[#173B32] p-6 shadow-[0_6px_20px_rgba(23,59,50,0.18)] sm:p-7">
 
-            <div className="pointer-events-none absolute -right-20 -top-20 h-52 w-52 rounded-full bg-violet-500/15 blur-[70px]" />
-
-            <div className="relative flex items-center justify-between">
+            <div className="flex items-center justify-between">
 
               <div>
 
-                <p className="text-[10px] font-semibold uppercase tracking-[0.2em] text-white/35">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#F6F1E8]/65">
                   Overall Resume Score
                 </p>
 
                 <div className="mt-3 flex items-end gap-2">
 
-                  <span className="text-5xl font-bold tracking-tight sm:text-6xl">
+                  <span className="text-5xl font-bold tracking-tight text-[#F6F1E8] sm:text-6xl">
                     {overallScore}
                   </span>
 
-                  <span className="mb-2 text-sm text-white/30">
+                  <span className="mb-2 text-sm text-[#F6F1E8]/50">
                     /100
                   </span>
 
                 </div>
 
-                <div className="mt-3 inline-flex rounded-full border border-white/[0.07] bg-white/[0.04] px-3 py-1">
+                <div className="mt-3 inline-flex rounded-full border border-[#E4B84A]/40 bg-[#E4B84A]/15 px-3 py-1">
 
-                  <span className="text-[10px] font-semibold text-violet-200">
+                  <span className="text-[11px] font-semibold text-[#E4B84A]">
                     {getScoreLabel(overallScore)}
                   </span>
 
@@ -652,18 +620,18 @@ const Resume = () => {
 
               </div>
 
-              <div className="flex h-20 w-20 items-center justify-center rounded-[24px] border border-white/[0.08] bg-white/[0.04]">
+              <div className="flex h-20 w-20 items-center justify-center rounded-2xl border border-[#F6F1E8]/15 bg-[#F6F1E8]/10">
 
-                <TrendingUp className="h-9 w-9 text-violet-300" />
+                <TrendingUp className="h-9 w-9 text-[#E4B84A]" />
 
               </div>
 
             </div>
 
-            <div className="relative mt-6 h-2 overflow-hidden rounded-full bg-white/[0.07]">
+            <div className="mt-6 h-2 overflow-hidden rounded-full bg-[#F6F1E8]/15">
 
               <div
-                className="h-full rounded-full bg-gradient-to-r from-violet-500 to-blue-400 transition-all duration-700"
+                className="h-full rounded-full bg-[#E4B84A] transition-all duration-700"
                 style={{ width: `${overallScore}%` }}
               />
 
@@ -673,23 +641,23 @@ const Resume = () => {
 
           {/* Career */}
 
-          <div className="rounded-[26px] border border-white/[0.07] bg-[#0d1330]/80 p-6">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="flex items-center gap-3">
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D66A4A]/10">
 
-                <Target className="h-5 w-5 text-blue-300" />
+                <Target className="h-5 w-5 text-[#D66A4A]" />
 
               </div>
 
               <div>
 
-                <p className="text-[10px] uppercase tracking-[0.15em] text-white/25">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A948D]">
                   Career Fit
                 </p>
 
-                <h3 className="mt-1 text-sm font-bold text-white">
+                <h3 className="mt-1 text-sm font-bold text-[#173B32]">
                   {analysis?.career_title || 'Career Profile'}
                 </h3>
 
@@ -699,17 +667,17 @@ const Resume = () => {
 
             <div className="mt-6 flex items-end gap-2">
 
-              <span className="text-4xl font-bold text-blue-300">
+              <span className="text-4xl font-bold text-[#D66A4A]">
                 {careerFitScore}%
               </span>
 
-              <span className="mb-1 text-xs text-white/25">
+              <span className="mb-1 text-xs text-[#8A948D]">
                 match
               </span>
 
             </div>
 
-            <p className="mt-2 text-xs text-white/30">
+            <p className="mt-2 text-xs text-[#66736B]">
               Compatibility with your recommended career path.
             </p>
 
@@ -717,23 +685,23 @@ const Resume = () => {
 
           {/* Secure */}
 
-          <div className="rounded-[26px] border border-white/[0.07] bg-[#0d1330]/80 p-6">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="flex items-center gap-3">
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#78927A]/15">
 
-                <ShieldCheck className="h-5 w-5 text-emerald-300" />
+                <ShieldCheck className="h-5 w-5 text-[#78927A]" />
 
               </div>
 
               <div>
 
-                <p className="text-[10px] uppercase tracking-[0.15em] text-white/25">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A948D]">
                   Analysis Status
                 </p>
 
-                <h3 className="mt-1 text-sm font-bold text-emerald-300">
+                <h3 className="mt-1 text-sm font-bold text-[#173B32]">
                   Completed
                 </h3>
 
@@ -741,7 +709,7 @@ const Resume = () => {
 
             </div>
 
-            <p className="mt-6 text-xs leading-5 text-white/30">
+            <p className="mt-6 text-xs leading-5 text-[#66736B]">
               Your resume has been successfully processed and analyzed.
             </p>
 
@@ -753,21 +721,21 @@ const Resume = () => {
             SCORE BREAKDOWN
         ================================================= */}
 
-        <div className="mt-6 rounded-[26px] border border-white/[0.07] bg-[#0d1330]/75 p-6 sm:p-7">
+        <div className="mt-6 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)] sm:p-7">
 
           <div className="mb-6">
 
             <div className="flex items-center gap-2">
 
-              <Sparkles className="h-4 w-4 text-violet-300" />
+              <Sparkles className="h-4 w-4 text-[#D66A4A]" />
 
-              <h2 className="text-sm font-bold text-white">
+              <h2 className="text-sm font-bold text-[#173B32]">
                 Resume Score Breakdown
               </h2>
 
             </div>
 
-            <p className="mt-1 text-xs text-white/25">
+            <p className="mt-1 text-xs text-[#66736B]">
               Understand how your resume performs across important areas.
             </p>
 
@@ -780,25 +748,25 @@ const Resume = () => {
 
                 <div
                   key={category}
-                  className="rounded-2xl border border-white/[0.06] bg-white/[0.025] p-4"
+                  className="rounded-xl border border-[#DED8CC] bg-[#F6F1E8]/60 p-4"
                 >
 
                   <div className="mb-3 flex items-center justify-between">
 
-                    <span className="text-xs font-medium text-white/45">
+                    <span className="text-xs font-medium text-[#66736B]">
                       {category}
                     </span>
 
-                    <span className="text-sm font-bold text-violet-300">
+                    <span className="text-sm font-bold text-[#173B32]">
                       {score}%
                     </span>
 
                   </div>
 
-                  <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
+                  <div className="h-1.5 overflow-hidden rounded-full bg-[#DED8CC]">
 
                     <div
-                      className="h-full rounded-full bg-gradient-to-r from-violet-500 to-blue-400 transition-all duration-700"
+                      className="h-full rounded-full bg-[#E4B84A] transition-all duration-700"
                       style={{ width: `${score}%` }}
                     />
 
@@ -819,7 +787,7 @@ const Resume = () => {
 
         {analysis?.career_title && (
 
-          <div className="mt-6 rounded-[26px] border border-white/[0.07] bg-[#0d1330]/75 p-6 sm:p-7">
+          <div className="mt-6 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)] sm:p-7">
 
             <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
 
@@ -827,27 +795,27 @@ const Resume = () => {
 
                 <div className="flex items-center gap-2">
 
-                  <Target className="h-4 w-4 text-violet-300" />
+                  <Target className="h-4 w-4 text-[#D66A4A]" />
 
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-white/25">
+                  <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-[#8A948D]">
                     Recommended Career
                   </span>
 
                 </div>
 
-                <h2 className="mt-2 text-xl font-bold text-white">
+                <h2 className="mt-2 text-xl font-bold text-[#173B32]">
                   {analysis.career_title}
                 </h2>
 
               </div>
 
-              <div className="rounded-2xl border border-violet-400/15 bg-violet-500/[0.07] px-5 py-3">
+              <div className="rounded-xl border border-[#D66A4A]/30 bg-[#D66A4A]/10 px-5 py-3">
 
-                <p className="text-[9px] uppercase tracking-wider text-white/25">
+                <p className="text-[10px] uppercase tracking-wider text-[#66736B]">
                   Career Match
                 </p>
 
-                <p className="mt-1 text-2xl font-bold text-violet-300">
+                <p className="mt-1 text-2xl font-bold text-[#D66A4A]">
                   {careerFitScore}%
                 </p>
 
@@ -863,9 +831,9 @@ const Resume = () => {
 
                 <div className="mb-3 flex items-center gap-2">
 
-                  <CheckCircle2 className="h-4 w-4 text-emerald-300" />
+                  <CheckCircle2 className="h-4 w-4 text-[#78927A]" />
 
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-emerald-300/80">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[#173B32]">
                     Matched Skills
                   </h3>
 
@@ -880,7 +848,7 @@ const Resume = () => {
 
                         <span
                           key={index}
-                          className="rounded-xl border border-emerald-400/10 bg-emerald-400/[0.06] px-3 py-2 text-xs text-emerald-200/80"
+                          className="rounded-lg border border-[#78927A]/40 bg-[#78927A]/15 px-3 py-2 text-xs font-medium text-[#173B32]"
                         >
                           {skill}
                         </span>
@@ -890,7 +858,7 @@ const Resume = () => {
 
                   ) : (
 
-                    <p className="text-xs text-white/25">
+                    <p className="text-xs text-[#8A948D]">
                       No matched skills yet.
                     </p>
 
@@ -906,9 +874,9 @@ const Resume = () => {
 
                 <div className="mb-3 flex items-center gap-2">
 
-                  <AlertCircle className="h-4 w-4 text-orange-300" />
+                  <AlertCircle className="h-4 w-4 text-[#B94F35]" />
 
-                  <h3 className="text-xs font-semibold uppercase tracking-wider text-orange-300/80">
+                  <h3 className="text-xs font-semibold uppercase tracking-wider text-[#B94F35]">
                     Skills To Develop
                   </h3>
 
@@ -923,7 +891,7 @@ const Resume = () => {
 
                         <span
                           key={index}
-                          className="rounded-xl border border-orange-400/10 bg-orange-400/[0.06] px-3 py-2 text-xs text-orange-200/80"
+                          className="rounded-lg border border-[#D66A4A]/30 bg-[#D66A4A]/10 px-3 py-2 text-xs font-medium text-[#B94F35]"
                         >
                           {skill}
                         </span>
@@ -933,7 +901,7 @@ const Resume = () => {
 
                   ) : (
 
-                    <p className="text-xs text-white/25">
+                    <p className="text-xs text-[#8A948D]">
                       No skill gaps found.
                     </p>
 
@@ -957,23 +925,23 @@ const Resume = () => {
 
           {/* Detected */}
 
-          <div className="rounded-[26px] border border-white/[0.07] bg-[#0d1330]/75 p-6">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="mb-5 flex items-center gap-3">
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E4B84A]/20">
 
-                <Brain className="h-5 w-5 text-indigo-300" />
+                <Brain className="h-5 w-5 text-[#173B32]" />
 
               </div>
 
               <div>
 
-                <h2 className="text-sm font-bold text-white">
+                <h2 className="text-sm font-bold text-[#173B32]">
                   Detected Skills
                 </h2>
 
-                <p className="text-[10px] text-white/25">
+                <p className="text-[11px] text-[#8A948D]">
                   Skills found in your resume
                 </p>
 
@@ -990,7 +958,7 @@ const Resume = () => {
 
                     <span
                       key={index}
-                      className="rounded-xl border border-indigo-400/10 bg-indigo-500/[0.07] px-3 py-2 text-xs font-medium text-indigo-200/80"
+                      className="rounded-lg border border-[#DED8CC] bg-[#F6F1E8] px-3 py-2 text-xs font-medium text-[#173B32]"
                     >
                       {skill}
                     </span>
@@ -1000,7 +968,7 @@ const Resume = () => {
 
               ) : (
 
-                <p className="text-xs text-white/25">
+                <p className="text-xs text-[#8A948D]">
                   No skills detected.
                 </p>
 
@@ -1012,23 +980,23 @@ const Resume = () => {
 
           {/* Missing */}
 
-          <div className="rounded-[26px] border border-white/[0.07] bg-[#0d1330]/75 p-6">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="mb-5 flex items-center gap-3">
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-orange-500/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#D66A4A]/10">
 
-                <AlertCircle className="h-5 w-5 text-orange-300" />
+                <AlertCircle className="h-5 w-5 text-[#D66A4A]" />
 
               </div>
 
               <div>
 
-                <h2 className="text-sm font-bold text-white">
+                <h2 className="text-sm font-bold text-[#173B32]">
                   Missing Skills
                 </h2>
 
-                <p className="text-[10px] text-white/25">
+                <p className="text-[11px] text-[#8A948D]">
                   Recommended skills to improve
                 </p>
 
@@ -1045,12 +1013,12 @@ const Resume = () => {
 
                     <div
                       key={index}
-                      className="flex items-center gap-3 rounded-xl border border-orange-400/[0.07] bg-orange-400/[0.035] px-3 py-2.5"
+                      className="flex items-center gap-3 rounded-lg border border-[#D66A4A]/20 bg-[#D66A4A]/[0.06] px-3 py-2.5"
                     >
 
-                      <div className="h-1.5 w-1.5 rounded-full bg-orange-300" />
+                      <div className="h-1.5 w-1.5 rounded-full bg-[#D66A4A]" />
 
-                      <span className="text-xs text-white/55">
+                      <span className="text-xs text-[#173B32]">
                         {skill}
                       </span>
 
@@ -1061,7 +1029,7 @@ const Resume = () => {
 
               ) : (
 
-                <p className="text-xs text-white/25">
+                <p className="text-xs text-[#8A948D]">
                   No missing skills detected.
                 </p>
 
@@ -1077,25 +1045,25 @@ const Resume = () => {
             AI RECOMMENDATIONS
         ================================================= */}
 
-        <div className="mt-6 rounded-[26px] border border-white/[0.07] bg-[#0d1330]/75 p-6 sm:p-7">
+        <div className="mt-6 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)] sm:p-7">
 
           <div className="mb-6 flex items-center justify-between">
 
             <div className="flex items-center gap-3">
 
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-violet-500/10">
+              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#78927A]/15">
 
-                <TrendingUp className="h-5 w-5 text-violet-300" />
+                <TrendingUp className="h-5 w-5 text-[#173B32]" />
 
               </div>
 
               <div>
 
-                <h2 className="text-sm font-bold text-white">
+                <h2 className="text-sm font-bold text-[#173B32]">
                   AI Recommendations
                 </h2>
 
-                <p className="text-[10px] text-white/25">
+                <p className="text-[11px] text-[#8A948D]">
                   Personalized improvements for your resume
                 </p>
 
@@ -1103,7 +1071,7 @@ const Resume = () => {
 
             </div>
 
-            <Sparkles className="hidden h-5 w-5 text-violet-300/40 sm:block" />
+            <Sparkles className="hidden h-5 w-5 text-[#E4B84A] sm:block" />
 
           </div>
 
@@ -1116,18 +1084,18 @@ const Resume = () => {
 
                   <div
                     key={index}
-                    className="group flex items-start gap-4 rounded-2xl border border-white/[0.06] bg-white/[0.025] p-4 transition-all hover:border-violet-400/10 hover:bg-violet-500/[0.035]"
+                    className="group flex items-start gap-4 rounded-xl border border-[#DED8CC] bg-[#F6F1E8]/60 p-4 transition-colors hover:border-[#78927A]"
                   >
 
-                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-violet-500/10 text-xs font-bold text-violet-300">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#173B32] text-xs font-bold text-[#E4B84A]">
                       {index + 1}
                     </div>
 
-                    <p className="pt-1 text-sm leading-6 text-white/55">
+                    <p className="pt-1 text-sm leading-6 text-[#173B32]">
                       {recommendation}
                     </p>
 
-                    <ArrowUpRight className="ml-auto mt-1 hidden h-4 w-4 shrink-0 text-white/15 group-hover:text-violet-300/50 sm:block" />
+                    <ArrowUpRight className="ml-auto mt-1 hidden h-4 w-4 shrink-0 text-[#8A948D] group-hover:text-[#D66A4A] sm:block" />
 
                   </div>
 
@@ -1136,7 +1104,7 @@ const Resume = () => {
 
             ) : (
 
-              <p className="text-sm text-white/25">
+              <p className="text-sm text-[#8A948D]">
                 No recommendations available.
               </p>
 
@@ -1154,7 +1122,7 @@ const Resume = () => {
 
           <button
             onClick={handleUploadAnother}
-            className="inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.035] px-5 py-3 text-xs font-semibold text-white/50 transition-all hover:border-violet-400/20 hover:bg-violet-500/[0.06] hover:text-white"
+            className="inline-flex items-center gap-2 rounded-xl border border-[#173B32] bg-[#FFFDF8] px-5 py-3 text-xs font-semibold text-[#173B32] transition-colors hover:bg-[#173B32]/5"
           >
 
             <Upload className="h-4 w-4" />

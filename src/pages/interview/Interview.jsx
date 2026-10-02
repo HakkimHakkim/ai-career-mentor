@@ -21,6 +21,12 @@ import {
 } from "lucide-react";
 
 // ============================================================
+// CAREER MENTOR DESIGN SYSTEM
+// Warm Ivory #F6F1E8 | Forest #173B32 | Terracotta #D66A4A
+// Mustard #E4B84A | Sage #78927A | Card #FFFDF8
+// ============================================================
+
+// ============================================================
 // API CONFIG
 // ============================================================
 
@@ -859,7 +865,7 @@ const Interview = () => {
   // ============================================================
 
   const PageWrapper = ({ children }) => (
-    <div className="w-full min-h-screen bg-gray-50 dark:bg-[#070b22] text-gray-900 dark:text-white">
+    <div className="w-full min-h-screen bg-[#F6F1E8] text-[#173B32]">
       <div className="w-full min-h-screen overflow-y-auto">
         <div className="w-full px-4 sm:px-6 lg:px-8 py-6 md:py-8">
           {children}
@@ -883,16 +889,16 @@ const Interview = () => {
 
             <div className="flex items-center gap-3 mb-4">
 
-              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/20">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#173B32] to-[#173B32] flex items-center justify-center shadow-lg shadow-[#173B32]/20">
                 <Sparkles className="w-6 h-6 text-white" />
               </div>
 
               <div>
-                <p className="text-xs font-semibold tracking-[0.2em] uppercase text-indigo-500 dark:text-indigo-400">
+                <p className="text-xs font-semibold tracking-[0.2em] uppercase text-[#173B32]">
                   AI Career Mentor
                 </p>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500 text-[#66736B]">
                   Interview Preparation
                 </p>
               </div>
@@ -903,7 +909,7 @@ const Interview = () => {
               Interview Preparation Center
             </h1>
 
-            <p className="text-gray-600 dark:text-gray-400 max-w-2xl text-sm sm:text-base">
+            <p className="text-gray-600 text-[#66736B] max-w-2xl text-sm sm:text-base">
               Practice real interview questions,
               improve your answers, and build
               confidence with AI-powered feedback.
@@ -917,9 +923,9 @@ const Interview = () => {
             overallReport.total_sessions > 0 && (
               <div className="mb-8">
 
-                <div className="relative overflow-hidden rounded-3xl border border-indigo-500/20 bg-gradient-to-br from-indigo-600 via-purple-600 to-indigo-800 p-6 sm:p-8 text-white shadow-2xl shadow-indigo-900/20">
+                <div className="relative overflow-hidden rounded-xl border border-[#173B32]/20 bg-gradient-to-br from-[#173B32] via-[#173B32] to-[#245447] p-6 sm:p-8 text-white shadow-2xl shadow-[#173B32]/15">
 
-                  <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-white/10 blur-3xl" />
+                  
 
                   <div className="relative">
 
@@ -955,7 +961,7 @@ const Interview = () => {
                           ([type, score]) => (
                             <div
                               key={type}
-                              className="min-w-[110px] bg-white/10 border border-white/10 backdrop-blur-sm rounded-2xl px-4 py-3"
+                              className="min-w-[110px] bg-white/10 border border-white/10 backdrop-blur-sm rounded-xl px-4 py-3"
                             >
                               <p className="text-xs capitalize text-white/60 mb-1">
                                 {type}
@@ -988,7 +994,7 @@ const Interview = () => {
                 Choose Interview Type
               </h2>
 
-              <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-500 text-[#66736B] mt-1">
                 Select a mode and start practicing.
               </p>
             </div>
@@ -1016,16 +1022,16 @@ const Interview = () => {
                     disabled={
                       isStarting
                     }
-                    className="group relative text-left rounded-3xl border border-gray-200 dark:border-[#1e2749] bg-white dark:bg-[#111633] p-6 transition-all duration-300 hover:-translate-y-1 hover:border-indigo-500/50 hover:shadow-2xl hover:shadow-indigo-900/10 disabled:opacity-50 disabled:pointer-events-none"
+                    className="group relative text-left rounded-xl border border-[#DED8CC] bg-[#FFFDF8] p-6 transition-all duration-200 hover:border-[#D66A4A]/50 hover:shadow-md disabled:opacity-50 disabled:pointer-events-none"
                   >
 
                     <div className="flex items-start justify-between mb-6">
 
-                      <div className="w-14 h-14 rounded-2xl bg-indigo-500/10 border border-indigo-500/10 flex items-center justify-center">
-                        <Icon className="w-7 h-7 text-indigo-500 dark:text-indigo-400" />
+                      <div className="w-14 h-14 rounded-xl bg-[#173B32]/10 border border-[#173B32]/10 flex items-center justify-center">
+                        <Icon className="w-7 h-7 text-[#173B32]" />
                       </div>
 
-                      <span className="px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-300">
+                      <span className="px-3 py-1 rounded-full text-xs font-semibold bg-[#EEE8DC] text-gray-600">
                         {meta.difficulty}
                       </span>
 
@@ -1035,13 +1041,13 @@ const Interview = () => {
                       {type.name}
                     </h3>
 
-                    <p className="text-sm leading-6 text-gray-500 dark:text-gray-400 mb-6">
+                    <p className="text-sm leading-6 text-gray-500 text-[#66736B] mb-6">
                       {type.description}
                     </p>
 
                     <div className="flex items-center justify-between">
 
-                      <span className="flex items-center gap-2 text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+                      <span className="flex items-center gap-2 text-sm font-semibold text-[#173B32]">
                         <Play className="w-4 h-4" />
 
                         {isStarting
@@ -1049,7 +1055,7 @@ const Interview = () => {
                           : "Start Interview"}
                       </span>
 
-                      <div className="w-9 h-9 rounded-full bg-gray-100 dark:bg-white/5 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition-all">
+                      <div className="w-9 h-9 rounded-full bg-[#EEE8DC] flex items-center justify-center group-hover:bg-[#173B32] group-hover:text-white transition-all">
                         <ArrowRight className="w-4 h-4" />
                       </div>
 
@@ -1064,7 +1070,7 @@ const Interview = () => {
 
           {/* RECENT SESSIONS */}
 
-          <div className="rounded-3xl border border-gray-200 dark:border-[#1e2749] bg-white dark:bg-[#111633] p-6 sm:p-7">
+          <div className="rounded-xl border border-[#DED8CC] bg-[#FFFDF8] p-6 sm:p-7">
 
             <div className="flex items-center justify-between mb-6">
 
@@ -1073,7 +1079,7 @@ const Interview = () => {
                   Recent Sessions
                 </h2>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
+                <p className="text-sm text-gray-500 text-[#66736B] mt-1">
                   Track your interview progress.
                 </p>
               </div>
@@ -1085,7 +1091,7 @@ const Interview = () => {
             {recentSessions.length === 0 ? (
               <div className="py-12 text-center">
 
-                <div className="w-14 h-14 rounded-2xl bg-gray-100 dark:bg-white/5 flex items-center justify-center mx-auto mb-4">
+                <div className="w-14 h-14 rounded-xl bg-[#EEE8DC] flex items-center justify-center mx-auto mb-4">
                   <Target className="w-7 h-7 text-gray-400" />
                 </div>
 
@@ -1093,7 +1099,7 @@ const Interview = () => {
                   No sessions yet
                 </p>
 
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-sm text-gray-500 text-[#66736B]">
                   Start your first interview above.
                 </p>
 
@@ -1109,13 +1115,13 @@ const Interview = () => {
                         item.id ||
                         index
                       }
-                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 p-4"
+                      className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 rounded-xl bg-[#F1ECE2] border border-[#E8E2D7] p-4"
                     >
 
                       <div className="flex items-center gap-4">
 
-                        <div className="w-11 h-11 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                          <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        <div className="w-11 h-11 rounded-xl bg-[#78927A]/15 flex items-center justify-center">
+                          <CheckCircle2 className="w-5 h-5 text-[#55745D]" />
                         </div>
 
                         <div>
@@ -1126,7 +1132,7 @@ const Interview = () => {
                               "Interview"}
                           </p>
 
-                          <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+                          <p className="text-xs text-gray-500 text-[#66736B] mt-1">
                             {item.created_at
                               ? new Date(
                                   item.created_at
@@ -1140,7 +1146,7 @@ const Interview = () => {
 
                       <div className="flex items-center gap-2">
 
-                        <span className="text-2xl font-bold text-indigo-600 dark:text-indigo-400">
+                        <span className="text-2xl font-bold text-[#173B32]">
                           {item.overall_score !=
                           null
                             ? `${Math.round(
@@ -1187,30 +1193,30 @@ const Interview = () => {
 
           <div className="text-center mb-8">
 
-            <div className="inline-flex w-16 h-16 rounded-3xl bg-emerald-500/10 items-center justify-center mb-5">
-              <Trophy className="w-8 h-8 text-emerald-500" />
+            <div className="inline-flex w-16 h-16 rounded-xl bg-[#78927A]/15 items-center justify-center mb-5">
+              <Trophy className="w-8 h-8 text-[#55745D]" />
             </div>
 
             <h1 className="text-3xl sm:text-4xl font-bold mb-2">
               Interview Completed
             </h1>
 
-            <p className="text-gray-500 dark:text-gray-400">
+            <p className="text-gray-500 text-[#66736B]">
               Great job! Here's your performance summary.
             </p>
 
           </div>
 
-          <div className="rounded-3xl border border-gray-200 dark:border-[#1e2749] bg-white dark:bg-[#111633] p-7 sm:p-10 text-center">
+          <div className="rounded-xl border border-[#DED8CC] bg-[#FFFDF8] p-7 sm:p-10 text-center">
 
-            <div className="inline-flex items-center justify-center w-36 h-36 rounded-full bg-indigo-500/10 border-8 border-indigo-500/10 mb-6">
+            <div className="inline-flex items-center justify-center w-36 h-36 rounded-full bg-[#E4B84A]/15 border-8 border-[#E4B84A]/30 mb-6">
 
               <div>
-                <p className="text-4xl font-bold text-indigo-600 dark:text-indigo-400">
+                <p className="text-4xl font-bold text-[#173B32]">
                   {finalScore}%
                 </p>
 
-                <p className="text-xs text-gray-500 dark:text-gray-400">
+                <p className="text-xs text-gray-500 text-[#66736B]">
                   Overall Score
                 </p>
               </div>
@@ -1219,9 +1225,9 @@ const Interview = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-lg mx-auto mb-7">
 
-              <div className="rounded-2xl bg-gray-50 dark:bg-white/5 p-4">
+              <div className="rounded-xl bg-[#F1ECE2] p-4">
 
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                <p className="text-xs text-gray-500 text-[#66736B] mb-1">
                   Questions Answered
                 </p>
 
@@ -1237,9 +1243,9 @@ const Interview = () => {
 
               </div>
 
-              <div className="rounded-2xl bg-gray-50 dark:bg-white/5 p-4">
+              <div className="rounded-xl bg-[#F1ECE2] p-4">
 
-                <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                <p className="text-xs text-gray-500 text-[#66736B] mb-1">
                   Interview Type
                 </p>
 
@@ -1253,13 +1259,13 @@ const Interview = () => {
             </div>
 
             {result.performance_feedback && (
-              <div className="rounded-2xl bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-100 dark:border-indigo-900/30 p-5 mb-7 text-left">
+              <div className="rounded-xl bg-[#EEF2E8] border border-[#D7E0D5] p-5 mb-7 text-left">
 
-                <p className="text-sm font-semibold text-indigo-700 dark:text-indigo-300 mb-2">
+                <p className="text-sm font-semibold text-[#173B32] mb-2">
                   AI Performance Feedback
                 </p>
 
-                <p className="text-sm leading-6 text-gray-700 dark:text-gray-300">
+                <p className="text-sm leading-6 text-[#44534B]">
                   {result.performance_feedback}
                 </p>
 
@@ -1268,7 +1274,7 @@ const Interview = () => {
 
             {overallReport &&
               overallReport.total_sessions > 0 && (
-                <div className="rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 p-5 text-white text-left mb-7">
+                <div className="rounded-xl bg-gradient-to-r from-[#173B32] to-[#173B32] p-5 text-white text-left mb-7">
 
                   <div className="flex items-center justify-between mb-3">
 
@@ -1322,7 +1328,7 @@ const Interview = () => {
 
             <button
               onClick={resetAll}
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-7 py-3.5 rounded-xl font-semibold transition-all shadow-lg shadow-indigo-600/20"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-[#173B32] hover:bg-[#245447] text-white px-7 py-3.5 rounded-xl font-semibold transition-all shadow-lg shadow-[#173B32]/20"
             >
               <RotateCcw className="w-4 h-4" />
               Back to Interview Center
@@ -1352,24 +1358,24 @@ const Interview = () => {
       <PageWrapper>
         <div className="max-w-2xl mx-auto">
 
-          <div className="rounded-3xl border border-gray-200 dark:border-[#1e2749] bg-white dark:bg-[#111633] p-8 text-center">
+          <div className="rounded-xl border border-[#DED8CC] bg-[#FFFDF8] p-8 text-center">
 
-            <div className="w-14 h-14 rounded-2xl bg-red-500/10 flex items-center justify-center mx-auto mb-5">
-              <X className="w-7 h-7 text-red-500" />
+            <div className="w-14 h-14 rounded-xl bg-[#D66A4A]/10 flex items-center justify-center mx-auto mb-5">
+              <X className="w-7 h-7 text-[#B94F35]" />
             </div>
 
             <h2 className="text-xl font-bold mb-3">
               No question available
             </h2>
 
-            <p className="text-gray-500 dark:text-gray-400 mb-6">
+            <p className="text-gray-500 text-[#66736B] mb-6">
               We couldn't load the current
               interview question.
             </p>
 
             <button
               onClick={resetAll}
-              className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-6 py-3 rounded-xl font-semibold"
+              className="bg-gradient-to-r from-[#173B32] to-[#173B32] text-white px-6 py-3 rounded-xl font-semibold"
             >
               Back to Interview Center
             </button>
@@ -1436,11 +1442,11 @@ const Interview = () => {
 
             <div className="flex items-center gap-2 mb-2">
 
-              <span className="px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 text-xs font-semibold">
+              <span className="px-3 py-1 rounded-full bg-[#173B32]/10 text-[#173B32] text-xs font-semibold">
                 {selectedType.name}
               </span>
 
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-gray-500 text-[#66736B]">
                 {typeMeta[
                   selectedType.key
                 ]?.difficulty}
@@ -1456,7 +1462,7 @@ const Interview = () => {
 
           <button
             onClick={resetAll}
-            className="self-start sm:self-auto w-10 h-10 rounded-xl border border-gray-200 dark:border-[#1e2749] flex items-center justify-center text-gray-500 hover:text-red-500 hover:border-red-500/30 transition"
+            className="self-start sm:self-auto w-10 h-10 rounded-xl border border-[#DED8CC] flex items-center justify-center text-gray-500 hover:text-[#B94F35] hover:border-[#D66A4A]/35 transition"
             title="Exit interview"
           >
             <X className="w-5 h-5" />
@@ -1466,7 +1472,7 @@ const Interview = () => {
 
         {/* MAIN CARD */}
 
-        <div className="rounded-3xl border border-gray-200 dark:border-[#1e2749] bg-white dark:bg-[#111633] shadow-xl shadow-black/5 overflow-hidden">
+        <div className="rounded-xl border border-[#DED8CC] bg-[#FFFDF8] shadow-xl shadow-black/5 overflow-hidden">
 
           {/* PROGRESS HEADER */}
 
@@ -1476,7 +1482,7 @@ const Interview = () => {
 
               <div>
 
-                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400">
+                <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 text-[#66736B]">
                   Current Question
                 </p>
 
@@ -1489,7 +1495,7 @@ const Interview = () => {
 
               </div>
 
-              <span className="text-sm font-semibold text-indigo-600 dark:text-indigo-400">
+              <span className="text-sm font-semibold text-[#173B32]">
                 {Math.round(progress)}%
               </span>
 
@@ -1498,7 +1504,7 @@ const Interview = () => {
             <div className="w-full h-2 bg-gray-200 dark:bg-gray-800 rounded-full overflow-hidden">
 
               <div
-                className="h-full bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full transition-all duration-500"
+                className="h-full bg-[#E4B84A] rounded-full transition-all duration-500"
                 style={{
                   width: `${progress}%`,
                 }}
@@ -1512,12 +1518,12 @@ const Interview = () => {
 
           <div className="p-5 sm:p-7">
 
-            <div className="rounded-2xl bg-gray-50 dark:bg-white/5 border border-gray-100 dark:border-white/5 p-5 sm:p-6 mb-6">
+            <div className="rounded-xl bg-[#F1ECE2] border border-[#E8E2D7] p-5 sm:p-6 mb-6">
 
               <div className="flex items-start gap-4">
 
-                <div className="shrink-0 w-10 h-10 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-                  <span className="text-sm font-bold text-indigo-600 dark:text-indigo-400">
+                <div className="shrink-0 w-10 h-10 rounded-xl bg-[#173B32]/10 flex items-center justify-center">
+                  <span className="text-sm font-bold text-[#173B32]">
                     Q
                   </span>
                 </div>
@@ -1537,7 +1543,7 @@ const Interview = () => {
                     )
                   }
                   title="Read question aloud"
-                  className="shrink-0 w-10 h-10 rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 flex items-center justify-center text-indigo-600 dark:text-indigo-400 hover:scale-105 transition"
+                  className="shrink-0 w-10 h-10 rounded-xl bg-white border border-gray-200 border-[#DED8CC] flex items-center justify-center text-[#173B32] hover:scale-105 transition"
                 >
                   <Volume2 className="w-5 h-5" />
                 </button>
@@ -1558,7 +1564,7 @@ const Interview = () => {
                         !value
                     )
                   }
-                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-amber-500/10 text-amber-600 dark:text-amber-400 text-sm font-semibold"
+                  className="inline-flex items-center gap-2 px-3 py-2 rounded-xl bg-[#E4B84A]/15 text-[#8A6A17] text-sm font-semibold"
                 >
                   <Lightbulb className="w-4 h-4" />
 
@@ -1568,9 +1574,9 @@ const Interview = () => {
                 </button>
 
                 {showHint && (
-                  <div className="mt-3 rounded-2xl bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-900/30 p-4">
+                  <div className="mt-3 rounded-xl bg-[#FBF4D8] border border-[#E4B84A]/40 p-4">
 
-                    <ul className="list-disc ml-5 space-y-2 text-sm text-gray-700 dark:text-gray-300">
+                    <ul className="list-disc ml-5 space-y-2 text-sm text-[#44534B]">
 
                       {questionTips.map(
                         (
@@ -1610,8 +1616,8 @@ const Interview = () => {
                   }
                   className={`inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-semibold disabled:opacity-50 ${
                     listening
-                      ? "bg-red-500/10 text-red-500"
-                      : "bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"
+                      ? "bg-[#D66A4A]/10 text-[#B94F35]"
+                      : "bg-[#173B32]/10 text-[#173B32]"
                   }`}
                 >
 
@@ -1639,7 +1645,7 @@ const Interview = () => {
                   submitting
                 }
                 placeholder="Type your answer here, or use the Speak button..."
-                className="w-full min-h-[180px] p-5 border border-gray-200 dark:border-[#1e2749] rounded-2xl bg-gray-50 dark:bg-white/5 text-gray-900 dark:text-white placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-indigo-500/30 focus:border-indigo-500 disabled:opacity-60 transition"
+                className="w-full min-h-[180px] p-5 border border-[#DED8CC] rounded-xl bg-[#F1ECE2] text-[#173B32] placeholder-gray-400 resize-y focus:outline-none focus:ring-2 focus:ring-[#173B32]/20 focus:border-[#173B32] disabled:opacity-60 transition"
               />
 
               <div className="flex justify-between mt-2">
@@ -1660,10 +1666,10 @@ const Interview = () => {
 
             {feedback && (
               <div
-                className={`mb-6 rounded-2xl border p-5 ${
+                className={`mb-6 rounded-xl border p-5 ${
                   answerAccepted
-                    ? "border-emerald-500/30 bg-emerald-500/5"
-                    : "border-red-500/30 bg-red-500/5"
+                    ? "border-[#78927A]/40 bg-emerald-500/5"
+                    : "border-[#D66A4A]/35 bg-[#D66A4A]/5"
                 }`}
               >
 
@@ -1674,14 +1680,14 @@ const Interview = () => {
                     <div
                       className={`w-10 h-10 rounded-xl flex items-center justify-center ${
                         answerAccepted
-                          ? "bg-emerald-500/10"
-                          : "bg-red-500/10"
+                          ? "bg-[#78927A]/15"
+                          : "bg-[#D66A4A]/10"
                       }`}
                     >
                       {answerAccepted ? (
-                        <CheckCircle2 className="w-5 h-5 text-emerald-500" />
+                        <CheckCircle2 className="w-5 h-5 text-[#55745D]" />
                       ) : (
-                        <Target className="w-5 h-5 text-red-500" />
+                        <Target className="w-5 h-5 text-[#B94F35]" />
                       )}
                     </div>
 
@@ -1691,7 +1697,7 @@ const Interview = () => {
                         AI Evaluation
                       </h3>
 
-                      <p className="text-xs text-gray-500 dark:text-gray-400">
+                      <p className="text-xs text-gray-500 text-[#66736B]">
                         {answerAccepted
                           ? "Your answer meets the passing score."
                           : "Your answer needs improvement."}
@@ -1704,8 +1710,8 @@ const Interview = () => {
                   <span
                     className={`text-3xl font-bold ${
                       answerAccepted
-                        ? "text-emerald-500"
-                        : "text-red-500"
+                        ? "text-[#55745D]"
+                        : "text-[#B94F35]"
                     }`}
                   >
                     {currentScore}%
@@ -1713,7 +1719,7 @@ const Interview = () => {
 
                 </div>
 
-                <div className="rounded-xl bg-white/50 dark:bg-black/10 p-4 mb-4">
+                <div className="rounded-xl bg-white/50 bg-[#F1ECE2] p-4 mb-4">
 
                   <p className="text-sm leading-6">
                     {feedback.feedback}
@@ -1729,7 +1735,7 @@ const Interview = () => {
                       Strengths
                     </p>
 
-                    <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                    <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600">
 
                       {feedback.strengths.map(
                         (
@@ -1755,7 +1761,7 @@ const Interview = () => {
                       Missing Points
                     </p>
 
-                    <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                    <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600">
 
                       {feedback.missing_points.map(
                         (
@@ -1781,7 +1787,7 @@ const Interview = () => {
                       Improve
                     </p>
 
-                    <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600 dark:text-gray-300">
+                    <ul className="list-disc ml-5 space-y-1 text-sm text-gray-600">
 
                       {feedback.improvements.map(
                         (
@@ -1806,7 +1812,7 @@ const Interview = () => {
                       Better Answer
                     </p>
 
-                    <div className="rounded-xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-4 text-sm leading-6 text-gray-700 dark:text-gray-300">
+                    <div className="rounded-xl bg-white border border-gray-200 border-[#DED8CC] p-4 text-sm leading-6 text-[#44534B]">
                       {
                         feedback.sample_better_answer
                       }
@@ -1829,7 +1835,7 @@ const Interview = () => {
                 disabled={
                   submitting
                 }
-                className="sm:flex-1 border border-gray-200 dark:border-[#1e2749] text-gray-700 dark:text-gray-300 py-3.5 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-white/5 disabled:opacity-50 transition"
+                className="sm:flex-1 border border-[#DED8CC] text-[#44534B] py-3.5 rounded-xl font-semibold hover:bg-gray-50 dark:hover:bg-white/5 disabled:opacity-50 transition"
               >
                 Skip Question
               </button>
@@ -1843,7 +1849,7 @@ const Interview = () => {
                     submitting ||
                     !answerText.trim()
                   }
-                  className="sm:flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white py-3.5 rounded-xl font-semibold disabled:opacity-50 transition shadow-lg shadow-indigo-600/20"
+                  className="sm:flex-1 inline-flex items-center justify-center gap-2 bg-[#173B32] hover:bg-[#245447] text-white py-3.5 rounded-xl font-semibold disabled:opacity-50 transition shadow-lg shadow-[#173B32]/20"
                 >
                   {submitting
                     ? "Evaluating..."
@@ -1860,7 +1866,7 @@ const Interview = () => {
                       ? completeInterview
                       : goToNextQuestion
                   }
-                  className="sm:flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white py-3.5 rounded-xl font-semibold transition"
+                  className="sm:flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#55745D] to-[#55745D] hover:from-[#46624D] hover:to-[#46624D] text-white py-3.5 rounded-xl font-semibold transition"
                 >
                   {isLastQuestion
                     ? "Finish Interview"
@@ -1878,7 +1884,7 @@ const Interview = () => {
                     setAnswerText("");
                     setShowHint(false);
                   }}
-                  className="sm:flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-red-600 to-orange-600 text-white py-3.5 rounded-xl font-semibold transition"
+                  className="sm:flex-1 inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#D66A4A] to-[#D66A4A] text-white py-3.5 rounded-xl font-semibold transition"
                 >
                   <RotateCcw className="w-4 h-4" />
                   Try Again

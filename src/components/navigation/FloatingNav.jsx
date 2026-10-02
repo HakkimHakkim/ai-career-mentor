@@ -159,21 +159,18 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
             rounded-2xl
 
             border
-            border-white/[0.10]
+            border-[#E4B84A]/40
 
-            bg-[#0d1330]/95
+            bg-[#173B32]
 
-            text-white/80
+            text-[#F6F1E8]
 
-            shadow-[0_12px_40px_rgba(0,0,0,0.45)]
-
-            backdrop-blur-2xl
+            shadow-[0_6px_20px_rgba(23,59,50,0.3)]
 
             transition-all
             duration-200
 
-            hover:bg-[#151c42]
-            hover:text-white
+            hover:bg-[#1F4A3F]
 
             active:scale-95
 
@@ -199,9 +196,7 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
             inset-0
             z-40
 
-            bg-black/45
-
-            backdrop-blur-[2px]
+            bg-[#173B32]/50
 
             md:hidden
           "
@@ -220,16 +215,16 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
           flex
           flex-col
 
+          overflow-hidden
+
           rounded-[26px]
 
           border
-          border-white/[0.07]
+          border-[#0F2B24]
 
-          bg-[#0d1330]
+          bg-[#173B32]
 
-          shadow-[0_20px_70px_rgba(0,0,0,0.38)]
-
-          backdrop-blur-2xl
+          shadow-[0_12px_40px_rgba(23,59,50,0.35)]
 
           transition-all
           duration-300
@@ -264,6 +259,10 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
           }
         `}
       >
+        {/* TOP ACCENT STRIP */}
+
+        <div className="h-1.5 w-full shrink-0 bg-[#E4B84A]" />
+
         {/* =====================================================
             HEADER
         ===================================================== */}
@@ -274,7 +273,7 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
             items-center
 
             border-b
-            border-white/[0.07]
+            border-[#F6F1E8]/10
 
             ${
               collapsed
@@ -298,98 +297,51 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
             `}
           >
             <div className="relative shrink-0">
-              <div className="relative shrink-0">
-                <div
-                  className="
-                    flex
-                    h-11
-                    w-11
-                    items-center
-                    justify-center
+              <div
+                className="
+                  flex
+                  h-11
+                  w-11
+                  items-center
+                  justify-center
 
-                    rounded-2xl
+                  rounded-xl
 
-                    bg-gradient-to-br
-                    from-violet-500
-                    via-purple-500
-                    to-indigo-500
+                  bg-[#F6F1E8]
 
-                    text-white
-
-                    shadow-[0_8px_25px_rgba(139,92,246,0.25)]
-                  "
-                >
-                  <BookOpen
-                    className="h-5 w-5"
-                    strokeWidth={2.2}
-                  />
-                </div>
-
-                <div
-                  className="
-                    absolute
-                    -right-1
-                    -top-1
-
-                    flex
-                    h-4
-                    w-4
-                    items-center
-                    justify-center
-
-                    rounded-full
-
-                    border-2
-                    border-[#0c1230]
-
-                    bg-indigo-500
-                  "
-                >
-                  <Sparkles
-                    className="h-2.5 w-2.5 text-white"
-                  />
-                </div>
-
-                <div
-                  className="
-                    absolute
-                    -bottom-1
-                    -right-1
-
-                    h-3
-                    w-3
-
-                    rounded-full
-
-                    border-2
-                    border-[#0c1230]
-
-                    bg-emerald-400
-                  "
+                  text-[#173B32]
+                "
+              >
+                <BookOpen
+                  className="h-5 w-5"
+                  strokeWidth={2.2}
                 />
               </div>
 
-              {/* ONLINE INDICATOR */}
-
-              <span
+              <div
                 className="
                   absolute
-                  -bottom-1
-                  -right-1
+                  -right-1.5
+                  -top-1.5
 
-                  h-3
-                  w-3
+                  flex
+                  h-5
+                  w-5
+                  items-center
+                  justify-center
 
                   rounded-full
 
                   border-2
-                  border-[#0d1330]
+                  border-[#173B32]
 
-                  bg-emerald-400
-
-                  shadow-[0_0_10px_rgba(52,211,153,0.5)]
+                  bg-[#D66A4A]
                 "
-              />
+              >
+                <Sparkles
+                  className="h-2.5 w-2.5 text-[#FFFDF8]"
+                />
+              </div>
             </div>
 
             {/* BRAND */}
@@ -398,10 +350,10 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
               <div className="min-w-0">
                 <h2
                   className="
-                    text-sm
+                    text-base
                     font-bold
                     tracking-wide
-                    text-white
+                    text-[#F6F1E8]
                   "
                 >
                   Career
@@ -416,7 +368,7 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
                     uppercase
                     tracking-[0.22em]
 
-                    text-violet-300/60
+                    text-[#E4B84A]
                   "
                 >
                   Intelligence
@@ -448,21 +400,20 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
               items-center
               justify-center
 
-              rounded-xl
+              rounded-lg
 
               border
-              border-white/[0.08]
+              border-[#F6F1E8]/15
 
-              bg-white/[0.035]
+              bg-[#F6F1E8]/5
 
-              text-white/45
+              text-[#F6F1E8]/70
 
-              transition-all
+              transition-colors
               duration-200
 
-              hover:border-violet-400/20
-              hover:bg-violet-500/10
-              hover:text-white
+              hover:bg-[#F6F1E8]/15
+              hover:text-[#F6F1E8]
             "
           >
             {collapsed ? (
@@ -479,26 +430,20 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
 
         {!collapsed && (
           <div className="px-5 pb-2 pt-5">
-            <div className="flex items-center gap-2">
-              <Sparkles
-                className="
-                  h-3
-                  w-3
-                  text-violet-400/70
-                "
-              />
-
+            <div className="flex items-center gap-3">
               <span
                 className="
-                  text-[9px]
+                  text-[10px]
                   font-bold
                   uppercase
                   tracking-[0.22em]
-                  text-white/25
+                  text-[#F6F1E8]/45
                 "
               >
                 Workspace
               </span>
+
+              <span className="h-px flex-1 bg-[#F6F1E8]/10" />
             </div>
           </div>
         )}
@@ -546,7 +491,7 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
 
                     rounded-xl
 
-                    transition-all
+                    transition-colors
                     duration-200
 
                     ${
@@ -558,50 +503,20 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
                     ${
                       active
                         ? `
-                          bg-violet-500/[0.13]
-                          text-violet-200
+                          bg-[#F6F1E8]
+                          text-[#173B32]
 
-                          shadow-[inset_0_0_20px_rgba(139,92,246,0.035)]
+                          shadow-[0_2px_8px_rgba(0,0,0,0.18)]
                         `
                         : `
-                          text-white/45
+                          text-[#F6F1E8]/70
 
-                          hover:bg-white/[0.045]
-                          hover:text-white/90
+                          hover:bg-[#F6F1E8]/10
+                          hover:text-[#F6F1E8]
                         `
                     }
                   `}
                 >
-                  {/* ACTIVE LINE */}
-
-                  <span
-                    className={`
-                      absolute
-                      left-0
-                      top-1/2
-
-                      h-6
-                      w-[3px]
-
-                      -translate-y-1/2
-
-                      rounded-r-full
-
-                      bg-gradient-to-b
-                      from-violet-400
-                      to-indigo-500
-
-                      transition-opacity
-                      duration-200
-
-                      ${
-                        active
-                          ? 'opacity-100'
-                          : 'opacity-0'
-                      }
-                    `}
-                  />
-
                   {/* ICON */}
 
                   <div
@@ -613,22 +528,23 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
                       items-center
                       justify-center
 
-                      rounded-xl
+                      rounded-lg
 
-                      transition-all
+                      transition-colors
                       duration-200
 
                       ${
                         active
                           ? `
-                            bg-violet-500/[0.15]
-                            text-violet-300
+                            bg-[#D66A4A]
+                            text-[#FFFDF8]
                           `
                           : `
-                            text-white/40
+                            bg-[#F6F1E8]/5
+                            text-[#F6F1E8]/70
 
-                            group-hover:bg-violet-500/[0.08]
-                            group-hover:text-violet-300
+                            group-hover:bg-[#F6F1E8]/10
+                            group-hover:text-[#E4B84A]
                           `
                       }
                     `}
@@ -645,12 +561,12 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
                           flex-1
                           truncate
                           text-left
-                          text-xs
+                          text-[13px]
 
                           ${
                             active
-                              ? 'font-semibold text-white'
-                              : 'font-medium text-white/55'
+                              ? 'font-bold text-[#173B32]'
+                              : 'font-medium'
                           }
                         `}
                       >
@@ -660,10 +576,10 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
                       {active && (
                         <ChevronRight
                           className="
-                            h-3.5
-                            w-3.5
+                            h-4
+                            w-4
                             shrink-0
-                            text-violet-300/70
+                            text-[#D66A4A]
                           "
                         />
                       )}
@@ -682,7 +598,7 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
         <div
           className="
             border-t
-            border-white/[0.07]
+            border-[#F6F1E8]/10
 
             p-2.5
           "
@@ -703,13 +619,17 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
 
               rounded-xl
 
-              text-red-400/75
+              border
+              border-[#F6F1E8]/15
 
-              transition-all
+              text-[#F6F1E8]/80
+
+              transition-colors
               duration-200
 
-              hover:bg-red-500/[0.09]
-              hover:text-red-300
+              hover:border-[#D66A4A]
+              hover:bg-[#D66A4A]
+              hover:text-[#FFFDF8]
 
               ${
                 collapsed
@@ -729,17 +649,14 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
                 items-center
                 justify-center
 
-                rounded-xl
+                rounded-lg
 
-                bg-red-500/[0.06]
+                bg-[#F6F1E8]/5
 
-                text-red-400/70
-
-                transition-all
+                transition-colors
                 duration-200
 
-                group-hover:bg-red-500/[0.12]
-                group-hover:text-red-300
+                group-hover:bg-[#FFFDF8]/20
               "
             >
               <LogOut
@@ -758,7 +675,7 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
             {!collapsed && (
               <span
                 className="
-                  text-xs
+                  text-[13px]
                   font-semibold
                 "
               >

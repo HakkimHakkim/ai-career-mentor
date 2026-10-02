@@ -225,13 +225,13 @@ const Profile = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#080d24] flex items-center justify-center">
+      <div className="min-h-screen bg-[#F6F1E8] flex items-center justify-center">
         <div className="flex flex-col items-center gap-4">
-          <div className="w-12 h-12 rounded-2xl bg-[#111633] border border-[#263158] flex items-center justify-center">
-            <Loader2 className="w-6 h-6 text-indigo-400 animate-spin" />
+          <div className="w-12 h-12 rounded-xl bg-[#FFFDF8] border border-[#DED8CC] flex items-center justify-center shadow-[0_2px_10px_rgba(23,59,50,0.08)]">
+            <Loader2 className="w-6 h-6 text-[#D66A4A] animate-spin" />
           </div>
 
-          <p className="text-sm text-gray-400">
+          <p className="text-sm text-[#66736B]">
             Loading your profile...
           </p>
         </div>
@@ -245,23 +245,23 @@ const Profile = () => {
 
   if (!profile) {
     return (
-      <div className="min-h-screen bg-[#080d24] flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-[#111633] border border-[#1e2749] rounded-3xl p-8 text-center">
-          <div className="w-14 h-14 mx-auto rounded-2xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center mb-5">
-            <User className="w-7 h-7 text-indigo-400" />
+      <div className="min-h-screen bg-[#F6F1E8] flex items-center justify-center px-4">
+        <div className="w-full max-w-md bg-[#FFFDF8] border border-[#DED8CC] rounded-2xl p-8 text-center shadow-[0_2px_12px_rgba(23,59,50,0.08)]">
+          <div className="w-14 h-14 mx-auto rounded-xl bg-[#D66A4A]/10 border border-[#D66A4A]/20 flex items-center justify-center mb-5">
+            <User className="w-7 h-7 text-[#D66A4A]" />
           </div>
 
-          <h2 className="text-xl font-semibold text-white mb-2">
+          <h2 className="text-xl font-semibold text-[#173B32] mb-2">
             Profile unavailable
           </h2>
 
-          <p className="text-sm text-gray-500 mb-6">
+          <p className="text-sm text-[#66736B] mb-6">
             We couldn't load your profile information.
           </p>
 
           <button
             onClick={fetchProfile}
-            className="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition"
+            className="px-5 py-3 rounded-xl bg-[#D66A4A] hover:bg-[#C45C3D] text-[#FFFDF8] font-medium transition-colors"
           >
             Try Again
           </button>
@@ -280,36 +280,36 @@ const Profile = () => {
     : `${API_BASE_URL}${profile.profile_photo_url}`
   : `https://ui-avatars.com/api/?name=${encodeURIComponent(
       profile.name || "User"
-    )}&background=6366f1&color=fff&size=200`;
+    )}&background=173B32&color=F6F1E8&size=200`;
 
   // =========================================================
   // UI
   // =========================================================
 
   return (
-    <div className="min-h-screen bg-[#080d24] px-4 py-6 md:px-8 md:py-10">
+    <div className="min-h-screen bg-[#F6F1E8] px-4 py-6 md:px-8 md:py-10">
       <div className="max-w-5xl mx-auto">
 
         {/* =====================================================
             PAGE HEADER
         ===================================================== */}
 
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8 pb-8 border-b border-[#DED8CC]">
 
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#111633] border border-[#202b50] mb-4">
-              <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E4B84A]/20 border border-[#E4B84A]/40 mb-4">
+              <Sparkles className="w-3.5 h-3.5 text-[#173B32]" />
 
-              <span className="text-xs font-medium text-indigo-300">
+              <span className="text-xs font-semibold text-[#173B32] tracking-wider">
                 ACCOUNT SETTINGS
               </span>
             </div>
 
-            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-white">
+            <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-[#173B32]">
               Profile
             </h1>
 
-            <p className="text-gray-500 mt-2 max-w-xl">
+            <p className="text-[#66736B] mt-2 max-w-xl">
               Manage your personal details, education and learning preferences
               from one place.
             </p>
@@ -318,7 +318,7 @@ const Profile = () => {
           {!isEditing && (
             <button
               onClick={handleEdit}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition shadow-lg shadow-indigo-600/10"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#D66A4A] hover:bg-[#C45C3D] text-[#FFFDF8] font-medium transition-colors shadow-[0_2px_8px_rgba(214,106,74,0.25)]"
             >
               <Edit3 className="w-4 h-4" />
               Edit Profile
@@ -334,8 +334,8 @@ const Profile = () => {
           <div
             className={`mb-6 flex items-center gap-3 px-4 py-3 rounded-xl border ${
               messageType === "error"
-                ? "border-red-500/20 bg-red-500/5 text-red-400"
-                : "border-indigo-500/20 bg-indigo-500/5 text-indigo-300"
+                ? "border-[#B94F35]/30 bg-[#B94F35]/10 text-[#B94F35]"
+                : "border-[#78927A]/40 bg-[#78927A]/15 text-[#173B32]"
             }`}
           >
             <Check className="w-4 h-4 shrink-0" />
@@ -350,15 +350,11 @@ const Profile = () => {
             PROFILE HERO
         ===================================================== */}
 
-        <div className="relative overflow-hidden bg-[#111633] border border-[#1e2749] rounded-3xl mb-6">
+        <div className="relative overflow-hidden bg-[#FFFDF8] border border-[#DED8CC] rounded-2xl mb-6 shadow-[0_2px_10px_rgba(23,59,50,0.07)]">
 
-          {/* subtle background glow */}
+          <div className="absolute top-0 left-0 right-0 h-1.5 bg-[#173B32]" />
 
-          <div className="absolute -top-24 -right-24 w-72 h-72 bg-indigo-600/10 blur-3xl rounded-full pointer-events-none" />
-
-          <div className="absolute top-0 left-0 right-0 h-px bg-indigo-500/30" />
-
-          <div className="p-6 md:p-8">
+          <div className="p-6 md:p-8 pt-8 md:pt-10">
 
             <div className="flex flex-col md:flex-row md:items-center gap-6">
 
@@ -366,18 +362,18 @@ const Profile = () => {
 
               <div className="relative shrink-0">
 
-                <div className="w-28 h-28 rounded-3xl p-1 bg-[#0b1028] border border-[#2a3560]">
+                <div className="w-28 h-28 rounded-2xl p-1 bg-[#F6F1E8] border border-[#DED8CC]">
                   <img
                     src={photoUrl}
                     alt="Profile"
-                    className="w-full h-full rounded-[20px] object-cover"
+                    className="w-full h-full rounded-xl object-cover"
                   />
                 </div>
 
                 <button
                   onClick={() => fileInputRef.current?.click()}
                   disabled={photoUploading}
-                  className="absolute -right-2 -bottom-2 w-10 h-10 rounded-xl bg-indigo-600 hover:bg-indigo-500 border-4 border-[#111633] flex items-center justify-center text-white transition disabled:opacity-60"
+                  className="absolute -right-2 -bottom-2 w-10 h-10 rounded-xl bg-[#D66A4A] hover:bg-[#C45C3D] border-4 border-[#FFFDF8] flex items-center justify-center text-[#FFFDF8] transition-colors disabled:opacity-60"
                 >
                   {photoUploading ? (
                     <Loader2 className="w-4 h-4 animate-spin" />
@@ -401,18 +397,18 @@ const Profile = () => {
 
                 <div className="flex flex-wrap items-center gap-3 mb-2">
 
-                  <h2 className="text-2xl md:text-3xl font-bold text-white truncate">
+                  <h2 className="text-2xl md:text-3xl font-bold text-[#173B32] truncate">
                     {profile.name || "User"}
                   </h2>
 
-                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 text-xs font-medium">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-[#78927A]/15 border border-[#78927A]/40 text-[#173B32] text-xs font-medium">
                     <ShieldCheck className="w-3.5 h-3.5" />
                     Verified
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 text-gray-400">
-                  <Mail className="w-4 h-4 text-indigo-400" />
+                <div className="flex items-center gap-2 text-[#66736B]">
+                  <Mail className="w-4 h-4 text-[#D66A4A]" />
                   <span className="text-sm">
                     {profile.email}
                   </span>
@@ -434,7 +430,7 @@ const Profile = () => {
               </div>
             </div>
 
-            <p className="text-xs text-gray-600 mt-6">
+            <p className="text-xs text-[#8A948D] mt-6">
               JPG, PNG or WEBP · Maximum 5MB
             </p>
           </div>
@@ -585,14 +581,14 @@ const Profile = () => {
         ===================================================== */}
 
         {isEditing && (
-          <div className="bg-[#111633] border border-[#1e2749] rounded-3xl p-4 mb-6">
+          <div className="bg-[#FFFDF8] border border-[#DED8CC] rounded-2xl p-4 mb-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="flex flex-col sm:flex-row sm:justify-end gap-3">
 
               <button
                 onClick={handleCancel}
                 disabled={saving}
-                className="px-5 py-3 rounded-xl border border-[#2a3560] text-gray-300 hover:bg-white/[0.03] transition flex items-center justify-center gap-2 disabled:opacity-50"
+                className="px-5 py-3 rounded-xl border border-[#173B32] bg-[#FFFDF8] text-[#173B32] hover:bg-[#173B32]/5 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
               >
                 <X className="w-4 h-4" />
                 Cancel
@@ -601,7 +597,7 @@ const Profile = () => {
               <button
                 onClick={handleSave}
                 disabled={saving}
-                className="px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-medium transition flex items-center justify-center gap-2 disabled:opacity-60"
+                className="px-5 py-3 rounded-xl bg-[#D66A4A] hover:bg-[#C45C3D] text-[#FFFDF8] font-medium transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
               >
                 {saving ? (
                   <Loader2 className="w-4 h-4 animate-spin" />
@@ -650,7 +646,7 @@ const Profile = () => {
         ===================================================== */}
 
         <div className="pb-8 pt-2 text-center">
-          <p className="text-xs text-gray-600">
+          <p className="text-xs text-[#8A948D]">
             Your profile information helps personalize your career journey.
           </p>
         </div>
@@ -666,22 +662,22 @@ const Profile = () => {
 
 const SectionCard = ({ icon, title, description, children }) => {
   return (
-    <div className="bg-[#111633] border border-[#1e2749] rounded-3xl p-6 md:p-8 mb-6">
+    <div className="bg-[#FFFDF8] border border-[#DED8CC] rounded-2xl p-6 md:p-8 mb-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
-      <div className="flex items-start gap-4 mb-7">
+      <div className="flex items-start gap-4 mb-7 pb-5 border-b border-[#DED8CC]">
 
-        <div className="w-11 h-11 rounded-xl bg-indigo-500/10 border border-indigo-500/10 flex items-center justify-center text-indigo-400 shrink-0">
+        <div className="w-11 h-11 rounded-xl bg-[#D66A4A]/10 border border-[#D66A4A]/20 flex items-center justify-center text-[#D66A4A] shrink-0">
           {React.cloneElement(icon, {
             className: "w-5 h-5",
           })}
         </div>
 
         <div>
-          <h3 className="text-lg font-semibold text-white">
+          <h3 className="text-lg font-semibold text-[#173B32]">
             {title}
           </h3>
 
-          <p className="text-sm text-gray-500 mt-1">
+          <p className="text-sm text-[#66736B] mt-1">
             {description}
           </p>
         </div>
@@ -705,7 +701,7 @@ const InputField = ({
 }) => {
   return (
     <div>
-      <label className="block text-xs font-medium uppercase tracking-wider text-gray-500 mb-2">
+      <label className="block text-xs font-medium uppercase tracking-wider text-[#8A948D] mb-2">
         {label}
       </label>
 
@@ -718,16 +714,17 @@ const InputField = ({
           w-full
           px-4 py-3
           rounded-xl
-          bg-[#0b1028]
-          border border-[#263158]
-          text-white
-          placeholder-gray-600
+          bg-[#FFFDF8]
+          border border-[#DED8CC]
+          text-[#173B32]
+          placeholder-[#8A948D]
           outline-none
-          focus:border-indigo-500
+          focus:border-[#173B32]
           focus:ring-2
-          focus:ring-indigo-500/10
+          focus:ring-[#173B32]/10
           transition
-          disabled:opacity-50
+          disabled:bg-[#F6F1E8]
+          disabled:text-[#8A948D]
           disabled:cursor-not-allowed
         "
       />
@@ -743,18 +740,18 @@ const InfoItem = ({ icon, label, value }) => {
   return (
     <div className="flex items-start gap-4">
 
-      <div className="w-10 h-10 rounded-xl bg-[#0b1028] border border-[#202b50] flex items-center justify-center text-indigo-400 shrink-0">
+      <div className="w-10 h-10 rounded-xl bg-[#F6F1E8] border border-[#DED8CC] flex items-center justify-center text-[#173B32] shrink-0">
         {React.cloneElement(icon, {
           className: "w-4 h-4",
         })}
       </div>
 
       <div className="min-w-0">
-        <p className="text-[11px] uppercase tracking-widest text-gray-600 mb-1.5">
+        <p className="text-[11px] uppercase tracking-widest text-[#8A948D] mb-1.5">
           {label}
         </p>
 
-        <p className="text-sm md:text-base text-white font-medium break-words">
+        <p className="text-sm md:text-base text-[#173B32] font-medium break-words">
           {value}
         </p>
       </div>
@@ -768,12 +765,12 @@ const InfoItem = ({ icon, label, value }) => {
 
 const ProfileBadge = ({ icon, text }) => {
   return (
-    <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-[#0b1028] border border-[#202b50]">
+    <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#F6F1E8] border border-[#DED8CC]">
       {React.cloneElement(icon, {
-        className: "w-3.5 h-3.5 text-indigo-400",
+        className: "w-3.5 h-3.5 text-[#D66A4A]",
       })}
 
-      <span className="text-xs text-gray-400">
+      <span className="text-xs text-[#66736B]">
         {text}
       </span>
     </div>
@@ -790,15 +787,15 @@ const Preference = ({
   defaultChecked = false,
 }) => {
   return (
-    <label className="flex items-center justify-between gap-5 p-4 rounded-2xl bg-[#0b1028] border border-[#202b50] hover:border-[#303c6b] transition cursor-pointer">
+    <label className="flex items-center justify-between gap-5 p-4 rounded-xl bg-[#F6F1E8]/60 border border-[#DED8CC] hover:border-[#78927A] transition-colors cursor-pointer">
 
       <div className="min-w-0">
 
-        <p className="text-sm font-medium text-white">
+        <p className="text-sm font-medium text-[#173B32]">
           {title}
         </p>
 
-        <p className="text-xs md:text-sm text-gray-600 mt-1">
+        <p className="text-xs md:text-sm text-[#66736B] mt-1">
           {description}
         </p>
 
@@ -812,9 +809,9 @@ const Preference = ({
           className="peer sr-only"
         />
 
-        <div className="w-11 h-6 rounded-full bg-[#263158] peer-checked:bg-indigo-600 transition" />
+        <div className="w-11 h-6 rounded-full bg-[#DED8CC] peer-checked:bg-[#173B32] transition-colors" />
 
-        <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-gray-400 peer-checked:bg-white peer-checked:translate-x-5 transition" />
+        <div className="absolute top-1 left-1 w-4 h-4 rounded-full bg-[#FFFDF8] peer-checked:translate-x-5 transition-transform shadow-sm" />
       </div>
 
     </label>

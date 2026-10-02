@@ -740,18 +740,13 @@ const getResourceUrl = (resource) => {
 
   if (loading) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-[#050914] flex items-center justify-center">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute -top-40 left-[20%] w-[500px] h-[500px] rounded-full bg-violet-600/20 blur-[150px]" />
-          <div className="absolute bottom-0 right-[10%] w-[450px] h-[450px] rounded-full bg-blue-600/20 blur-[150px]" />
-        </div>
-
-        <div className="relative flex flex-col items-center gap-5">
-          <div className="w-16 h-16 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl flex items-center justify-center shadow-[0_0_50px_rgba(139,92,246,0.2)]">
-            <Loader2 className="w-7 h-7 text-violet-300 animate-spin" />
+      <div className="min-h-screen bg-[#F6F1E8] flex items-center justify-center">
+        <div className="flex flex-col items-center gap-5">
+          <div className="w-16 h-16 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] flex items-center justify-center shadow-[0_2px_10px_rgba(23,59,50,0.08)]">
+            <Loader2 className="w-7 h-7 text-[#D66A4A] animate-spin" />
           </div>
 
-          <p className="text-sm text-white/50">
+          <p className="text-sm text-[#66736B]">
             Finding the best learning resources for you...
           </p>
         </div>
@@ -765,21 +760,17 @@ const getResourceUrl = (resource) => {
 
   if (error) {
     return (
-      <div className="relative min-h-screen overflow-hidden bg-[#050914] flex items-center justify-center p-6">
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 left-[30%] w-96 h-96 rounded-full bg-red-500/10 blur-[130px]" />
-        </div>
-
-        <div className="relative max-w-md w-full rounded-[28px] border border-red-400/10 bg-white/[0.035] backdrop-blur-2xl p-8 text-center">
-          <div className="mx-auto mb-5 w-14 h-14 rounded-2xl bg-red-500/10 border border-red-400/10 flex items-center justify-center">
-            <AlertCircle className="w-7 h-7 text-red-400" />
+      <div className="min-h-screen bg-[#F6F1E8] flex items-center justify-center p-6">
+        <div className="max-w-md w-full rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-8 text-center shadow-[0_2px_12px_rgba(23,59,50,0.08)]">
+          <div className="mx-auto mb-5 w-14 h-14 rounded-xl bg-[#B94F35]/10 border border-[#B94F35]/20 flex items-center justify-center">
+            <AlertCircle className="w-7 h-7 text-[#B94F35]" />
           </div>
 
-          <h2 className="text-xl font-bold text-white mb-3">
+          <h2 className="text-xl font-bold text-[#173B32] mb-3">
             Unable to Load Learning Resources
           </h2>
 
-          <p className="text-sm text-red-300/80">
+          <p className="text-sm text-[#B94F35]">
             {error}
           </p>
         </div>
@@ -792,30 +783,15 @@ const getResourceUrl = (resource) => {
   ======================================================= */
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#050914] text-white">
+    <div className="min-h-screen bg-[#F6F1E8] text-[#173B32]">
 
-      {/* ===================================================
-          AMBIENT BACKGROUND
-      =================================================== */}
-
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-
-        <div className="absolute -top-40 left-[12%] h-[420px] w-[420px] rounded-full bg-violet-600/20 blur-[140px]" />
-
-        <div className="absolute top-[15%] right-[-100px] h-[480px] w-[480px] rounded-full bg-blue-600/15 blur-[150px]" />
-
-        <div className="absolute bottom-[-100px] left-[30%] h-[450px] w-[450px] rounded-full bg-indigo-600/15 blur-[150px]" />
-
-        <div className="absolute top-[45%] left-[55%] h-[300px] w-[300px] rounded-full bg-purple-500/10 blur-[130px]" />
-      </div>
-
-      <div className="relative p-4 sm:p-6 lg:p-8 xl:p-10 max-w-[1500px] mx-auto">
+      <div className="p-4 sm:p-6 lg:p-8 xl:p-10 max-w-[1500px] mx-auto">
 
         {/* =================================================
             HEADER
         ================================================= */}
 
-        <div className="mb-8">
+        <div className="mb-8 pb-8 border-b border-[#DED8CC]">
 
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
 
@@ -823,24 +799,24 @@ const getResourceUrl = (resource) => {
 
               <div className="flex items-center gap-2 mb-4">
 
-                <div className="w-8 h-8 rounded-xl border border-violet-400/10 bg-violet-500/10 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-violet-300" />
+                <div className="w-8 h-8 rounded-lg border border-[#E4B84A]/40 bg-[#E4B84A]/20 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-[#173B32]" />
                 </div>
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-violet-300/70">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D66A4A]">
                   Personalized Learning
                 </span>
 
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-bold tracking-tight">
+              <h1 className="text-4xl sm:text-5xl lg:text-[54px] font-bold tracking-tight text-[#173B32]">
                 Learning
-                <span className="ml-3 bg-gradient-to-r from-violet-300 via-purple-300 to-blue-300 bg-clip-text text-transparent">
+                <span className="ml-3 text-[#D66A4A]">
                   Center
                 </span>
               </h1>
 
-              <p className="mt-3 max-w-2xl text-sm sm:text-base text-white/45">
+              <p className="mt-3 max-w-2xl text-sm sm:text-base text-[#66736B]">
                 Build the skills you need, follow your roadmap,
                 and move closer to your dream career.
               </p>
@@ -849,18 +825,18 @@ const getResourceUrl = (resource) => {
 
             {/* STATUS */}
 
-            <div className="flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.04] px-4 py-3 backdrop-blur-xl">
+            <div className="flex items-center gap-3 rounded-xl border border-[#DED8CC] bg-[#FFFDF8] px-4 py-3 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
-              <div className="w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-400/10 flex items-center justify-center">
-                <TrendingUp className="w-4 h-4 text-emerald-400" />
+              <div className="w-9 h-9 rounded-lg bg-[#78927A]/15 border border-[#78927A]/30 flex items-center justify-center">
+                <TrendingUp className="w-4 h-4 text-[#173B32]" />
               </div>
 
               <div>
-                <p className="text-[9px] uppercase tracking-[0.2em] text-white/25">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-[#8A948D]">
                   Learning Status
                 </p>
 
-                <p className="text-xs font-semibold text-white/80">
+                <p className="text-sm font-semibold text-[#173B32]">
                   {learningProgress}% Progress
                 </p>
               </div>
@@ -875,13 +851,7 @@ const getResourceUrl = (resource) => {
             HERO / CAREER CARD
         ================================================= */}
 
-        <div className="relative overflow-hidden rounded-[30px] border border-white/[0.1] bg-gradient-to-br from-[#171743]/90 via-[#111936]/90 to-[#08152e]/95 p-6 sm:p-8 lg:p-10 mb-8 shadow-[0_30px_100px_rgba(35,20,100,0.18)]">
-
-          {/* Glow */}
-
-          <div className="absolute -top-32 right-[10%] h-[300px] w-[300px] rounded-full bg-violet-500/25 blur-[110px]" />
-
-          <div className="absolute -bottom-40 left-[25%] h-[300px] w-[300px] rounded-full bg-blue-500/15 blur-[110px]" />
+        <div className="relative overflow-hidden rounded-2xl bg-[#173B32] p-6 sm:p-8 lg:p-10 mb-8 shadow-[0_6px_20px_rgba(23,59,50,0.18)]">
 
           <div className="relative grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 items-center">
 
@@ -889,23 +859,23 @@ const getResourceUrl = (resource) => {
 
               <div className="flex items-center gap-2 mb-4">
 
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-white/10 bg-white/[0.07]">
-                  <GraduationCap className="w-4 h-4 text-violet-200" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#F6F1E8]/20 bg-[#F6F1E8]/10">
+                  <GraduationCap className="w-4 h-4 text-[#E4B84A]" />
                 </div>
 
-                <span className="text-[10px] uppercase tracking-[0.2em] text-white/40">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-[#F6F1E8]/70">
                   Your Career Goal
                 </span>
 
               </div>
 
-              <h2 className="text-3xl sm:text-4xl font-bold mb-3">
+              <h2 className="text-3xl sm:text-4xl font-bold mb-3 text-[#F6F1E8]">
                 {careerName || 'Your Career'}
               </h2>
 
-              <p className="text-sm text-white/45 max-w-xl">
+              <p className="text-sm text-[#F6F1E8]/70 max-w-xl">
                 Your personalized learning path contains{' '}
-                <span className="text-violet-300 font-semibold">
+                <span className="text-[#E4B84A] font-semibold">
                   {skillsToLearn.length}
                 </span>{' '}
                 important skills to help you become career ready.
@@ -915,28 +885,28 @@ const getResourceUrl = (resource) => {
 
             {/* PROGRESS */}
 
-            <div className="relative w-full lg:w-48">
+            <div className="relative w-full lg:w-56">
 
               <div className="flex items-center justify-between mb-3">
-                <span className="text-[10px] uppercase tracking-wider text-white/30">
+                <span className="text-[11px] uppercase tracking-wider text-[#F6F1E8]/60">
                   Roadmap
                 </span>
 
-                <span className="text-sm font-bold text-violet-300">
+                <span className="text-sm font-bold text-[#E4B84A]">
                   {learningProgress}%
                 </span>
               </div>
 
-              <div className="h-2 rounded-full bg-white/[0.08] overflow-hidden">
+              <div className="h-2 rounded-full bg-[#F6F1E8]/15 overflow-hidden">
                 <div
-                  className="h-full rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-blue-500 transition-all duration-700"
+                  className="h-full rounded-full bg-[#E4B84A] transition-all duration-700"
                   style={{
                     width: `${learningProgress}%`,
                   }}
                 />
               </div>
 
-              <p className="mt-2 text-[10px] text-white/25">
+              <p className="mt-2 text-[11px] text-[#F6F1E8]/60">
                 {completedCount}/{totalRoadmapSteps} steps completed
               </p>
 
@@ -954,26 +924,24 @@ const getResourceUrl = (resource) => {
 
           {/* SKILLS */}
 
-          <div className="group relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-5 backdrop-blur-xl hover:border-violet-400/20 transition-all">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-5 shadow-[0_1px_4px_rgba(23,59,50,0.06)] hover:shadow-[0_4px_14px_rgba(23,59,50,0.1)] transition-shadow">
 
-            <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-violet-500/10 blur-3xl" />
-
-            <div className="relative flex items-center justify-between">
+            <div className="flex items-center justify-between">
 
               <div>
 
-                <p className="text-[9px] uppercase tracking-[0.2em] text-white/30 mb-2">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A948D] mb-2">
                   Skills
                 </p>
 
-                <p className="text-3xl font-bold">
+                <p className="text-3xl font-bold text-[#173B32]">
                   {skillsToLearn.length}
                 </p>
 
               </div>
 
-              <div className="w-11 h-11 rounded-2xl bg-violet-500/10 border border-violet-400/10 flex items-center justify-center">
-                <Target className="w-5 h-5 text-violet-300" />
+              <div className="w-11 h-11 rounded-xl bg-[#D66A4A]/10 border border-[#D66A4A]/20 flex items-center justify-center">
+                <Target className="w-5 h-5 text-[#D66A4A]" />
               </div>
 
             </div>
@@ -982,26 +950,24 @@ const getResourceUrl = (resource) => {
 
           {/* COURSES */}
 
-          <div className="group relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-5 backdrop-blur-xl hover:border-blue-400/20 transition-all">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-5 shadow-[0_1px_4px_rgba(23,59,50,0.06)] hover:shadow-[0_4px_14px_rgba(23,59,50,0.1)] transition-shadow">
 
-            <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-blue-500/10 blur-3xl" />
-
-            <div className="relative flex items-center justify-between">
+            <div className="flex items-center justify-between">
 
               <div>
 
-                <p className="text-[9px] uppercase tracking-[0.2em] text-white/30 mb-2">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A948D] mb-2">
                   Courses
                 </p>
 
-                <p className="text-3xl font-bold">
+                <p className="text-3xl font-bold text-[#173B32]">
                   {availableCourses}
                 </p>
 
               </div>
 
-              <div className="w-11 h-11 rounded-2xl bg-blue-500/10 border border-blue-400/10 flex items-center justify-center">
-                <BookOpen className="w-5 h-5 text-blue-300" />
+              <div className="w-11 h-11 rounded-xl bg-[#E4B84A]/20 border border-[#E4B84A]/40 flex items-center justify-center">
+                <BookOpen className="w-5 h-5 text-[#173B32]" />
               </div>
 
             </div>
@@ -1010,26 +976,24 @@ const getResourceUrl = (resource) => {
 
           {/* COMPLETED */}
 
-          <div className="group relative overflow-hidden rounded-[22px] border border-white/[0.08] bg-white/[0.035] p-5 backdrop-blur-xl hover:border-emerald-400/20 transition-all">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-5 shadow-[0_1px_4px_rgba(23,59,50,0.06)] hover:shadow-[0_4px_14px_rgba(23,59,50,0.1)] transition-shadow">
 
-            <div className="absolute -right-10 -top-10 h-24 w-24 rounded-full bg-emerald-500/10 blur-3xl" />
-
-            <div className="relative flex items-center justify-between">
+            <div className="flex items-center justify-between">
 
               <div>
 
-                <p className="text-[9px] uppercase tracking-[0.2em] text-white/30 mb-2">
+                <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A948D] mb-2">
                   Completed
                 </p>
 
-                <p className="text-3xl font-bold">
+                <p className="text-3xl font-bold text-[#173B32]">
                   {completedCount}
                 </p>
 
               </div>
 
-              <div className="w-11 h-11 rounded-2xl bg-emerald-500/10 border border-emerald-400/10 flex items-center justify-center">
-                <CheckCircle2 className="w-5 h-5 text-emerald-300" />
+              <div className="w-11 h-11 rounded-xl bg-[#78927A]/15 border border-[#78927A]/30 flex items-center justify-center">
+                <CheckCircle2 className="w-5 h-5 text-[#78927A]" />
               </div>
 
             </div>
@@ -1048,15 +1012,15 @@ const getResourceUrl = (resource) => {
 
             <div className="flex items-center gap-2 mb-2">
 
-              <Layers3 className="w-4 h-4 text-violet-300" />
+              <Layers3 className="w-4 h-4 text-[#D66A4A]" />
 
-              <span className="text-[9px] font-semibold uppercase tracking-[0.22em] text-violet-300/60">
+              <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D66A4A]">
                 Skill Development
               </span>
 
             </div>
 
-            <h2 className="text-2xl sm:text-3xl font-bold">
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#173B32]">
               Skills to Master
             </h2>
 
@@ -1108,25 +1072,23 @@ const getResourceUrl = (resource) => {
 
                   {/* SKILL HEADER */}
 
-                  <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center justify-between mb-5 pb-4 border-b border-[#DED8CC]">
 
                     <div className="flex items-center gap-3">
 
-                      <div className="relative w-11 h-11 rounded-2xl border border-violet-400/10 bg-violet-500/10 flex items-center justify-center">
+                      <div className="w-11 h-11 rounded-xl border border-[#D66A4A]/20 bg-[#D66A4A]/10 flex items-center justify-center">
 
-                        <Target className="w-5 h-5 text-violet-300" />
-
-                        <div className="absolute inset-0 rounded-2xl bg-violet-500/10 blur-xl" />
+                        <Target className="w-5 h-5 text-[#D66A4A]" />
 
                       </div>
 
                       <div>
 
-                        <p className="text-[9px] uppercase tracking-[0.2em] text-white/25">
+                        <p className="text-[11px] uppercase tracking-[0.15em] text-[#8A948D]">
                           Skill {String(skillIndex + 1).padStart(2, '0')}
                         </p>
 
-                        <h3 className="text-xl font-bold">
+                        <h3 className="text-xl font-bold text-[#173B32]">
                           {skill}
                         </h3>
 
@@ -1135,11 +1097,11 @@ const getResourceUrl = (resource) => {
                     </div>
 
                     {isCompleted && (
-                      <div className="flex items-center gap-2 rounded-full border border-emerald-400/10 bg-emerald-500/10 px-3 py-1.5">
+                      <div className="flex items-center gap-2 rounded-full border border-[#78927A]/40 bg-[#78927A]/15 px-3 py-1.5">
 
-                        <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />
+                        <CheckCircle2 className="w-3.5 h-3.5 text-[#173B32]" />
 
-                        <span className="text-[9px] uppercase tracking-wider text-emerald-300 font-semibold">
+                        <span className="text-[10px] uppercase tracking-wider text-[#173B32] font-semibold">
                           Completed
                         </span>
 
@@ -1154,17 +1116,17 @@ const getResourceUrl = (resource) => {
 
                   {resources.length === 0 ? (
 
-                    <div className="rounded-[24px] border border-white/[0.07] bg-white/[0.025] p-7 backdrop-blur-xl">
+                    <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-7 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
                       <div className="flex items-center gap-4">
 
-                        <div className="w-11 h-11 rounded-xl bg-white/[0.05] flex items-center justify-center">
-                          <BookOpen className="w-5 h-5 text-white/30" />
+                        <div className="w-11 h-11 rounded-xl bg-[#F6F1E8] border border-[#DED8CC] flex items-center justify-center">
+                          <BookOpen className="w-5 h-5 text-[#8A948D]" />
                         </div>
 
-                        <p className="text-sm text-white/40">
+                        <p className="text-sm text-[#66736B]">
                           Learning videos for{' '}
-                          <span className="text-white/70 font-semibold">
+                          <span className="text-[#173B32] font-semibold">
                             {skill}
                           </span>{' '}
                           will be added soon.
@@ -1183,26 +1145,22 @@ const getResourceUrl = (resource) => {
 
                           <div
                             key={`${resource.videoId}-${index}`}
-                            className="group relative overflow-hidden rounded-[24px] border border-white/[0.08] bg-white/[0.035] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/20 hover:shadow-[0_25px_70px_rgba(76,29,149,0.15)]"
+                            className="group relative overflow-hidden rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] shadow-[0_1px_4px_rgba(23,59,50,0.06)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_8px_22px_rgba(23,59,50,0.12)]"
                           >
-
-                            {/* CARD GLOW */}
-
-                            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-violet-500/10 blur-3xl transition-all group-hover:bg-violet-500/20" />
 
                             {/* THUMBNAIL */}
 
-                            <div className="relative h-48 overflow-hidden bg-[#080d1b]">
+                            <div className="relative h-48 overflow-hidden bg-[#173B32]">
 
                               {resource.videoId ? (
   <img
     src={`https://img.youtube.com/vi/${resource.videoId}/hqdefault.jpg`}
     alt={resource.title}
-    className="w-full h-full object-cover opacity-75 group-hover:opacity-90 group-hover:scale-105 transition-all duration-500"
+    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
   />
 ) : (
-  <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-violet-900/40 to-indigo-900/40">
-    <Play className="w-10 h-10 text-white/30" />
+  <div className="w-full h-full flex items-center justify-center bg-[#173B32]">
+    <Play className="w-10 h-10 text-[#F6F1E8]/40" />
   </div>
 )}
 
@@ -1212,12 +1170,12 @@ const getResourceUrl = (resource) => {
                                 href={getResourceUrl(resource)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="absolute inset-0 flex items-center justify-center"
+                                className="absolute inset-0 flex items-center justify-center bg-[#173B32]/10 group-hover:bg-[#173B32]/25 transition-colors"
                               >
 
-                                <div className="w-14 h-14 rounded-full bg-white/10 border border-white/20 backdrop-blur-xl flex items-center justify-center shadow-[0_0_40px_rgba(139,92,246,0.25)] group-hover:scale-110 transition-transform">
+                                <div className="w-14 h-14 rounded-full bg-[#D66A4A] flex items-center justify-center shadow-[0_4px_14px_rgba(23,59,50,0.3)] group-hover:scale-105 transition-transform">
 
-                                  <Play className="w-5 h-5 text-white fill-white ml-1" />
+                                  <Play className="w-5 h-5 text-[#FFFDF8] fill-[#FFFDF8] ml-1" />
 
                                 </div>
 
@@ -1227,7 +1185,7 @@ const getResourceUrl = (resource) => {
 
                               <div className="absolute top-4 left-4">
 
-                                <span className="px-3 py-1.5 rounded-full border border-white/10 bg-black/30 backdrop-blur-xl text-[9px] uppercase tracking-wider font-semibold text-white/70">
+                                <span className="px-3 py-1.5 rounded-full border border-[#DED8CC] bg-[#FFFDF8] text-[10px] uppercase tracking-wider font-semibold text-[#173B32]">
                                   {resource.level}
                                 </span>
 
@@ -1239,15 +1197,15 @@ const getResourceUrl = (resource) => {
 
                             <div className="relative p-5">
 
-                              <h4 className="text-base font-bold text-white/90 leading-snug mb-2 line-clamp-2">
+                              <h4 className="text-base font-bold text-[#173B32] leading-snug mb-2 line-clamp-2">
                                 {resource.title}
                               </h4>
 
-                              <p className="text-xs text-white/35 mb-4">
+                              <p className="text-xs text-[#66736B] mb-4">
                                 {resource.channel}
                               </p>
 
-                              <div className="flex items-center gap-2 text-[11px] text-white/35 mb-5">
+                              <div className="flex items-center gap-2 text-xs text-[#8A948D] mb-5">
 
                                 <Clock3 className="w-3.5 h-3.5" />
 
@@ -1261,7 +1219,7 @@ const getResourceUrl = (resource) => {
                                 href={getResourceUrl(resource)}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="group/watch flex items-center justify-center gap-2 w-full rounded-xl border border-violet-400/15 bg-violet-500/10 hover:bg-violet-500/20 py-3 text-xs font-semibold text-violet-200 transition-all"
+                                className="group/watch flex items-center justify-center gap-2 w-full rounded-xl bg-[#173B32] hover:bg-[#1F4A3F] py-3 text-xs font-semibold text-[#FFFDF8] transition-colors"
                               >
 
                                 <Play className="w-3.5 h-3.5 fill-current" />
@@ -1285,10 +1243,10 @@ const getResourceUrl = (resource) => {
                                     skill ||
                                   isCompleted
                                 }
-                                className={`w-full mt-3 py-3 rounded-xl text-xs font-semibold transition-all flex items-center justify-center gap-2 ${
+                                className={`w-full mt-3 py-3 rounded-xl text-xs font-semibold transition-colors flex items-center justify-center gap-2 ${
                                   isCompleted
-                                    ? 'bg-emerald-500/10 border border-emerald-400/10 text-emerald-300 cursor-not-allowed'
-                                    : 'bg-white/[0.04] border border-white/[0.07] text-white/60 hover:bg-emerald-500/10 hover:border-emerald-400/15 hover:text-emerald-300'
+                                    ? 'bg-[#78927A]/15 border border-[#78927A]/40 text-[#173B32] cursor-not-allowed'
+                                    : 'bg-[#FFFDF8] border border-[#173B32] text-[#173B32] hover:bg-[#173B32]/5'
                                 }`}
                               >
 
@@ -1336,29 +1294,23 @@ const getResourceUrl = (resource) => {
 
         {skillsToLearn.length === 0 && (
 
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.035] p-12 text-center backdrop-blur-2xl">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-12 text-center shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-violet-500/10 rounded-full blur-[100px]" />
+            <div className="mx-auto mb-5 w-16 h-16 rounded-2xl bg-[#E4B84A]/20 border border-[#E4B84A]/40 flex items-center justify-center">
 
-            <div className="relative">
-
-              <div className="mx-auto mb-5 w-16 h-16 rounded-2xl bg-violet-500/10 border border-violet-400/10 flex items-center justify-center">
-
-                <GraduationCap className="w-7 h-7 text-violet-300" />
-
-              </div>
-
-              <h3 className="text-xl font-bold mb-2">
-                Your learning path is ready to begin
-              </h3>
-
-              <p className="text-sm text-white/35 max-w-md mx-auto">
-                Complete Career Discovery to generate
-                your personalized roadmap and learning
-                resources.
-              </p>
+              <GraduationCap className="w-7 h-7 text-[#173B32]" />
 
             </div>
+
+            <h3 className="text-xl font-bold text-[#173B32] mb-2">
+              Your learning path is ready to begin
+            </h3>
+
+            <p className="text-sm text-[#66736B] max-w-md mx-auto">
+              Complete Career Discovery to generate
+              your personalized roadmap and learning
+              resources.
+            </p>
 
           </div>
 
@@ -1368,29 +1320,27 @@ const getResourceUrl = (resource) => {
             BOTTOM CTA
         ================================================= */}
 
-        <div className="mt-12 relative overflow-hidden rounded-[28px] border border-violet-400/10 bg-gradient-to-r from-violet-600/10 via-indigo-600/10 to-blue-600/10 p-7">
+        <div className="mt-12 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-7 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
-          <div className="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-violet-500/15 blur-[100px]" />
-
-          <div className="relative flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-5">
 
             <div>
 
               <div className="flex items-center gap-2 mb-2">
 
-                <Sparkles className="w-4 h-4 text-violet-300" />
+                <Sparkles className="w-4 h-4 text-[#E4B84A]" />
 
-                <span className="text-[9px] uppercase tracking-[0.2em] text-violet-300/60">
+                <span className="text-[11px] uppercase tracking-[0.18em] text-[#D66A4A] font-semibold">
                   Keep Growing
                 </span>
 
               </div>
 
-              <h3 className="text-xl font-bold">
+              <h3 className="text-xl font-bold text-[#173B32]">
                 Every skill moves you closer to your goal.
               </h3>
 
-              <p className="text-sm text-white/35 mt-1">
+              <p className="text-sm text-[#66736B] mt-1">
                 Stay consistent and complete your roadmap.
               </p>
 
@@ -1398,7 +1348,7 @@ const getResourceUrl = (resource) => {
 
             <a
               href="/roadmap"
-              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-white px-5 py-3 text-xs font-bold text-indigo-700 hover:bg-white/90 transition-all"
+              className="group inline-flex items-center justify-center gap-2 rounded-xl bg-[#D66A4A] px-5 py-3 text-xs font-bold text-[#FFFDF8] hover:bg-[#C45C3D] transition-colors"
             >
               View Roadmap
 

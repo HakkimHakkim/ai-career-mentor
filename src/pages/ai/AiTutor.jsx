@@ -998,7 +998,7 @@ const AiTutor = () => {
 
   return (
 
-    <div className="relative w-full h-[100dvh] min-h-0 overflow-hidden bg-[#070b22] text-white">
+    <div className="relative w-full h-[100dvh] min-h-0 overflow-hidden bg-[#F6F1E8] text-[#173B32]">
 
 
 
@@ -1014,7 +1014,7 @@ const AiTutor = () => {
 
         <div
 
-          className="fixed inset-0 z-40 bg-black/60 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 z-40 bg-[#173B32]/50 lg:hidden"
 
           onClick={() =>
 
@@ -1064,9 +1064,9 @@ const AiTutor = () => {
 
             shrink-0
 
-            bg-[#0c112f]
+            bg-[#FFFDF8]
 
-            border-r border-white/10
+            border-r border-[#DED8CC]
 
             flex flex-col
 
@@ -1092,7 +1092,7 @@ const AiTutor = () => {
 
 
 
-          <div className="h-[76px] shrink-0 px-5 border-b border-white/10 flex items-center justify-between">
+          <div className="h-[76px] shrink-0 px-5 border-b border-[#DED8CC] flex items-center justify-between">
 
 
 
@@ -1100,11 +1100,11 @@ const AiTutor = () => {
 
 
 
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+              <div className="w-10 h-10 rounded-xl bg-[#173B32] flex items-center justify-center">
 
 
 
-                <Sparkles className="w-5 h-5 text-white" />
+                <Sparkles className="w-5 h-5 text-[#E4B84A]" />
 
 
 
@@ -1116,7 +1116,7 @@ const AiTutor = () => {
 
 
 
-                <h2 className="font-bold text-white">
+                <h2 className="font-bold text-[#173B32]">
 
                   AI Tutor
 
@@ -1124,7 +1124,7 @@ const AiTutor = () => {
 
 
 
-                <p className="text-[11px] text-white/40">
+                <p className="text-[11px] text-[#8A948D]">
 
                   Career Intelligence
 
@@ -1152,11 +1152,11 @@ const AiTutor = () => {
 
               }
 
-              className="lg:hidden w-9 h-9 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center hover:bg-white/10"
+              className="lg:hidden w-9 h-9 rounded-xl bg-[#F6F1E8] border border-[#DED8CC] flex items-center justify-center hover:bg-[#DED8CC]/50 transition-colors"
 
             >
 
-              <X className="w-4 h-4" />
+              <X className="w-4 h-4 text-[#173B32]" />
 
             </button>
 
@@ -1178,7 +1178,7 @@ const AiTutor = () => {
 
               onClick={handleNewChat}
 
-              className="w-full h-12 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center gap-2 font-semibold shadow-lg shadow-indigo-900/30 transition-all"
+              className="w-full h-12 rounded-xl bg-[#D66A4A] hover:bg-[#C45C3D] text-[#FFFDF8] flex items-center justify-center gap-2 font-semibold shadow-[0_2px_8px_rgba(214,106,74,0.25)] transition-colors"
 
             >
 
@@ -1212,11 +1212,11 @@ const AiTutor = () => {
 
 
 
-              <MessageSquare className="w-4 h-4 text-white/40" />
+              <MessageSquare className="w-4 h-4 text-[#8A948D]" />
 
 
 
-              <span className="text-xs font-bold uppercase tracking-[0.18em] text-white/40">
+              <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#8A948D]">
 
                 Recent Chats
 
@@ -1306,15 +1306,15 @@ const AiTutor = () => {
 
                         border
 
-                        transition-all
+                        transition-colors
 
                         ${
 
                           isActive
 
-                            ? 'bg-violet-500/10 border-violet-500/30'
+                            ? 'bg-[#173B32]/5 border-[#173B32]'
 
-                            : 'bg-transparent border-transparent hover:bg-white/5 hover:border-white/10'
+                            : 'bg-transparent border-transparent hover:bg-[#F6F1E8] hover:border-[#DED8CC]'
 
                         }
 
@@ -1348,9 +1348,9 @@ const AiTutor = () => {
 
                               isActive
 
-                                ? 'bg-violet-500/20 text-violet-300'
+                                ? 'bg-[#173B32] text-[#E4B84A]'
 
-                                : 'bg-white/5 text-white/40'
+                                : 'bg-[#F6F1E8] text-[#8A948D]'
 
                             }
 
@@ -1368,7 +1368,7 @@ const AiTutor = () => {
 
 
 
-                          <p className="text-sm font-medium text-white truncate">
+                          <p className="text-sm font-medium text-[#173B32] truncate">
 
                             {chat.title}
 
@@ -1376,7 +1376,7 @@ const AiTutor = () => {
 
 
 
-                          <p className="mt-1 text-[11px] text-white/35">
+                          <p className="mt-1 text-[11px] text-[#8A948D]">
 
                             {messageCount}{' '}
 
@@ -1426,11 +1426,11 @@ const AiTutor = () => {
 
 
 
-          <div className="shrink-0 p-4 border-t border-white/10">
+          <div className="shrink-0 p-4 border-t border-[#DED8CC]">
 
 
 
-            <div className="rounded-xl bg-white/[0.03] border border-white/10 p-3">
+            <div className="rounded-xl bg-[#F6F1E8] border border-[#DED8CC] p-3">
 
 
 
@@ -1438,11 +1438,11 @@ const AiTutor = () => {
 
 
 
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-2 h-2 rounded-full bg-[#78927A]" />
 
 
 
-                <span className="text-xs text-white/60">
+                <span className="text-xs text-[#173B32] font-medium">
 
                   AI Tutor Ready
 
@@ -1454,7 +1454,7 @@ const AiTutor = () => {
 
 
 
-              <p className="text-[11px] text-white/30 mt-2">
+              <p className="text-[11px] text-[#66736B] mt-2">
 
                 Your conversations are
 
@@ -1484,7 +1484,7 @@ const AiTutor = () => {
 
 
 
-        <main className="flex-1 min-w-0 min-h-0 flex flex-col bg-[#080c27]">
+        <main className="flex-1 min-w-0 min-h-0 flex flex-col bg-[#F6F1E8]">
 
 
 
@@ -1496,7 +1496,7 @@ const AiTutor = () => {
 
 
 
-          <header className="h-[64px] sm:h-[76px] shrink-0 border-b border-white/10 px-1.5 sm:px-4 md:px-7 flex items-center justify-between gap-1.5 bg-[#090d29]/90 backdrop-blur-xl">
+          <header className="h-[64px] sm:h-[76px] shrink-0 border-b border-[#DED8CC] px-1.5 sm:px-4 md:px-7 flex items-center justify-between gap-1.5 bg-[#FFFDF8]">
 
 
 
@@ -1508,11 +1508,11 @@ const AiTutor = () => {
 
 
 
-              <div className="w-8 h-8 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-gradient-to-br from-violet-500/30 to-indigo-500/30 border border-violet-400/20 flex items-center justify-center">
+              <div className="w-8 h-8 sm:w-11 sm:h-11 shrink-0 rounded-xl bg-[#E4B84A]/20 border border-[#E4B84A]/40 flex items-center justify-center">
 
 
 
-                <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-violet-300" />
+                <Bot className="w-5 h-5 sm:w-6 sm:h-6 text-[#173B32]" />
 
 
 
@@ -1528,7 +1528,7 @@ const AiTutor = () => {
 
 
 
-                  <h1 className="text-[11px] sm:text-lg md:text-xl font-bold text-white truncate">
+                  <h1 className="text-[11px] sm:text-lg md:text-xl font-bold text-[#173B32] truncate">
 
                     <span className="sm:hidden">AI Tutor</span>
                     <span className="hidden sm:inline">AI Career Tutor</span>
@@ -1537,7 +1537,7 @@ const AiTutor = () => {
 
 
 
-                  <span className="shrink-0 px-1 sm:px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[7px] sm:text-[10px] font-bold">
+                  <span className="shrink-0 px-1 sm:px-2 py-0.5 rounded-full bg-[#78927A]/15 border border-[#78927A]/40 text-[#173B32] text-[7px] sm:text-[10px] font-bold">
 
                     ONLINE
 
@@ -1549,7 +1549,7 @@ const AiTutor = () => {
 
 
 
-                <p className="hidden sm:block text-xs text-white/35">
+                <p className="hidden sm:block text-xs text-[#66736B]">
 
                   Your personal AI learning companion
 
@@ -1574,7 +1574,7 @@ const AiTutor = () => {
                 onClick={handleNewChat}
                 disabled={loading}
                 aria-label="New Chat"
-                className="h-8 px-2 rounded-lg bg-violet-500/15 border border-violet-400/20 text-violet-200 flex items-center gap-1.5 text-[11px] font-semibold hover:bg-violet-500/25 transition-all disabled:opacity-40"
+                className="h-8 px-2 rounded-lg bg-[#D66A4A] border border-[#D66A4A] text-[#FFFDF8] flex items-center gap-1.5 text-[11px] font-semibold hover:bg-[#C45C3D] transition-colors disabled:opacity-40"
               >
                 <Plus className="w-3.5 h-3.5" />
                 <span>New</span>
@@ -1584,7 +1584,7 @@ const AiTutor = () => {
                 type="button"
                 onClick={() => setShowChatList(true)}
                 aria-label="Recent Chats"
-                className="h-8 px-2 rounded-lg bg-white/5 border border-white/10 text-white/75 flex items-center gap-1.5 text-[11px] font-semibold hover:bg-white/10 transition-all"
+                className="h-8 px-2 rounded-lg bg-[#FFFDF8] border border-[#173B32] text-[#173B32] flex items-center gap-1.5 text-[11px] font-semibold hover:bg-[#173B32]/5 transition-colors"
               >
                 <MessageSquare className="w-3.5 h-3.5" />
                 <span>Chats</span>
@@ -1602,7 +1602,7 @@ const AiTutor = () => {
 
               disabled={loading}
 
-              className="h-8 w-auto px-1.5 sm:h-10 sm:px-3 md:px-4 shrink-0 rounded-xl bg-white/[0.03] border border-white/10 text-white/45 hover:text-white hover:bg-white/10 transition-all flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-40"
+              className="h-8 w-auto px-1.5 sm:h-10 sm:px-3 md:px-4 shrink-0 rounded-xl bg-[#FFFDF8] border border-[#DED8CC] text-[#66736B] hover:text-[#B94F35] hover:border-[#B94F35]/40 hover:bg-[#B94F35]/5 transition-colors flex items-center justify-center gap-1.5 sm:gap-2 disabled:opacity-40"
 
             >
 
@@ -1671,11 +1671,11 @@ const AiTutor = () => {
 
 
 
-                    <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500/20 to-indigo-500/20 border border-violet-400/20 flex items-center justify-center">
+                    <div className="mx-auto mb-6 w-16 h-16 rounded-2xl bg-[#173B32] flex items-center justify-center">
 
 
 
-                      <Sparkles className="w-8 h-8 text-violet-300" />
+                      <Sparkles className="w-8 h-8 text-[#E4B84A]" />
 
 
 
@@ -1683,13 +1683,13 @@ const AiTutor = () => {
 
 
 
-                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-white mb-4">
+                    <h2 className="text-3xl md:text-5xl font-bold tracking-tight text-[#173B32] mb-4">
 
 
 
                       How can I help your
 
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-violet-400 to-indigo-400">
+                      <span className="text-[#D66A4A]">
 
                         {' '}career?
 
@@ -1701,7 +1701,7 @@ const AiTutor = () => {
 
 
 
-                    <p className="text-sm md:text-base text-white/40 leading-7 max-w-2xl mx-auto">
+                    <p className="text-sm md:text-base text-[#66736B] leading-7 max-w-2xl mx-auto">
 
                       Ask questions, understand
 
@@ -1733,11 +1733,11 @@ const AiTutor = () => {
 
 
 
-                      <Sparkles className="w-4 h-4 text-violet-400" />
+                      <Sparkles className="w-4 h-4 text-[#E4B84A]" />
 
 
 
-                      <span className="text-xs font-bold uppercase tracking-[0.18em] text-white/35">
+                      <span className="text-xs font-bold uppercase tracking-[0.18em] text-[#8A948D]">
 
                         Quick Start
 
@@ -1791,7 +1791,7 @@ const AiTutor = () => {
 
                               }
 
-                              className="group text-left p-4 rounded-2xl bg-white/[0.025] border border-white/10 hover:border-violet-400/30 hover:bg-violet-500/[0.06] transition-all disabled:opacity-50"
+                              className="group text-left p-4 rounded-2xl bg-[#FFFDF8] border border-[#DED8CC] shadow-[0_1px_4px_rgba(23,59,50,0.06)] hover:border-[#173B32] hover:shadow-[0_4px_14px_rgba(23,59,50,0.1)] transition-all disabled:opacity-50"
 
                             >
 
@@ -1801,11 +1801,11 @@ const AiTutor = () => {
 
 
 
-                                <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-violet-500/10 group-hover:border-violet-400/20 transition-all">
+                                <div className="w-11 h-11 rounded-xl bg-[#D66A4A]/10 border border-[#D66A4A]/20 flex items-center justify-center transition-colors">
 
 
 
-                                  <Icon className="w-5 h-5 text-white/50 group-hover:text-violet-300" />
+                                  <Icon className="w-5 h-5 text-[#D66A4A]" />
 
 
 
@@ -1817,7 +1817,7 @@ const AiTutor = () => {
 
 
 
-                                  <h3 className="font-semibold text-white/80">
+                                  <h3 className="font-semibold text-[#173B32]">
 
                                     {item.title}
 
@@ -1825,7 +1825,7 @@ const AiTutor = () => {
 
 
 
-                                  <p className="text-xs text-white/30 mt-1">
+                                  <p className="text-xs text-[#66736B] mt-1">
 
                                     {
 
@@ -1923,11 +1923,11 @@ const AiTutor = () => {
 
                           {!isUser && (
 
-                            <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center shadow-lg">
+                            <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-[#173B32] flex items-center justify-center">
 
 
 
-                              <Bot className="w-5 h-5 text-white" />
+                              <Bot className="w-5 h-5 text-[#E4B84A]" />
 
 
 
@@ -1963,9 +1963,9 @@ const AiTutor = () => {
 
                                 isUser
 
-                                  ? 'bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-br-md'
+                                  ? 'bg-[#173B32] text-[#F6F1E8] rounded-br-md'
 
-                                  : 'bg-white/[0.045] border border-white/10 text-white/85 rounded-bl-md'
+                                  : 'bg-[#FFFDF8] border border-[#DED8CC] text-[#173B32] rounded-bl-md shadow-[0_1px_4px_rgba(23,59,50,0.06)]'
 
                               }
 
@@ -1995,7 +1995,7 @@ const AiTutor = () => {
 
 
 
-                              <div className="prose prose-sm prose-invert max-w-none prose-p:leading-7 prose-pre:bg-black/30 prose-pre:border prose-pre:border-white/10 prose-code:text-violet-300">
+                              <div className="prose prose-sm max-w-none text-[#173B32] prose-p:leading-7 prose-p:text-[#173B32] prose-headings:text-[#173B32] prose-strong:text-[#173B32] prose-li:text-[#173B32] prose-a:text-[#D66A4A] prose-blockquote:text-[#66736B] prose-blockquote:border-[#DED8CC] prose-pre:bg-[#173B32] prose-pre:text-[#F6F1E8] prose-pre:border prose-pre:border-[#DED8CC] prose-code:text-[#B94F35] prose-th:text-[#173B32] prose-td:text-[#173B32]">
 
 
 
@@ -2037,11 +2037,11 @@ const AiTutor = () => {
 
                           {isUser && (
 
-                            <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center">
+                            <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-[#E4B84A]/20 border border-[#E4B84A]/40 flex items-center justify-center">
 
 
 
-                              <User className="w-5 h-5 text-white/60" />
+                              <User className="w-5 h-5 text-[#173B32]" />
 
 
 
@@ -2071,11 +2071,11 @@ const AiTutor = () => {
 
 
 
-                      <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                      <div className="w-9 h-9 md:w-10 md:h-10 shrink-0 rounded-xl bg-[#173B32] flex items-center justify-center">
 
 
 
-                        <Bot className="w-5 h-5 text-white" />
+                        <Bot className="w-5 h-5 text-[#E4B84A]" />
 
 
 
@@ -2083,7 +2083,7 @@ const AiTutor = () => {
 
 
 
-                      <div className="px-5 py-4 rounded-2xl rounded-bl-md bg-white/[0.045] border border-white/10">
+                      <div className="px-5 py-4 rounded-2xl rounded-bl-md bg-[#FFFDF8] border border-[#DED8CC]">
 
 
 
@@ -2091,15 +2091,15 @@ const AiTutor = () => {
 
 
 
-                          <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce [animation-delay:-0.3s]" />
+                          <span className="w-2 h-2 bg-[#78927A] rounded-full animate-bounce [animation-delay:-0.3s]" />
 
 
 
-                          <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce [animation-delay:-0.15s]" />
+                          <span className="w-2 h-2 bg-[#78927A] rounded-full animate-bounce [animation-delay:-0.15s]" />
 
 
 
-                          <span className="w-2 h-2 bg-white/40 rounded-full animate-bounce" />
+                          <span className="w-2 h-2 bg-[#78927A] rounded-full animate-bounce" />
 
 
 
@@ -2145,7 +2145,7 @@ const AiTutor = () => {
 
 
 
-          <div className="shrink-0 border-t border-white/10 bg-[#080c27]/95 backdrop-blur-xl">
+          <div className="shrink-0 border-t border-[#DED8CC] bg-[#FFFDF8]">
 
 
 
@@ -2153,7 +2153,7 @@ const AiTutor = () => {
 
 
 
-              <div className="relative flex items-end gap-2 rounded-2xl bg-white/[0.045] border border-white/10 focus-within:border-violet-400/30 focus-within:bg-white/[0.06] transition-all p-2">
+              <div className="relative flex items-end gap-2 rounded-2xl bg-[#F6F1E8] border border-[#DED8CC] focus-within:border-[#173B32] focus-within:bg-[#FFFDF8] transition-colors p-2">
 
 
 
@@ -2185,7 +2185,7 @@ const AiTutor = () => {
 
                   rows={1}
 
-                  className="flex-1 resize-none bg-transparent px-3 py-3 text-sm md:text-[15px] text-white placeholder-white/30 focus:outline-none min-h-[46px] max-h-32 overflow-y-auto"
+                  className="flex-1 resize-none bg-transparent px-3 py-3 text-sm md:text-[15px] text-[#173B32] placeholder-[#8A948D] focus:outline-none min-h-[46px] max-h-32 overflow-y-auto"
 
                 />
 
@@ -2207,13 +2207,13 @@ const AiTutor = () => {
 
                   }
 
-                  className="w-11 h-11 shrink-0 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-500 hover:to-indigo-500 flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-lg shadow-indigo-900/30"
+                  className="w-11 h-11 shrink-0 rounded-xl bg-[#D66A4A] hover:bg-[#C45C3D] flex items-center justify-center disabled:opacity-30 disabled:cursor-not-allowed transition-colors shadow-[0_2px_8px_rgba(214,106,74,0.25)]"
 
                 >
 
 
 
-                  <Send className="w-5 h-5 text-white" />
+                  <Send className="w-5 h-5 text-[#FFFDF8]" />
 
 
 
@@ -2225,7 +2225,7 @@ const AiTutor = () => {
 
 
 
-              <p className="text-[10px] text-white/20 text-center mt-2">
+              <p className="text-[10px] text-[#8A948D] text-center mt-2">
 
                 AI Tutor can make mistakes.
 

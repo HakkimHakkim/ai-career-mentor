@@ -197,14 +197,12 @@ const MyCareer = () => {
 
   if (loading) {
     return (
-      <div className="min-h-[70vh] flex flex-col items-center justify-center bg-transparent">
-        <div className="relative">
-          <div className="absolute inset-0 blur-2xl bg-indigo-600/30 rounded-full" />
-
-          <Loader2 className="relative w-12 h-12 animate-spin text-indigo-400" />
+      <div className="min-h-[70vh] flex flex-col items-center justify-center bg-[#F6F1E8]">
+        <div className="w-14 h-14 rounded-xl bg-[#FFFDF8] border border-[#DED8CC] flex items-center justify-center shadow-[0_2px_10px_rgba(23,59,50,0.08)]">
+          <Loader2 className="w-7 h-7 animate-spin text-[#D66A4A]" />
         </div>
 
-        <p className="mt-5 text-sm text-gray-400">
+        <p className="mt-5 text-sm text-[#66736B]">
           Loading your career path...
         </p>
       </div>
@@ -217,28 +215,26 @@ const MyCareer = () => {
 
   if (error) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center p-6">
-        <div className="relative max-w-md w-full">
+      <div className="min-h-[70vh] flex items-center justify-center p-6 bg-[#F6F1E8]">
+        <div className="max-w-md w-full">
 
-          <div className="absolute inset-0 bg-red-600/10 blur-3xl rounded-full" />
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-8 text-center shadow-[0_2px_12px_rgba(23,59,50,0.08)]">
 
-          <div className="relative rounded-3xl border border-red-500/20 bg-[#111633]/80 backdrop-blur-xl p-8 text-center">
-
-            <div className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-red-500/10 border border-red-500/20 flex items-center justify-center">
-              <Briefcase className="w-8 h-8 text-red-400" />
+            <div className="w-16 h-16 mx-auto mb-5 rounded-xl bg-[#B94F35]/10 border border-[#B94F35]/20 flex items-center justify-center">
+              <Briefcase className="w-8 h-8 text-[#B94F35]" />
             </div>
 
-            <h2 className="text-xl font-bold text-white mb-3">
+            <h2 className="text-xl font-bold text-[#173B32] mb-3">
               Unable to Load Career
             </h2>
 
-            <p className="text-sm text-red-400 mb-6">
+            <p className="text-sm text-[#B94F35] mb-6">
               {error}
             </p>
 
             <button
               onClick={fetchMyCareer}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold hover:opacity-90 transition"
+              className="w-full py-3 rounded-xl bg-[#D66A4A] text-[#FFFDF8] font-semibold hover:bg-[#C45C3D] transition-colors"
             >
               Try Again
             </button>
@@ -255,22 +251,20 @@ const MyCareer = () => {
 
   if (!careerData) {
     return (
-      <div className="min-h-[70vh] flex items-center justify-center p-6">
-        <div className="relative max-w-md w-full text-center">
+      <div className="min-h-[70vh] flex items-center justify-center p-6 bg-[#F6F1E8]">
+        <div className="max-w-md w-full text-center">
 
-          <div className="absolute inset-0 bg-indigo-600/20 blur-3xl rounded-full" />
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-10 shadow-[0_2px_12px_rgba(23,59,50,0.08)]">
 
-          <div className="relative rounded-3xl border border-white/10 bg-[#111633]/70 backdrop-blur-xl p-10">
-
-            <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-2xl shadow-indigo-600/30">
-              <Target className="w-10 h-10 text-white" />
+            <div className="w-20 h-20 mx-auto mb-6 rounded-2xl bg-[#173B32] flex items-center justify-center">
+              <Target className="w-10 h-10 text-[#E4B84A]" />
             </div>
 
-            <h2 className="text-2xl font-bold text-white mb-3">
+            <h2 className="text-2xl font-bold text-[#173B32] mb-3">
               Discover Your Career Path
             </h2>
 
-            <p className="text-gray-400 mb-7">
+            <p className="text-[#66736B] mb-7">
               Complete your career assessment to discover
               your personalized career direction.
             </p>
@@ -279,7 +273,7 @@ const MyCareer = () => {
               onClick={() =>
                 navigate('/career-discovery')
               }
-              className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3.5 rounded-xl font-semibold hover:opacity-90 transition flex items-center justify-center gap-2"
+              className="w-full bg-[#D66A4A] text-[#FFFDF8] py-3.5 rounded-xl font-semibold hover:bg-[#C45C3D] transition-colors flex items-center justify-center gap-2"
             >
               Take Career Discovery
               <ArrowRight className="w-4 h-4" />
@@ -347,41 +341,35 @@ const MyCareer = () => {
   ===================================================== */
 
   return (
-    <div className="relative min-h-screen p-4 md:p-8 overflow-hidden">
+    <div className="min-h-screen p-4 md:p-8 bg-[#F6F1E8] text-[#173B32]">
 
-      {/* Background Glow */}
-
-      <div className="pointer-events-none fixed top-10 right-10 w-96 h-96 bg-indigo-600/10 blur-[120px] rounded-full" />
-
-      <div className="pointer-events-none fixed bottom-0 left-1/4 w-96 h-96 bg-purple-600/10 blur-[120px] rounded-full" />
-
-      <div className="relative max-w-6xl mx-auto">
+      <div className="max-w-6xl mx-auto">
 
         {/* =================================================
             HEADER
         ================================================= */}
 
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-8 pb-8 border-b border-[#DED8CC]">
 
           <div>
 
             <div className="flex items-center gap-2 mb-3">
 
-              <div className="w-8 h-8 rounded-lg bg-indigo-500/15 border border-indigo-500/20 flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-indigo-400" />
+              <div className="w-8 h-8 rounded-lg bg-[#E4B84A]/20 border border-[#E4B84A]/40 flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-[#173B32]" />
               </div>
 
-              <span className="text-xs font-bold tracking-[0.2em] uppercase text-indigo-300">
+              <span className="text-[11px] font-bold tracking-[0.2em] uppercase text-[#D66A4A]">
                 Career Intelligence
               </span>
 
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-white tracking-tight">
+            <h1 className="text-4xl md:text-5xl font-bold text-[#173B32] tracking-tight">
               My Career Path
             </h1>
 
-            <p className="mt-3 text-gray-400">
+            <p className="mt-3 text-[#66736B]">
               Your personalized AI-powered career direction
             </p>
 
@@ -391,7 +379,7 @@ const MyCareer = () => {
             onClick={() =>
               navigate('/career-discovery')
             }
-            className="w-fit px-4 py-2.5 rounded-xl border border-white/10 bg-white/[0.03] text-gray-300 hover:bg-white/[0.07] transition flex items-center gap-2"
+            className="w-fit px-4 py-2.5 rounded-xl border border-[#173B32] bg-[#FFFDF8] text-[#173B32] text-sm font-semibold hover:bg-[#173B32]/5 transition-colors flex items-center gap-2"
           >
             <RotateCcw className="w-4 h-4" />
             Reassess
@@ -403,13 +391,7 @@ const MyCareer = () => {
             HERO CAREER CARD
         ================================================= */}
 
-        <div className="relative overflow-hidden rounded-[28px] border border-white/10 bg-gradient-to-br from-[#171b48] via-[#121632] to-[#0e122c] p-6 md:p-9 mb-7 shadow-2xl">
-
-          {/* Glow */}
-
-          <div className="absolute -top-32 -right-20 w-80 h-80 bg-purple-600/20 blur-[100px] rounded-full" />
-
-          <div className="absolute -bottom-32 left-1/3 w-80 h-80 bg-indigo-600/20 blur-[100px] rounded-full" />
+        <div className="relative overflow-hidden rounded-2xl bg-[#173B32] p-6 md:p-9 mb-7 shadow-[0_6px_20px_rgba(23,59,50,0.18)]">
 
           <div className="relative">
 
@@ -419,22 +401,22 @@ const MyCareer = () => {
 
               <div className="flex-1">
 
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-400/10 border border-emerald-400/20 mb-5">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#E4B84A]/15 border border-[#E4B84A]/40 mb-5">
 
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-[#E4B84A]" />
 
-                  <span className="text-xs font-semibold text-emerald-300">
+                  <span className="text-xs font-semibold text-[#E4B84A]">
                     Career Match Found
                   </span>
 
                 </div>
 
-                <h2 className="text-3xl md:text-5xl font-bold text-white mb-5">
+                <h2 className="text-3xl md:text-5xl font-bold text-[#F6F1E8] mb-5">
                   {careerName}
                 </h2>
 
                 {careerDescription && (
-                  <p className="max-w-2xl text-gray-300 leading-relaxed">
+                  <p className="max-w-2xl text-[#F6F1E8]/75 leading-relaxed">
                     {careerDescription}
                   </p>
                 )}
@@ -459,7 +441,7 @@ const MyCareer = () => {
                       fill="none"
                       stroke="currentColor"
                       strokeWidth="7"
-                      className="text-white/10"
+                      className="text-[#F6F1E8]/15"
                     />
 
                     <circle
@@ -471,18 +453,18 @@ const MyCareer = () => {
                       strokeWidth="7"
                       strokeLinecap="round"
                       strokeDasharray={`${(matchScore / 100) * 327} 327`}
-                      className="text-indigo-400"
+                      className="text-[#E4B84A]"
                     />
 
                   </svg>
 
                   <div className="absolute inset-0 flex flex-col items-center justify-center">
 
-                    <span className="text-3xl font-bold text-white">
+                    <span className="text-3xl font-bold text-[#F6F1E8]">
                       {Math.round(matchScore)}%
                     </span>
 
-                    <span className="text-[11px] uppercase tracking-wider text-gray-400">
+                    <span className="text-[11px] uppercase tracking-wider text-[#F6F1E8]/60">
                       Match
                     </span>
 
@@ -498,62 +480,62 @@ const MyCareer = () => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-8">
 
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+              <div className="rounded-xl border border-[#F6F1E8]/15 bg-[#F6F1E8]/10 p-5">
 
                 <div className="flex items-center gap-3 mb-3">
 
-                  <div className="w-10 h-10 rounded-xl bg-indigo-500/15 flex items-center justify-center">
-                    <TrendingUp className="w-5 h-5 text-indigo-400" />
+                  <div className="w-10 h-10 rounded-lg bg-[#F6F1E8]/10 flex items-center justify-center">
+                    <TrendingUp className="w-5 h-5 text-[#E4B84A]" />
                   </div>
 
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-[#F6F1E8]/65">
                     Average Salary
                   </span>
 
                 </div>
 
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-[#F6F1E8]">
                   {averageSalary}
                 </p>
 
               </div>
 
-              <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+              <div className="rounded-xl border border-[#F6F1E8]/15 bg-[#F6F1E8]/10 p-5">
 
                 <div className="flex items-center gap-3 mb-3">
 
-                  <div className="w-10 h-10 rounded-xl bg-purple-500/15 flex items-center justify-center">
-                    <GraduationCap className="w-5 h-5 text-purple-400" />
+                  <div className="w-10 h-10 rounded-lg bg-[#F6F1E8]/10 flex items-center justify-center">
+                    <GraduationCap className="w-5 h-5 text-[#E4B84A]" />
                   </div>
 
-                  <span className="text-xs text-gray-400">
+                  <span className="text-xs text-[#F6F1E8]/65">
                     Experience Level
                   </span>
 
                 </div>
 
-                <p className="text-lg font-bold text-white">
+                <p className="text-lg font-bold text-[#F6F1E8]">
                   {experienceLevel}
                 </p>
 
               </div>
 
               {jobReadiness !== null && (
-                <div className="rounded-2xl border border-white/10 bg-white/[0.04] p-5">
+                <div className="rounded-xl border border-[#F6F1E8]/15 bg-[#F6F1E8]/10 p-5">
 
                   <div className="flex items-center gap-3 mb-3">
 
-                    <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
-                      <Target className="w-5 h-5 text-emerald-400" />
+                    <div className="w-10 h-10 rounded-lg bg-[#F6F1E8]/10 flex items-center justify-center">
+                      <Target className="w-5 h-5 text-[#E4B84A]" />
                     </div>
 
-                    <span className="text-xs text-gray-400">
+                    <span className="text-xs text-[#F6F1E8]/65">
                       Job Readiness
                     </span>
 
                   </div>
 
-                  <p className="text-lg font-bold text-white">
+                  <p className="text-lg font-bold text-[#F6F1E8]">
                     {jobReadiness}%
                   </p>
 
@@ -573,29 +555,29 @@ const MyCareer = () => {
 
           {/* Matched Skills */}
 
-          <div className="rounded-3xl border border-white/10 bg-[#111633]/70 backdrop-blur-xl p-6">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="flex items-center justify-between mb-6">
 
               <div className="flex items-center gap-3">
 
-                <div className="w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/10 flex items-center justify-center">
-                  <CheckCircle2 className="w-5 h-5 text-emerald-400" />
+                <div className="w-11 h-11 rounded-xl bg-[#78927A]/15 border border-[#78927A]/30 flex items-center justify-center">
+                  <CheckCircle2 className="w-5 h-5 text-[#78927A]" />
                 </div>
 
                 <div>
-                  <h3 className="font-bold text-white">
+                  <h3 className="font-bold text-[#173B32]">
                     Matched Skills
                   </h3>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-[#8A948D] mt-1">
                     Skills you already have
                   </p>
                 </div>
 
               </div>
 
-              <span className="text-xs px-2.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#78927A]/15 text-[#173B32]">
                 {matchedSkills.length}
               </span>
 
@@ -609,12 +591,12 @@ const MyCareer = () => {
 
                   <div
                     key={`${skill}-${index}`}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-emerald-500/10 bg-emerald-500/[0.04]"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg border border-[#78927A]/30 bg-[#78927A]/10"
                   >
 
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                    <CheckCircle2 className="w-4 h-4 text-[#78927A] flex-shrink-0" />
 
-                    <span className="text-sm text-gray-300">
+                    <span className="text-sm text-[#173B32]">
                       {skill}
                     </span>
 
@@ -626,7 +608,7 @@ const MyCareer = () => {
 
             ) : (
 
-              <div className="py-8 text-center text-sm text-gray-500">
+              <div className="py-8 text-center text-sm text-[#8A948D]">
                 No matched skills found yet.
               </div>
 
@@ -636,23 +618,23 @@ const MyCareer = () => {
 
           {/* Missing Skills */}
 
-          <div className="rounded-3xl border border-white/10 bg-[#111633]/70 backdrop-blur-xl p-6">
+          <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="flex items-center justify-between mb-6">
 
               <div className="flex items-center gap-3">
 
-                <div className="w-11 h-11 rounded-xl bg-orange-500/10 border border-orange-500/10 flex items-center justify-center">
-                  <Target className="w-5 h-5 text-orange-400" />
+                <div className="w-11 h-11 rounded-xl bg-[#D66A4A]/10 border border-[#D66A4A]/20 flex items-center justify-center">
+                  <Target className="w-5 h-5 text-[#D66A4A]" />
                 </div>
 
                 <div>
 
-                  <h3 className="font-bold text-white">
+                  <h3 className="font-bold text-[#173B32]">
                     Skills to Learn
                   </h3>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-[#8A948D] mt-1">
                     Skills to improve your career match
                   </p>
 
@@ -660,7 +642,7 @@ const MyCareer = () => {
 
               </div>
 
-              <span className="text-xs px-2.5 py-1 rounded-full bg-orange-500/10 text-orange-400">
+              <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#D66A4A]/10 text-[#B94F35]">
                 {missingSkills.length}
               </span>
 
@@ -674,12 +656,12 @@ const MyCareer = () => {
 
                   <div
                     key={`${skill}-${index}`}
-                    className="flex items-center gap-3 px-4 py-3 rounded-xl border border-orange-500/10 bg-orange-500/[0.04]"
+                    className="flex items-center gap-3 px-4 py-3 rounded-lg border border-[#D66A4A]/25 bg-[#D66A4A]/[0.07]"
                   >
 
-                    <span className="w-2 h-2 rounded-full bg-orange-400 flex-shrink-0" />
+                    <span className="w-2 h-2 rounded-full bg-[#D66A4A] flex-shrink-0" />
 
-                    <span className="text-sm text-gray-300">
+                    <span className="text-sm text-[#173B32]">
                       {skill}
                     </span>
 
@@ -691,7 +673,7 @@ const MyCareer = () => {
 
             ) : (
 
-              <div className="py-8 text-center text-sm text-gray-500">
+              <div className="py-8 text-center text-sm text-[#8A948D]">
                 No missing skills. Great job!
               </div>
 
@@ -705,29 +687,27 @@ const MyCareer = () => {
             ROADMAP CTA
         ================================================= */}
 
-        <div className="relative overflow-hidden rounded-3xl border border-indigo-400/10 bg-gradient-to-r from-indigo-600/20 via-purple-600/15 to-cyan-500/10 p-6 md:p-8 mb-7">
+        <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 md:p-8 mb-7 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
-          <div className="absolute right-0 top-0 w-72 h-72 bg-indigo-500/10 blur-[100px] rounded-full" />
-
-          <div className="relative flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
 
             <div>
 
               <div className="flex items-center gap-2 mb-3">
 
-                <Sparkles className="w-4 h-4 text-indigo-400" />
+                <Sparkles className="w-4 h-4 text-[#E4B84A]" />
 
-                <span className="text-xs font-bold uppercase tracking-widest text-indigo-300">
+                <span className="text-xs font-bold uppercase tracking-widest text-[#D66A4A]">
                   Your Next Move
                 </span>
 
               </div>
 
-              <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">
+              <h2 className="text-2xl md:text-3xl font-bold text-[#173B32] mb-2">
                 Ready to build your roadmap?
               </h2>
 
-              <p className="text-sm text-gray-400 max-w-xl">
+              <p className="text-sm text-[#66736B] max-w-xl">
                 Turn your career goal into a step-by-step learning
                 journey designed around your current skills.
               </p>
@@ -737,7 +717,7 @@ const MyCareer = () => {
             <button
               onClick={handleViewRoadmap}
               disabled={generatingRoadmap}
-              className="flex-shrink-0 px-6 py-3.5 rounded-xl bg-white text-indigo-700 font-bold hover:bg-gray-100 transition flex items-center justify-center gap-2 disabled:opacity-60"
+              className="flex-shrink-0 px-6 py-3.5 rounded-xl bg-[#D66A4A] text-[#FFFDF8] font-bold hover:bg-[#C45C3D] transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
             >
 
               {generatingRoadmap ? (
@@ -767,24 +747,24 @@ const MyCareer = () => {
           <button
             onClick={handleStartLearning}
             disabled={generatingRoadmap}
-            className="group p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition text-left"
+            className="group p-5 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] hover:border-[#173B32] hover:shadow-[0_4px_14px_rgba(23,59,50,0.1)] transition-all text-left"
           >
 
             <div className="flex items-center justify-between">
 
               <div className="flex items-center gap-4">
 
-                <div className="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center">
-                  <BookOpen className="w-5 h-5 text-indigo-400" />
+                <div className="w-12 h-12 rounded-xl bg-[#E4B84A]/20 flex items-center justify-center">
+                  <BookOpen className="w-5 h-5 text-[#173B32]" />
                 </div>
 
                 <div>
 
-                  <h3 className="font-bold text-white">
+                  <h3 className="font-bold text-[#173B32]">
                     Start Learning
                   </h3>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-[#8A948D] mt-1">
                     Follow your personalized roadmap
                   </p>
 
@@ -792,7 +772,7 @@ const MyCareer = () => {
 
               </div>
 
-              <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-indigo-400 group-hover:translate-x-1 transition" />
+              <ArrowRight className="w-5 h-5 text-[#8A948D] group-hover:text-[#D66A4A] group-hover:translate-x-1 transition" />
 
             </div>
 
@@ -802,24 +782,24 @@ const MyCareer = () => {
             onClick={() =>
               navigate('/career-discovery')
             }
-            className="group p-5 rounded-2xl border border-white/10 bg-white/[0.03] hover:bg-white/[0.06] transition text-left"
+            className="group p-5 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] hover:border-[#173B32] hover:shadow-[0_4px_14px_rgba(23,59,50,0.1)] transition-all text-left"
           >
 
             <div className="flex items-center justify-between">
 
               <div className="flex items-center gap-4">
 
-                <div className="w-12 h-12 rounded-xl bg-purple-500/10 flex items-center justify-center">
-                  <Briefcase className="w-5 h-5 text-purple-400" />
+                <div className="w-12 h-12 rounded-xl bg-[#D66A4A]/10 flex items-center justify-center">
+                  <Briefcase className="w-5 h-5 text-[#D66A4A]" />
                 </div>
 
                 <div>
 
-                  <h3 className="font-bold text-white">
+                  <h3 className="font-bold text-[#173B32]">
                     Explore Another Career
                   </h3>
 
-                  <p className="text-xs text-gray-500 mt-1">
+                  <p className="text-xs text-[#8A948D] mt-1">
                     Retake the career assessment
                   </p>
 
@@ -827,7 +807,7 @@ const MyCareer = () => {
 
               </div>
 
-              <ArrowRight className="w-5 h-5 text-gray-500 group-hover:text-purple-400 group-hover:translate-x-1 transition" />
+              <ArrowRight className="w-5 h-5 text-[#8A948D] group-hover:text-[#D66A4A] group-hover:translate-x-1 transition" />
 
             </div>
 

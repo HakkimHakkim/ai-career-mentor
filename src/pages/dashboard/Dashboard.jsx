@@ -6,7 +6,6 @@ import {
   Zap,
   CheckCircle2,
   ArrowUpRight,
-  Sparkles,
   Clock3,
   Brain,
   ChevronRight,
@@ -14,6 +13,16 @@ import {
   Award,
   Rocket,
   BarChart3,
+  BriefcaseBusiness,
+  FileText,
+  MessageSquare,
+  Compass,
+  Settings,
+  LogOut,
+  Search,
+  Bell,
+  Menu,
+  UserRound,
 } from 'lucide-react';
 
 import {
@@ -26,15 +35,12 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-import MetricCard from '../../components/cards/MetricCard';
-
 const API_BASE_URL =
-  import.meta.env.VITE_API_BASE_URL ||
-  'http://127.0.0.1:8000';
+  import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
 
-/* =====================================================
+/* =========================================================
    AUTH
-===================================================== */
+========================================================= */
 
 const authHeaders = () => {
   const token = localStorage.getItem('ra_token');
@@ -53,25 +59,141 @@ const getUserName = () => {
     if (!raw) return 'there';
 
     const parsed = JSON.parse(raw);
-
     return parsed?.name || 'there';
   } catch {
     return 'there';
   }
 };
 
-/* =====================================================
+/* =========================================================
+   SMALL UI COMPONENTS
+========================================================= */
+
+const MetricCard = ({
+  icon: Icon,
+  label,
+  value,
+  subtitle,
+  progress,
+  tone = 'terracotta',
+}) => {
+  const tones = {
+    terracotta: {
+      icon: 'bg-[#D96C4A] text-white',
+      progress: 'bg-[#D96C4A]',
+    },
+    sage: {
+      icon: 'bg-[#6F8F72] text-white',
+      progress: 'bg-[#6F8F72]',
+    },
+    mustard: {
+      icon: 'bg-[#E7B84B] text-[#18231F]',
+      progress: 'bg-[#E7B84B]',
+    },
+    forest: {
+      icon: 'bg-[#24483A] text-white',
+      progress: 'bg-[#24483A]',
+    },
+  };
+
+  const current = tones[tone];
+
+  return (
+    <div className="rounded-2xl border border-[#E4DED2] bg-[#FFFCF6] p-5 transition duration-200 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_rgba(52,48,39,0.08)]">
+      <div className="flex items-start justify-between gap-4">
+        <div
+          className={`flex h-11 w-11 items-center justify-center rounded-xl ${current.icon}`}
+        >
+          <Icon className="h-5 w-5" />
+        </div>
+
+        <span className="text-xs font-medium text-[#8A887F]">
+          {progress}%
+        </span>
+      </div>
+
+      <p className="mt-5 text-xs font-semibold uppercase tracking-[0.12em] text-[#85847C]">
+        {label}
+      </p>
+
+      <p className="mt-1 text-2xl font-bold tracking-tight text-[#202D28]">
+        {value}
+      </p>
+
+      <p className="mt-1 truncate text-xs text-[#8A887F]">{subtitle}</p>
+
+      <div className="mt-4 h-1.5 overflow-hidden rounded-full bg-[#ECE7DC]">
+        <div
+          className={`h-full rounded-full ${current.progress} transition-all duration-500`}
+          style={{ width: `${Math.min(Math.max(progress || 0, 0), 100)}%` }}
+        />
+      </div>
+    </div>
+  );
+};
+
+const QuickAction = ({ icon: Icon, title, tone = 'terracotta' }) => {
+  const tones = {
+    terracotta: 'bg-[#F9E7DF] text-[#B95337]',
+    sage: 'bg-[#E6EFE5] text-[#527058]',
+    mustard: 'bg-[#F8EECF] text-[#9A751D]',
+    forest: 'bg-[#E2ECE8] text-[#315D4B]',
+  };
+
+  return (
+    <a
+      href="#"
+      className="group flex min-h-[82px] flex-col justify-between rounded-xl border border-[#E8E1D5] bg-[#FFFCF6] p-3 transition hover:border-[#D8CCBA] hover:shadow-[0_8px_24px_rgba(52,48,39,0.06)]"
+    >
+      <div
+        className={`flex h-8 w-8 items-center justify-center rounded-lg ${tones[tone]}`}
+      >
+        <Icon className="h-4 w-4" />
+      </div>
+
+      <div className="flex items-center justify-between gap-2">
+        <span className="text-xs font-semibold text-[#303B35]">{title}</span>
+        <ArrowUpRight className="h-3.5 w-3.5 text-[#A19D93] transition group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-[#D96C4A]" />
+      </div>
+    </a>
+  );
+};
+
+const SectionHeading = ({ eyebrow, title, icon: Icon, action }) => (
+  <div className="mb-5 flex items-end justify-between gap-4">
+    <div>
+      <div className="mb-1.5 flex items-center gap-2">
+        {Icon && <Icon className="h-4 w-4 text-[#D96C4A]" />}
+        <span className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#8B887E]">
+          {eyebrow}
+        </span>
+      </div>
+
+      <h2 className="text-xl font-bold tracking-tight text-[#202D28]">
+        {title}
+      </h2>
+    </div>
+
+    {action && (
+      <a
+        href={action.href || '#'}
+        className="hidden items-center gap-1 text-xs font-semibold text-[#557660] hover:text-[#D96C4A] sm:flex"
+      >
+        {action.label}
+        <ChevronRight className="h-3.5 w-3.5" />
+      </a>
+    )}
+  </div>
+);
+
+/* =========================================================
    DASHBOARD
-===================================================== */
+========================================================= */
 
 const Dashboard = () => {
   const [careerData, setCareerData] = useState(null);
   const [roadmapData, setRoadmapData] = useState(null);
   const [interviewReport, setInterviewReport] = useState(null);
-
-  /* =====================================================
-     API CALLS
-  ===================================================== */
 
   useEffect(() => {
     fetchCareer();
@@ -95,7 +217,6 @@ const Dashboard = () => {
       }
 
       const data = await response.json();
-
       setCareerData(data?.data || null);
     } catch (error) {
       console.error('fetchCareer error:', error);
@@ -119,7 +240,6 @@ const Dashboard = () => {
       }
 
       const data = await response.json();
-
       setRoadmapData(data?.data || null);
     } catch (error) {
       console.error('fetchRoadmap error:', error);
@@ -151,9 +271,9 @@ const Dashboard = () => {
     }
   };
 
-  /* =====================================================
+  /* =========================================================
      CALCULATIONS
-  ===================================================== */
+  ========================================================= */
 
   const careerMatch =
     careerData?.match_score != null
@@ -165,840 +285,660 @@ const Dashboard = () => {
       ? Math.round(Number(roadmapData.overall_progress))
       : 0;
 
-  const totalSteps =
-    roadmapData?.steps?.length || 0;
+  const totalSteps = roadmapData?.steps?.length || 0;
 
   const completedSteps =
     roadmapData?.steps?.filter(
       (step) => step.status === 'completed'
     ).length || 0;
 
-  const remainingSteps =
-    Math.max(totalSteps - completedSteps, 0);
+  const remainingSteps = Math.max(totalSteps - completedSteps, 0);
 
   const interviewScore =
     interviewReport?.overall_score != null
-      ? Math.round(
-          Number(interviewReport.overall_score)
-        )
+      ? Math.round(Number(interviewReport.overall_score))
       : null;
 
-  const interviewSessions =
-    interviewReport?.total_sessions || 0;
+  const interviewSessions = interviewReport?.total_sessions || 0;
 
-  const nextSteps =
-    (roadmapData?.steps || [])
-      .filter((step) => step.status !== 'completed')
-      .slice(0, 5);
+  const nextSteps = (roadmapData?.steps || [])
+    .filter((step) => step.status !== 'completed')
+    .slice(0, 5);
 
-  const interviewChartData =
-    Object.entries(
-      interviewReport?.by_type || {}
-    ).map(([type, score]) => ({
-      type,
-      score: Number(score),
-    }));
-
-  /* =====================================================
-     USER NAME
-  ===================================================== */
+  const interviewChartData = Object.entries(
+    interviewReport?.by_type || {}
+  ).map(([type, score]) => ({
+    type,
+    score: Number(score),
+  }));
 
   const userName = getUserName();
 
-  /* =====================================================
-     MAIN UI
-  ===================================================== */
-
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[#070914] text-white">
+    <div className="min-h-screen bg-[#F7F4ED] text-[#202D28]">
+      {/* =====================================================
+          TOP HEADER
+      ===================================================== */}
 
-      {/* =================================================
-          AMBIENT BACKGROUND
-      ================================================= */}
+      <header className="sticky top-0 z-30 border-b border-[#E5DED2] bg-[#F7F4ED]/95 backdrop-blur-sm">
+        <div className="mx-auto flex h-[72px] max-w-[1600px] items-center gap-4 px-4 sm:px-6 lg:px-8">
+          <button
+            type="button"
+            className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#DED6C9] bg-[#FFFCF6] text-[#304139] lg:hidden"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
 
-      <div className="pointer-events-none fixed inset-0 overflow-hidden">
-
-        <div className="absolute -top-40 left-[15%] h-[420px] w-[420px] rounded-full bg-violet-600/10 blur-[140px]" />
-
-        <div className="absolute top-[20%] right-[-100px] h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[150px]" />
-
-        <div className="absolute bottom-[-150px] left-[30%] h-[450px] w-[450px] rounded-full bg-purple-600/10 blur-[150px]" />
-
-      </div>
-
-      {/* =================================================
-          MAIN CONTAINER
-      ================================================= */}
-
-      <div className="relative mx-auto max-w-[1600px] p-4 sm:p-6 lg:p-8 xl:p-10">
-
-        {/* =================================================
-            HERO HEADER
-        ================================================= */}
-
-        <section className="mb-8">
-
-          <div className="relative overflow-hidden rounded-[30px] border border-white/[0.08] bg-gradient-to-br from-[#11152c]/90 via-[#0d1125]/90 to-[#09172b]/90 p-6 shadow-[0_30px_100px_rgba(0,0,0,0.25)] backdrop-blur-2xl sm:p-8 lg:p-10">
-
-            {/* Glow */}
-
-            <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-violet-500/15 blur-[100px]" />
-
-            <div className="absolute -bottom-28 left-1/3 h-72 w-72 rounded-full bg-blue-500/10 blur-[110px]" />
-
-            <div className="relative flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-
-              <div>
-
-                <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-violet-400/10 bg-violet-500/[0.08] px-3 py-1.5">
-
-                  <Sparkles className="h-3.5 w-3.5 text-violet-300" />
-
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.2em] text-violet-300/80">
-                    Career Intelligence
-                  </span>
-
-                </div>
-
-                <h1 className="text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-
-                  Welcome back,{' '}
-
-                  <span className="bg-gradient-to-r from-violet-300 via-purple-300 to-cyan-300 bg-clip-text text-transparent">
-                    {userName}
-                  </span>
-
-                  <span className="ml-2">
-                    👋
-                  </span>
-
-                </h1>
-
-                <p className="mt-3 max-w-2xl text-sm leading-6 text-white/45 sm:text-base">
-                  Your career journey is already in motion.
-                  Keep learning, improving and moving closer
-                  to your dream career.
-                </p>
-
-              </div>
-
-              {/* STATUS */}
-
-              <div className="flex shrink-0 items-center gap-3 rounded-2xl border border-emerald-400/10 bg-emerald-400/[0.05] px-5 py-4">
-
-                <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-400/10">
-
-                  <Activity className="h-5 w-5 text-emerald-400" />
-
-                  <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
-
-                </div>
-
-                <div>
-
-                  <p className="text-[9px] uppercase tracking-[0.18em] text-white/30">
-                    Current Status
-                  </p>
-
-                  <p className="mt-1 text-sm font-semibold text-white/80">
-                    Career journey active
-                  </p>
-
-                </div>
-
-              </div>
-
+          <div className="hidden items-center gap-3 lg:flex">
+            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#182E26]">
+              <Compass className="h-5 w-5 text-[#E7B84B]" />
             </div>
-
-          </div>
-
-        </section>
-
-        {/* =================================================
-            METRICS
-        ================================================= */}
-
-        <section className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-
-          {/* CAREER MATCH */}
-
-          <div className="group relative overflow-hidden rounded-[24px] border border-violet-400/10 bg-white/[0.035] p-1 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/25">
-
-            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-violet-500/15 blur-3xl transition-all group-hover:bg-violet-500/25" />
-
-            <MetricCard
-              icon={TrendingUp}
-              title="Career Match"
-              value={
-                careerMatch != null
-                  ? `${careerMatch}%`
-                  : '—'
-              }
-              subtitle={
-                careerData?.career?.title
-                  ? `Matched with ${careerData.career.title}`
-                  : 'Complete Career Discovery'
-              }
-              progress={careerMatch || 0}
-            />
-
-          </div>
-
-          {/* ROADMAP */}
-
-          <div className="group relative overflow-hidden rounded-[24px] border border-blue-400/10 bg-white/[0.035] p-1 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-blue-400/25">
-
-            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-blue-500/15 blur-3xl transition-all group-hover:bg-blue-500/25" />
-
-            <MetricCard
-              icon={Target}
-              title="Roadmap Progress"
-              value={`${roadmapProgress}%`}
-              subtitle={`${completedSteps}/${totalSteps} steps completed`}
-              progress={roadmapProgress}
-            />
-
-          </div>
-
-          {/* INTERVIEW */}
-
-          <div className="group relative overflow-hidden rounded-[24px] border border-cyan-400/10 bg-white/[0.035] p-1 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-cyan-400/25">
-
-            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-cyan-500/15 blur-3xl transition-all group-hover:bg-cyan-500/25" />
-
-            <MetricCard
-              icon={BookOpen}
-              title="Interview Score"
-              value={
-                interviewScore != null
-                  ? `${interviewScore}%`
-                  : '—'
-              }
-              subtitle={`${interviewSessions} session(s) completed`}
-              progress={interviewScore || 0}
-            />
-
-          </div>
-
-          {/* REMAINING */}
-
-          <div className="group relative overflow-hidden rounded-[24px] border border-purple-400/10 bg-white/[0.035] p-1 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-purple-400/25">
-
-            <div className="absolute -right-12 -top-12 h-32 w-32 rounded-full bg-purple-500/15 blur-3xl transition-all group-hover:bg-purple-500/25" />
-
-            <MetricCard
-              icon={Zap}
-              title="Steps Remaining"
-              value={`${remainingSteps}`}
-              subtitle="Keep progressing"
-              progress={
-                totalSteps > 0
-                  ? Math.round(
-                      (completedSteps /
-                        totalSteps) *
-                        100
-                    )
-                  : 0
-              }
-            />
-
-          </div>
-
-        </section>
-
-        {/* =================================================
-            CAREER + ROADMAP
-        ================================================= */}
-
-        <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-3">
-
-          {/* NEXT STEPS */}
-
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.035] p-6 backdrop-blur-2xl xl:col-span-1">
-
-            <div className="absolute -right-16 -top-16 h-40 w-40 rounded-full bg-violet-500/[0.07] blur-3xl" />
-
-            <div className="relative mb-6 flex items-center justify-between">
-
-              <div>
-
-                <div className="mb-1 flex items-center gap-2">
-
-                  <Target className="h-4 w-4 text-violet-300" />
-
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-violet-300/60">
-                    Roadmap
-                  </span>
-
-                </div>
-
-                <h2 className="text-xl font-bold">
-                  Next Steps
-                </h2>
-
-              </div>
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.05]">
-
-                <ChevronRight className="h-4 w-4 text-white/40" />
-
-              </div>
-
-            </div>
-
-            <div className="relative space-y-3">
-
-              {nextSteps.length === 0 && (
-
-                <div className="rounded-2xl border border-white/[0.06] bg-white/[0.025] p-6 text-center">
-
-                  <CheckCircle2 className="mx-auto mb-3 h-8 w-8 text-emerald-400" />
-
-                  <p className="text-sm text-white/50">
-                    {roadmapData
-                      ? 'All roadmap steps completed! 🎉'
-                      : 'Complete Career Discovery first.'}
-                  </p>
-
-                </div>
-
-              )}
-
-              {nextSteps.map((step, index) => (
-
-                <div
-                  key={step.id}
-                  className="group flex items-center gap-3 rounded-2xl border border-white/[0.05] bg-white/[0.025] p-3 transition-all duration-200 hover:border-violet-400/20 hover:bg-violet-500/[0.04]"
-                >
-
-                  <div
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-xl ${
-                      step.status === 'in_progress'
-                        ? 'bg-violet-500/10'
-                        : 'bg-white/[0.04]'
-                    }`}
-                  >
-
-                    {step.status === 'in_progress' ? (
-
-                      <Activity className="h-4 w-4 text-violet-400" />
-
-                    ) : (
-
-                      <span className="text-xs font-bold text-white/30">
-                        0{index + 1}
-                      </span>
-
-                    )}
-
-                  </div>
-
-                  <div className="min-w-0 flex-1">
-
-                    <p className="truncate text-sm font-semibold text-white/80">
-                      {step.title}
-                    </p>
-
-                    <div className="mt-1 flex items-center gap-2">
-
-                      <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/[0.07]">
-
-                        <div
-                          className="h-full rounded-full bg-gradient-to-r from-violet-500 to-cyan-400"
-                          style={{
-                            width: `${step.progress || 0}%`,
-                          }}
-                        />
-
-                      </div>
-
-                      <span className="text-[10px] text-white/30">
-                        {step.progress || 0}%
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                  <ArrowUpRight className="h-4 w-4 text-white/20 transition-all group-hover:text-violet-300" />
-
-                </div>
-
-              ))}
-
-            </div>
-
-          </div>
-
-          {/* AI MENTOR */}
-
-          <div className="relative overflow-hidden rounded-[28px] border border-violet-400/15 bg-gradient-to-br from-[#181542] via-[#111632] to-[#0a1d36] p-7 shadow-[0_30px_100px_rgba(76,29,149,0.16)] xl:col-span-2">
-
-            <div className="absolute -right-24 -top-24 h-80 w-80 rounded-full bg-violet-500/20 blur-[110px]" />
-
-            <div className="absolute -bottom-32 left-1/3 h-72 w-72 rounded-full bg-blue-500/15 blur-[110px]" />
-
-            <div className="relative">
-
-              <div className="mb-7 flex items-start justify-between">
-
-                <div>
-
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-400/10 bg-emerald-400/[0.05] px-3 py-1.5">
-
-                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]" />
-
-                    <span className="text-[9px] font-medium uppercase tracking-[0.18em] text-emerald-300/70">
-                      AI Mentor Online
-                    </span>
-
-                  </div>
-
-                  <h2 className="text-2xl font-bold sm:text-3xl">
-                    Your AI Career Mentor
-                  </h2>
-
-                  <p className="mt-2 text-sm text-white/40">
-                    Personalized guidance for your career journey
-                  </p>
-
-                </div>
-
-                <div className="hidden h-16 w-16 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.06] text-3xl shadow-[0_0_40px_rgba(139,92,246,0.15)] sm:flex">
-                  🤖
-                </div>
-
-              </div>
-
-              <div className="max-w-2xl">
-
-                <p className="mb-7 text-sm leading-7 text-white/60 sm:text-base">
-
-                  {careerData?.career?.title ? (
-
-                    <>
-                      You're currently targeting{' '}
-                      <span className="font-semibold text-violet-300">
-                        {careerData.career.title}
-                      </span>{' '}
-                      with a{' '}
-                      <span className="font-semibold text-cyan-300">
-                        {careerMatch}%
-                      </span>{' '}
-                      career match. Continue your roadmap
-                      and practice interviews to become job-ready.
-                    </>
-
-                  ) : (
-
-                    'Complete Career Discovery to unlock your personalized career match, roadmap and AI guidance.'
-
-                  )}
-
-                </p>
-
-                <button
-                  type="button"
-                  className="group inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-indigo-700 shadow-xl transition-all duration-200 hover:-translate-y-1 hover:bg-white/90"
-                >
-
-                  <Brain className="h-4 w-4" />
-
-                  Chat with AI Mentor
-
-                  <ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-
-                </button>
-
-              </div>
-
-            </div>
-
-          </div>
-
-        </section>
-
-        {/* =================================================
-            ANALYTICS
-        ================================================= */}
-
-        <section className="mb-8 grid grid-cols-1 gap-6 xl:grid-cols-2">
-
-          {/* ROADMAP ANALYTICS */}
-
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.035] p-6 backdrop-blur-2xl">
-
-            <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-violet-500/[0.06] blur-3xl" />
-
-            <div className="relative mb-7 flex items-center justify-between">
-
-              <div>
-
-                <div className="mb-1 flex items-center gap-2">
-
-                  <BarChart3 className="h-4 w-4 text-violet-300" />
-
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-violet-300/60">
-                    Progress Analytics
-                  </span>
-
-                </div>
-
-                <h3 className="text-lg font-bold">
-                  Roadmap Progress
-                </h3>
-
-              </div>
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
-
-                <TrendingUp className="h-4 w-4 text-violet-300" />
-
-              </div>
-
-            </div>
-
-            {roadmapData?.steps?.length > 0 ? (
-
-              <ResponsiveContainer
-                width="100%"
-                height={260}
-              >
-
-                <BarChart data={roadmapData.steps}>
-
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="rgba(148,163,184,0.08)"
-                    vertical={false}
-                  />
-
-                  <XAxis
-                    dataKey="order"
-                    stroke="#64748B"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                  />
-
-                  <YAxis
-                    stroke="#64748B"
-                    domain={[0, 100]}
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                  />
-
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(10,15,35,0.96)',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: '14px',
-                      color: '#fff',
-                    }}
-                    cursor={{
-                      fill: 'rgba(139,92,246,0.05)',
-                    }}
-                  />
-
-                  <Bar
-                    dataKey="progress"
-                    fill="#8B5CF6"
-                    radius={[8, 8, 2, 2]}
-                    maxBarSize={42}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            ) : (
-
-              <div className="flex h-[260px] items-center justify-center rounded-2xl border border-white/[0.05] bg-white/[0.02]">
-
-                <div className="text-center">
-
-                  <BarChart3 className="mx-auto mb-3 h-8 w-8 text-white/20" />
-
-                  <p className="text-sm text-white/30">
-                    No roadmap data yet.
-                  </p>
-
-                </div>
-
-              </div>
-
-            )}
-
-          </div>
-
-          {/* INTERVIEW ANALYTICS */}
-
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.035] p-6 backdrop-blur-2xl">
-
-            <div className="absolute -right-20 -top-20 h-48 w-48 rounded-full bg-cyan-500/[0.06] blur-3xl" />
-
-            <div className="relative mb-7 flex items-center justify-between">
-
-              <div>
-
-                <div className="mb-1 flex items-center gap-2">
-
-                  <Award className="h-4 w-4 text-cyan-300" />
-
-                  <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-cyan-300/60">
-                    Interview Analytics
-                  </span>
-
-                </div>
-
-                <h3 className="text-lg font-bold">
-                  Interview Performance
-                </h3>
-
-              </div>
-
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/[0.04]">
-
-                <BookOpen className="h-4 w-4 text-cyan-300" />
-
-              </div>
-
-            </div>
-
-            {interviewChartData.length > 0 ? (
-
-              <ResponsiveContainer
-                width="100%"
-                height={260}
-              >
-
-                <BarChart data={interviewChartData}>
-
-                  <CartesianGrid
-                    strokeDasharray="3 3"
-                    stroke="rgba(148,163,184,0.08)"
-                    vertical={false}
-                  />
-
-                  <XAxis
-                    dataKey="type"
-                    stroke="#64748B"
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                  />
-
-                  <YAxis
-                    stroke="#64748B"
-                    domain={[0, 100]}
-                    tickLine={false}
-                    axisLine={false}
-                    tick={{ fontSize: 11 }}
-                  />
-
-                  <Tooltip
-                    contentStyle={{
-                      backgroundColor: 'rgba(10,15,35,0.96)',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: '14px',
-                      color: '#fff',
-                    }}
-                    cursor={{
-                      fill: 'rgba(56,189,248,0.05)',
-                    }}
-                  />
-
-                  <Bar
-                    dataKey="score"
-                    fill="#38BDF8"
-                    radius={[8, 8, 2, 2]}
-                    maxBarSize={42}
-                  />
-
-                </BarChart>
-
-              </ResponsiveContainer>
-
-            ) : (
-
-              <div className="flex h-[260px] items-center justify-center rounded-2xl border border-white/[0.05] bg-white/[0.02]">
-
-                <div className="text-center">
-
-                  <Award className="mx-auto mb-3 h-8 w-8 text-white/20" />
-
-                  <p className="text-sm text-white/30">
-                    No completed interviews yet.
-                  </p>
-
-                </div>
-
-              </div>
-
-            )}
-
-          </div>
-
-        </section>
-
-        {/* =================================================
-            RECOMMENDED NEXT STEPS
-        ================================================= */}
-
-        <section>
-
-          <div className="mb-6 flex items-end justify-between">
 
             <div>
-
-              <div className="mb-1 flex items-center gap-2">
-
-                <Rocket className="h-4 w-4 text-violet-300" />
-
-                <span className="text-[9px] font-semibold uppercase tracking-[0.2em] text-violet-300/60">
-                  Keep Moving
-                </span>
-
-              </div>
-
-              <h2 className="text-2xl font-bold tracking-tight">
-                Recommended Next Steps
-              </h2>
-
+              <p className="text-sm font-bold text-[#203028]">
+                AI Career Mentor
+              </p>
+              <p className="text-[9px] font-medium uppercase tracking-[0.13em] text-[#8C887E]">
+                Learn · Plan · Build
+              </p>
             </div>
-
           </div>
 
-          {roadmapData?.steps?.length > 0 ? (
+          <div className="relative max-w-xl flex-1 lg:ml-8">
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-[#99958B]" />
 
-            <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
+            <input
+              type="text"
+              placeholder="Search for courses, skills, jobs..."
+              className="h-11 w-full rounded-xl border border-[#DDD6C9] bg-[#FFFCF6] pl-10 pr-4 text-sm text-[#28362F] outline-none placeholder:text-[#AAA59A] focus:border-[#C98368] focus:ring-2 focus:ring-[#D96C4A]/10"
+            />
+          </div>
 
-              {roadmapData.steps
-                .filter(
-                  (step) =>
-                    step.status !== 'completed'
-                )
-                .slice(0, 3)
-                .map((step, index) => (
+          <button
+            type="button"
+            className="relative flex h-10 w-10 items-center justify-center rounded-xl border border-[#DED6C9] bg-[#FFFCF6] text-[#4E5A53] hover:text-[#D96C4A]"
+          >
+            <Bell className="h-[18px] w-[18px]" />
+            <span className="absolute right-2 top-2 h-1.5 w-1.5 rounded-full bg-[#D96C4A]" />
+          </button>
 
-                  <div
-                    key={step.id}
-                    className="group relative overflow-hidden rounded-[26px] border border-white/[0.08] bg-white/[0.035] backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:border-violet-400/20 hover:shadow-[0_25px_70px_rgba(76,29,149,0.12)]"
-                  >
+          <div className="hidden items-center gap-3 sm:flex">
+            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#DCE8DF] text-[#355A47]">
+              <UserRound className="h-4 w-4" />
+            </div>
 
-                    {/* CARD GLOW */}
+            <div className="hidden xl:block">
+              <p className="text-xs font-bold text-[#28362F]">{userName}</p>
+              <p className="text-[10px] text-[#918D84]">Learner</p>
+            </div>
+          </div>
+        </div>
+      </header>
 
-                    <div className="absolute -right-16 -top-16 h-44 w-44 rounded-full bg-violet-500/[0.08] blur-3xl transition-all group-hover:bg-violet-500/[0.15]" />
+      {/* =====================================================
+          MAIN CONTENT
+      ===================================================== */}
 
-                    {/* HEADER */}
+      <main className="mx-auto max-w-[1600px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        {/* HERO */}
 
-                    <div className="relative flex h-32 items-end overflow-hidden border-b border-white/[0.06] bg-gradient-to-br from-violet-600/20 via-indigo-600/10 to-cyan-600/10 p-5">
+        <section className="mb-6 grid grid-cols-1 gap-5 xl:grid-cols-[minmax(0,1fr)_330px]">
+          <div className="relative min-h-[250px] overflow-hidden rounded-2xl border border-[#DDD4C5] bg-[#EFE7D7] p-6 sm:p-8 lg:p-10">
+            {/* Simple manual decorative landscape */}
+            <div className="pointer-events-none absolute bottom-0 right-0 h-full w-[45%] opacity-90">
+              <div className="absolute bottom-0 right-[10%] h-32 w-32 rounded-t-[70px] bg-[#B9C8A9]" />
+              <div className="absolute bottom-0 right-[-4%] h-44 w-56 rounded-t-[100%] bg-[#78927A]" />
+              <div className="absolute bottom-0 right-[23%] h-24 w-36 rounded-t-[100%] bg-[#496E58]" />
+              <div className="absolute right-[24%] top-12 h-2 w-24 rotate-[25deg] rounded-full bg-[#E2B65C]" />
+              <div className="absolute right-[12%] top-5 h-8 w-8 rounded-full bg-[#E7B84B]" />
+            </div>
 
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_75%_20%,rgba(139,92,246,0.20),transparent_35%)]" />
+            <div className="relative z-10 max-w-xl">
+              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-[#D5C9B6] bg-[#FFFCF6]/70 px-3 py-1.5">
+                <span className="h-2 w-2 rounded-full bg-[#D96C4A]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.14em] text-[#5F675F]">
+                  Career Journey
+                </span>
+              </div>
 
-                      <div className="relative flex w-full items-center justify-between">
+              <h1 className="text-3xl font-bold leading-tight tracking-tight text-[#1E3028] sm:text-4xl">
+                Good Morning, {userName}
+              </h1>
 
-                        <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.08]">
+              <p className="mt-3 max-w-lg text-sm leading-6 text-[#60665F] sm:text-base">
+                Every skill you build brings you one step closer to your
+                career goal.
+              </p>
 
-                          <span className="text-sm font-bold text-violet-200">
-                            0{index + 1}
+              <div className="mt-7 flex flex-wrap gap-3">
+                <a
+                  href="/career-discovery"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#D96C4A] px-5 py-3 text-xs font-bold text-white transition hover:bg-[#C75E3E]"
+                >
+                  Explore Career Paths
+                  <ArrowUpRight className="h-4 w-4" />
+                </a>
+
+                <a
+                  href="/roadmap"
+                  className="inline-flex items-center gap-2 rounded-xl border border-[#D7CDBE] bg-[#FFFCF6] px-5 py-3 text-xs font-bold text-[#33453C] transition hover:border-[#C8B9A4]"
+                >
+                  View My Roadmap
+                </a>
+              </div>
+            </div>
+          </div>
+
+          {/* CAREER PROGRESS */}
+
+          <div className="rounded-2xl bg-[#1B332A] p-6 text-[#FFFDF7] shadow-[0_12px_35px_rgba(24,45,37,0.12)]">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[#AEBFB3]">
+                  Your Career
+                </p>
+                <h2 className="mt-1 text-xl font-bold">Progress</h2>
+              </div>
+
+              <TrendingUp className="h-5 w-5 text-[#E7B84B]" />
+            </div>
+
+            <div className="mt-6 flex items-center gap-5">
+              <div
+                className="relative flex h-28 w-28 shrink-0 items-center justify-center rounded-full"
+                style={{
+                  background: `conic-gradient(#E7B84B ${roadmapProgress}%, #355343 ${roadmapProgress}% 100%)`,
+                }}
+              >
+                <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full bg-[#1B332A]">
+                  <span className="text-2xl font-bold">{roadmapProgress}%</span>
+                </div>
+              </div>
+
+              <div className="space-y-3 text-xs">
+                <div className="flex items-center justify-between gap-8">
+                  <span className="flex items-center gap-2 text-[#C5D0C8]">
+                    <CheckCircle2 className="h-4 w-4 text-[#8BAE8E]" />
+                    Steps completed
+                  </span>
+                  <strong>{completedSteps}/{totalSteps}</strong>
+                </div>
+
+                <div className="flex items-center justify-between gap-8">
+                  <span className="flex items-center gap-2 text-[#C5D0C8]">
+                    <Activity className="h-4 w-4 text-[#E7B84B]" />
+                    Interview score
+                  </span>
+                  <strong>{interviewScore != null ? `${interviewScore}%` : '—'}</strong>
+                </div>
+
+                <div className="flex items-center justify-between gap-8">
+                  <span className="flex items-center gap-2 text-[#C5D0C8]">
+                    <Target className="h-4 w-4 text-[#D88B70]" />
+                    Career match
+                  </span>
+                  <strong>{careerMatch != null ? `${careerMatch}%` : '—'}</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* METRICS */}
+
+        <section className="mb-7 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+          <MetricCard
+            icon={TrendingUp}
+            label="Career Match"
+            value={careerMatch != null ? `${careerMatch}%` : '—'}
+            subtitle={
+              careerData?.career?.title
+                ? `Matched with ${careerData.career.title}`
+                : 'Complete Career Discovery'
+            }
+            progress={careerMatch || 0}
+            tone="terracotta"
+          />
+
+          <MetricCard
+            icon={Target}
+            label="Roadmap Progress"
+            value={`${roadmapProgress}%`}
+            subtitle={`${completedSteps}/${totalSteps} steps completed`}
+            progress={roadmapProgress}
+            tone="sage"
+          />
+
+          <MetricCard
+            icon={BookOpen}
+            label="Interview Score"
+            value={interviewScore != null ? `${interviewScore}%` : '—'}
+            subtitle={`${interviewSessions} session(s) completed`}
+            progress={interviewScore || 0}
+            tone="mustard"
+          />
+
+          <MetricCard
+            icon={Zap}
+            label="Steps Remaining"
+            value={remainingSteps}
+            subtitle="Keep progressing"
+            progress={
+              totalSteps > 0
+                ? Math.round((completedSteps / totalSteps) * 100)
+                : 0
+            }
+            tone="forest"
+          />
+        </section>
+
+        {/* QUICK FEATURES */}
+
+        <section className="mb-7">
+          <SectionHeading
+            eyebrow="Your workspace"
+            title="What would you like to do?"
+            icon={Compass}
+          />
+
+          <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <a
+              href="/career-discovery"
+              className="group rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 transition hover:-translate-y-0.5 hover:border-[#D2C5B5] hover:shadow-[0_10px_28px_rgba(52,48,39,0.07)]"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F9E7DF] text-[#C05B3D]">
+                  <Compass className="h-5 w-5" />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-[#AAA398] transition group-hover:text-[#D96C4A]" />
+              </div>
+              <h3 className="mt-5 text-base font-bold text-[#25352D]">
+                Career Discovery
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-[#858178]">
+                Find the right career path based on your interests and skills.
+              </p>
+              <span className="mt-4 inline-block text-xs font-bold text-[#C05B3D]">
+                Explore →
+              </span>
+            </a>
+
+            <a
+              href="/roadmap"
+              className="group rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 transition hover:-translate-y-0.5 hover:border-[#D2C5B5] hover:shadow-[0_10px_28px_rgba(52,48,39,0.07)]"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#E6EFE5] text-[#527058]">
+                  <BookOpen className="h-5 w-5" />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-[#AAA398] transition group-hover:text-[#6F8F72]" />
+              </div>
+              <h3 className="mt-5 text-base font-bold text-[#25352D]">
+                My Roadmap
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-[#858178]">
+                Follow your personalized learning path and track progress.
+              </p>
+              <span className="mt-4 inline-block text-xs font-bold text-[#527058]">
+                View Roadmap →
+              </span>
+            </a>
+
+            <a
+              href="/ai-tutor"
+              className="group rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 transition hover:-translate-y-0.5 hover:border-[#D2C5B5] hover:shadow-[0_10px_28px_rgba(52,48,39,0.07)]"
+            >
+              <div className="flex items-start justify-between">
+                <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-[#F8EECF] text-[#9A751D]">
+                  <MessageSquare className="h-5 w-5" />
+                </div>
+                <ArrowUpRight className="h-4 w-4 text-[#AAA398] transition group-hover:text-[#9A751D]" />
+              </div>
+              <h3 className="mt-5 text-base font-bold text-[#25352D]">
+                AI Tutor
+              </h3>
+              <p className="mt-1 text-xs leading-5 text-[#858178]">
+                Get help with concepts, questions and your daily learning.
+              </p>
+              <span className="mt-4 inline-block text-xs font-bold text-[#9A751D]">
+                Start Chat →
+              </span>
+            </a>
+          </div>
+        </section>
+
+        {/* ROADMAP + ACTIVITY */}
+
+        <section className="mb-7 grid grid-cols-1 gap-6 xl:grid-cols-[1.15fr_0.85fr]">
+          <div className="rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 sm:p-6">
+            <SectionHeading
+              eyebrow="Learning journey"
+              title="Your Roadmap"
+              icon={Target}
+              action={{ label: 'View all', href: '/roadmap' }}
+            />
+
+            {nextSteps.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-[#DCD4C6] bg-[#FAF7F0] p-8 text-center">
+                <CheckCircle2 className="mx-auto mb-3 h-8 w-8 text-[#6F8F72]" />
+                <p className="text-sm font-semibold text-[#4B5A51]">
+                  {roadmapData
+                    ? 'All roadmap steps completed! 🎉'
+                    : 'Complete Career Discovery first.'}
+                </p>
+              </div>
+            ) : (
+              <div className="relative">
+                <div className="absolute bottom-4 left-[17px] top-4 w-px bg-[#DCD7CD]" />
+
+                <div className="space-y-4">
+                  {nextSteps.map((step, index) => (
+                    <div
+                      key={step.id}
+                      className="relative flex gap-4 rounded-xl border border-[#ECE5DA] bg-[#FAF8F2] p-4"
+                    >
+                      <div
+                        className={`relative z-10 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border-4 border-[#FAF8F2] ${
+                          step.status === 'in_progress'
+                            ? 'bg-[#D96C4A] text-white'
+                            : 'bg-[#E1E7DF] text-[#66806B]'
+                        }`}
+                      >
+                        {step.status === 'in_progress' ? (
+                          <Activity className="h-4 w-4" />
+                        ) : (
+                          <span className="text-[10px] font-bold">
+                            {index + 1}
                           </span>
-
-                        </div>
-
-                        <div className="rounded-full border border-white/10 bg-black/10 px-3 py-1 text-[9px] font-semibold uppercase tracking-wider text-white/50 backdrop-blur-xl">
-
-                          {step.status === 'in_progress'
-                            ? 'In Progress'
-                            : 'Not Started'}
-
-                        </div>
-
+                        )}
                       </div>
 
-                    </div>
+                      <div className="min-w-0 flex-1">
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <p className="text-sm font-bold text-[#2D3B34]">
+                              {step.title}
+                            </p>
+                            <p className="mt-1 text-[11px] text-[#918C82]">
+                              {step.status === 'in_progress'
+                                ? 'Currently in progress'
+                                : 'Not started yet'}
+                            </p>
+                          </div>
 
-                    {/* CONTENT */}
-
-                    <div className="relative p-6">
-
-                      <h3 className="mb-2 text-lg font-bold">
-                        {step.title}
-                      </h3>
-
-                      <p className="mb-5 text-xs leading-5 text-white/35">
-                        {step.status === 'in_progress'
-                          ? 'Continue working on this roadmap step.'
-                          : 'Start this step to continue your career journey.'}
-                      </p>
-
-                      {/* PROGRESS */}
-
-                      <div className="mb-5">
-
-                        <div className="mb-2 flex items-center justify-between">
-
-                          <span className="text-[10px] font-medium uppercase tracking-wider text-white/30">
-                            Progress
-                          </span>
-
-                          <span className="text-xs font-semibold text-violet-300">
+                          <span className="text-xs font-bold text-[#5D7565]">
                             {step.progress || 0}%
                           </span>
-
                         </div>
 
-                        <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
-
+                        <div className="mt-3 h-1.5 overflow-hidden rounded-full bg-[#E8E3D9]">
                           <div
-                            className="h-full rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-cyan-400 transition-all duration-500"
-                            style={{
-                              width: `${step.progress || 0}%`,
-                            }}
+                            className={`h-full rounded-full ${
+                              step.status === 'in_progress'
+                                ? 'bg-[#D96C4A]'
+                                : 'bg-[#A9B8A8]'
+                            }`}
+                            style={{ width: `${step.progress || 0}%` }}
                           />
-
                         </div>
-
                       </div>
 
                       <a
                         href="/roadmap"
-                        className="group/button flex w-full items-center justify-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.045] py-3 text-xs font-semibold text-white/65 transition-all duration-200 hover:border-violet-400/20 hover:bg-violet-500/10 hover:text-white"
+                        className="self-center rounded-lg p-2 text-[#9A968D] hover:bg-[#F0EAE0] hover:text-[#D96C4A]"
                       >
-
-                        Continue Learning
-
-                        <ArrowUpRight className="h-4 w-4 transition-transform group-hover/button:-translate-y-0.5 group-hover/button:translate-x-0.5" />
-
+                        <ArrowUpRight className="h-4 w-4" />
                       </a>
-
                     </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
 
-                  </div>
+          <div className="rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 sm:p-6">
+            <SectionHeading
+              eyebrow="Latest updates"
+              title="Recent Activity"
+              icon={Clock3}
+            />
 
-                ))}
+            <div className="space-y-2">
+              <div className="flex items-center gap-3 rounded-xl border border-[#EEE8DD] p-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E6EFE5] text-[#527058]">
+                  <CheckCircle2 className="h-4 w-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-[#35433B]">
+                    Roadmap progress updated
+                  </p>
+                  <p className="text-[10px] text-[#959087]">
+                    Your learning journey is moving forward
+                  </p>
+                </div>
+                <span className="text-[9px] text-[#AAA59A]">Now</span>
+              </div>
 
+              <div className="flex items-center gap-3 rounded-xl border border-[#EEE8DD] p-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F8EECF] text-[#9A751D]">
+                  <MessageSquare className="h-4 w-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-[#35433B]">
+                    AI Tutor ready
+                  </p>
+                  <p className="text-[10px] text-[#959087]">
+                    Continue your learning conversation
+                  </p>
+                </div>
+                <span className="text-[9px] text-[#AAA59A]">Today</span>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-xl border border-[#EEE8DD] p-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#F9E7DF] text-[#C05B3D]">
+                  <FileText className="h-4 w-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-[#35433B]">
+                    Resume workspace
+                  </p>
+                  <p className="text-[10px] text-[#959087]">
+                    Keep your profile job-ready
+                  </p>
+                </div>
+                <span className="text-[9px] text-[#AAA59A]">Today</span>
+              </div>
+
+              <div className="flex items-center gap-3 rounded-xl border border-[#EEE8DD] p-3">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-[#E2ECE8] text-[#315D4B]">
+                  <BriefcaseBusiness className="h-4 w-4" />
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-xs font-bold text-[#35433B]">
+                    Job preparation
+                  </p>
+                  <p className="text-[10px] text-[#959087]">
+                    Practice before your next opportunity
+                  </p>
+                </div>
+                <span className="text-[9px] text-[#AAA59A]">This week</span>
+              </div>
             </div>
-
-          ) : (
-
-            <div className="rounded-[26px] border border-white/[0.08] bg-white/[0.035] p-10 text-center backdrop-blur-xl">
-
-              <Rocket className="mx-auto mb-4 h-10 w-10 text-white/20" />
-
-              <p className="text-sm text-white/35">
-                No roadmap steps yet. Complete Career Discovery to get started.
-              </p>
-
-            </div>
-
-          )}
-
+          </div>
         </section>
 
-      </div>
+        {/* ANALYTICS */}
 
+        <section className="mb-7 grid grid-cols-1 gap-6 xl:grid-cols-2">
+          <div className="rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 sm:p-6">
+            <SectionHeading
+              eyebrow="Progress analytics"
+              title="Roadmap Progress"
+              icon={BarChart3}
+            />
+
+            {roadmapData?.steps?.length > 0 ? (
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={roadmapData.steps}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="#E8E2D8"
+                    vertical={false}
+                  />
+                  <XAxis
+                    dataKey="order"
+                    stroke="#99958B"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 11 }}
+                  />
+                  <YAxis
+                    stroke="#99958B"
+                    domain={[0, 100]}
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 11 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#FFFCF6',
+                      border: '1px solid #DDD5C8',
+                      borderRadius: '10px',
+                      color: '#25352D',
+                    }}
+                    cursor={{ fill: '#F5F0E7' }}
+                  />
+                  <Bar
+                    dataKey="progress"
+                    fill="#6F8F72"
+                    radius={[6, 6, 1, 1]}
+                    maxBarSize={38}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex h-[260px] items-center justify-center rounded-xl border border-dashed border-[#DED7CA] bg-[#FAF8F2]">
+                <div className="text-center">
+                  <BarChart3 className="mx-auto mb-3 h-8 w-8 text-[#B0ABA1]" />
+                  <p className="text-sm text-[#918C82]">
+                    No roadmap data yet.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+
+          <div className="rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5 sm:p-6">
+            <SectionHeading
+              eyebrow="Interview analytics"
+              title="Interview Performance"
+              icon={Award}
+            />
+
+            {interviewChartData.length > 0 ? (
+              <ResponsiveContainer width="100%" height={260}>
+                <BarChart data={interviewChartData}>
+                  <CartesianGrid
+                    strokeDasharray="3 3"
+                    stroke="#E8E2D8"
+                    vertical={false}
+                  />
+                  <XAxis
+                    dataKey="type"
+                    stroke="#99958B"
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 11 }}
+                  />
+                  <YAxis
+                    stroke="#99958B"
+                    domain={[0, 100]}
+                    tickLine={false}
+                    axisLine={false}
+                    tick={{ fontSize: 11 }}
+                  />
+                  <Tooltip
+                    contentStyle={{
+                      backgroundColor: '#FFFCF6',
+                      border: '1px solid #DDD5C8',
+                      borderRadius: '10px',
+                      color: '#25352D',
+                    }}
+                    cursor={{ fill: '#F5F0E7' }}
+                  />
+                  <Bar
+                    dataKey="score"
+                    fill="#D96C4A"
+                    radius={[6, 6, 1, 1]}
+                    maxBarSize={38}
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            ) : (
+              <div className="flex h-[260px] items-center justify-center rounded-xl border border-dashed border-[#DED7CA] bg-[#FAF8F2]">
+                <div className="text-center">
+                  <Award className="mx-auto mb-3 h-8 w-8 text-[#B0ABA1]" />
+                  <p className="text-sm text-[#918C82]">
+                    No completed interviews yet.
+                  </p>
+                </div>
+              </div>
+            )}
+          </div>
+        </section>
+
+        {/* QUICK ACTIONS + RECOMMENDATION */}
+
+        <section className="grid grid-cols-1 gap-6 xl:grid-cols-[0.9fr_1.1fr]">
+          <div className="rounded-2xl border border-[#E2DBCF] bg-[#FFFCF6] p-5">
+            <SectionHeading
+              eyebrow="Shortcuts"
+              title="Quick Actions"
+              icon={Zap}
+            />
+
+            <div className="grid grid-cols-2 gap-3">
+              <QuickAction icon={Target} title="Take a Quiz" tone="terracotta" />
+              <QuickAction icon={FileText} title="Build Resume" tone="sage" />
+              <QuickAction icon={BriefcaseBusiness} title="Find Jobs" tone="mustard" />
+              <QuickAction icon={MessageSquare} title="Practice Interview" tone="forest" />
+            </div>
+          </div>
+
+          <div className="rounded-2xl border border-[#D7CBB8] bg-[#EFE6D4] p-6">
+            <div className="flex h-full flex-col justify-between gap-6 sm:flex-row sm:items-center">
+              <div className="max-w-lg">
+                <div className="mb-3 flex h-9 w-9 items-center justify-center rounded-xl bg-[#1B332A] text-[#E7B84B]">
+                  <Rocket className="h-4 w-4" />
+                </div>
+
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-[#7B786F]">
+                  Keep moving
+                </p>
+
+                <h2 className="mt-1 text-2xl font-bold leading-tight text-[#203028]">
+                  Build your skills.
+                  <br />
+                  Create your future.
+                </h2>
+
+                <p className="mt-2 text-sm leading-6 text-[#6F7069]">
+                  Keep your roadmap moving and prepare for the opportunities
+                  ahead.
+                </p>
+              </div>
+
+              <a
+                href="/roadmap"
+                className="inline-flex shrink-0 items-center justify-center gap-2 rounded-xl bg-[#1B332A] px-5 py-3 text-xs font-bold text-white transition hover:bg-[#24483A]"
+              >
+                Continue Learning
+                <ArrowUpRight className="h-4 w-4" />
+              </a>
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
 };

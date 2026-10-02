@@ -322,105 +322,97 @@ const CareerDiscovery = () => {
     ((step + 1) / questions.length) * 100;
 
   return (
-    <div className="relative min-h-screen overflow-hidden px-4 py-6 md:px-8 md:py-8">
-
-      {/* Ambient Background Glow */}
-      <div className="pointer-events-none fixed -left-32 top-32 h-96 w-96 rounded-full bg-violet-600/10 blur-[120px]" />
-      <div className="pointer-events-none fixed right-0 top-0 h-96 w-96 rounded-full bg-blue-500/10 blur-[120px]" />
-      <div className="pointer-events-none fixed bottom-0 left-1/3 h-80 w-80 rounded-full bg-purple-600/10 blur-[120px]" />
+    <div className="min-h-screen bg-[#F6F1E8] px-4 py-6 text-[#173B32] md:px-8 md:py-8">
 
       {!showResults ? (
-        <div className="relative mx-auto max-w-4xl">
+        <div className="mx-auto max-w-4xl">
 
           {/* Header */}
-          <div className="mb-8 flex items-start justify-between gap-6">
+          <div className="mb-8 flex items-start justify-between gap-6 border-b border-[#DED8CC] pb-8">
 
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl border border-violet-400/10 bg-violet-500/10">
-                  <Sparkles className="h-4 w-4 text-violet-300" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-[#E4B84A]/40 bg-[#E4B84A]/20">
+                  <Sparkles className="h-4 w-4 text-[#173B32]" />
                 </div>
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-violet-300/70">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#D66A4A]">
                   Career Intelligence
                 </span>
               </div>
 
-              <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+              <h1 className="text-3xl font-bold tracking-tight text-[#173B32] md:text-5xl">
                 Discover Your{' '}
-                <span className="bg-gradient-to-r from-violet-400 via-purple-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="text-[#D66A4A]">
                   Career Path
                 </span>
               </h1>
 
-              <p className="mt-3 max-w-2xl text-sm leading-6 text-white/40 md:text-base">
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-[#66736B] md:text-base">
                 Answer a few questions and let AI identify the career paths
                 that best match your skills, interests and goals.
               </p>
             </div>
 
-            <div className="hidden rounded-2xl border border-white/[0.07] bg-white/[0.025] px-4 py-3 text-right backdrop-blur-xl md:block">
-              <p className="text-[9px] uppercase tracking-[0.18em] text-white/25">
+            <div className="hidden rounded-xl border border-[#DED8CC] bg-[#FFFDF8] px-4 py-3 text-right shadow-[0_1px_4px_rgba(23,59,50,0.06)] md:block">
+              <p className="text-[10px] uppercase tracking-[0.15em] text-[#8A948D]">
                 Assessment
               </p>
 
-              <p className="mt-1 text-sm font-semibold text-white/70">
+              <p className="mt-1 text-sm font-semibold text-[#173B32]">
                 AI Powered
               </p>
             </div>
           </div>
 
           {/* Progress Panel */}
-          <div className="mb-6 rounded-[22px] border border-white/[0.07] bg-white/[0.025] p-4 backdrop-blur-xl">
+          <div className="mb-6 rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-4 shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
 
             <div className="mb-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Target className="h-4 w-4 text-violet-300" />
+                <Target className="h-4 w-4 text-[#D66A4A]" />
 
-                <span className="text-xs font-medium text-white/50">
+                <span className="text-xs font-medium text-[#66736B]">
                   Question {step + 1} of {questions.length}
                 </span>
               </div>
 
-              <span className="text-xs font-bold text-violet-300">
+              <span className="text-xs font-bold text-[#173B32]">
                 {Math.round(progress)}%
               </span>
             </div>
 
-            <div className="h-1.5 overflow-hidden rounded-full bg-white/[0.07]">
+            <div className="h-2 overflow-hidden rounded-full bg-[#DED8CC]">
               <div
-                className="h-full rounded-full bg-gradient-to-r from-violet-500 via-purple-500 to-blue-400 shadow-[0_0_14px_rgba(139,92,246,0.45)] transition-all duration-500"
+                className="h-full rounded-full bg-[#E4B84A] transition-all duration-500"
                 style={{ width: `${progress}%` }}
               />
             </div>
           </div>
 
           {/* Question Card */}
-          <div className="relative overflow-hidden rounded-[28px] border border-white/[0.08] bg-white/[0.035] p-6 shadow-[0_25px_80px_rgba(0,0,0,0.18)] backdrop-blur-2xl md:p-10">
+          <div className="overflow-hidden rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-6 shadow-[0_2px_10px_rgba(23,59,50,0.07)] md:p-10">
 
-            {/* Card Glow */}
-            <div className="pointer-events-none absolute -right-24 -top-24 h-64 w-64 rounded-full bg-violet-500/10 blur-[80px]" />
-
-            <div className="relative">
+            <div>
 
               {/* Question Number */}
               <div className="mb-6 flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/20 to-blue-500/10 text-sm font-bold text-violet-300">
+                <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#173B32] text-sm font-bold text-[#E4B84A]">
                   {String(step + 1).padStart(2, '0')}
                 </div>
 
                 <div>
-                  <p className="text-[9px] font-semibold uppercase tracking-[0.2em] text-white/25">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.18em] text-[#8A948D]">
                     Your Assessment
                   </p>
 
-                  <p className="mt-0.5 text-xs text-white/40">
+                  <p className="mt-0.5 text-xs text-[#66736B]">
                     Choose the option that describes you best
                   </p>
                 </div>
               </div>
 
-              <h2 className="max-w-3xl text-2xl font-bold leading-tight text-white md:text-3xl">
+              <h2 className="max-w-3xl text-2xl font-bold leading-tight text-[#173B32] md:text-3xl">
                 {questions[step].question}
               </h2>
 
@@ -437,13 +429,13 @@ const CareerDiscovery = () => {
                       onClick={() => handleOptionSelect(option)}
                       className={`
                         group relative flex w-full items-center justify-between
-                        overflow-hidden rounded-2xl border
+                        overflow-hidden rounded-xl border
                         px-5 py-4 text-left
-                        transition-all duration-200
+                        transition-colors duration-200
                         ${
                           selected
-                            ? 'border-violet-400/40 bg-violet-500/[0.10] shadow-[0_0_30px_rgba(139,92,246,0.08)]'
-                            : 'border-white/[0.07] bg-white/[0.025] hover:border-violet-400/20 hover:bg-white/[0.05]'
+                            ? 'border-[#173B32] bg-[#173B32]/5'
+                            : 'border-[#DED8CC] bg-[#FFFDF8] hover:border-[#78927A] hover:bg-[#F6F1E8]/60'
                         }
                       `}
                     >
@@ -453,12 +445,12 @@ const CareerDiscovery = () => {
                         <div
                           className={`
                             flex h-9 w-9 items-center justify-center
-                            rounded-xl text-xs font-semibold
-                            transition-all
+                            rounded-lg text-xs font-semibold
+                            transition-colors
                             ${
                               selected
-                                ? 'bg-violet-500/20 text-violet-300'
-                                : 'bg-white/[0.04] text-white/30 group-hover:text-white/60'
+                                ? 'bg-[#173B32] text-[#E4B84A]'
+                                : 'bg-[#F6F1E8] text-[#66736B] group-hover:text-[#173B32]'
                             }
                           `}
                         >
@@ -470,8 +462,8 @@ const CareerDiscovery = () => {
                             text-sm font-medium
                             ${
                               selected
-                                ? 'text-white'
-                                : 'text-white/55 group-hover:text-white/80'
+                                ? 'text-[#173B32]'
+                                : 'text-[#66736B] group-hover:text-[#173B32]'
                             }
                           `}
                         >
@@ -482,18 +474,18 @@ const CareerDiscovery = () => {
                       <div
                         className={`
                           flex h-7 w-7 items-center justify-center rounded-full
-                          border transition-all
+                          border transition-colors
                           ${
                             selected
-                              ? 'border-violet-400/40 bg-violet-500/20'
-                              : 'border-white/[0.08] bg-white/[0.02]'
+                              ? 'border-[#D66A4A] bg-[#D66A4A]'
+                              : 'border-[#DED8CC] bg-[#FFFDF8]'
                           }
                         `}
                       >
                         {selected ? (
-                          <Check className="h-3.5 w-3.5 text-violet-300" />
+                          <Check className="h-3.5 w-3.5 text-[#FFFDF8]" />
                         ) : (
-                          <ChevronRight className="h-3.5 w-3.5 text-white/25 transition-transform group-hover:translate-x-0.5 group-hover:text-white/60" />
+                          <ChevronRight className="h-3.5 w-3.5 text-[#8A948D] transition-transform group-hover:translate-x-0.5 group-hover:text-[#173B32]" />
                         )}
                       </div>
                     </button>
@@ -503,7 +495,7 @@ const CareerDiscovery = () => {
 
               {/* Error */}
               {error && (
-                <div className="mt-5 rounded-2xl border border-red-400/10 bg-red-500/[0.07] px-4 py-3 text-sm text-red-300">
+                <div className="mt-5 rounded-xl border border-[#B94F35]/30 bg-[#B94F35]/10 px-4 py-3 text-sm text-[#B94F35]">
                   {error}
                 </div>
               )}
@@ -515,14 +507,13 @@ const CareerDiscovery = () => {
                   onClick={handleBack}
                   disabled={step === 0 || loading}
                   className="
-                    rounded-2xl border border-white/[0.08]
-                    bg-white/[0.025]
+                    rounded-xl border border-[#173B32]
+                    bg-[#FFFDF8]
                     px-6 py-3.5
                     text-sm font-semibold
-                    text-white/55
-                    transition-all
-                    hover:bg-white/[0.05]
-                    hover:text-white
+                    text-[#173B32]
+                    transition-colors
+                    hover:bg-[#173B32]/5
                     disabled:cursor-not-allowed
                     disabled:opacity-30
                   "
@@ -535,15 +526,14 @@ const CareerDiscovery = () => {
                   disabled={loading}
                   className="
                     group flex flex-1 items-center justify-center gap-2
-                    rounded-2xl
-                    bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600
+                    rounded-xl
+                    bg-[#D66A4A]
                     px-6 py-3.5
                     text-sm font-semibold
-                    text-white
-                    shadow-[0_10px_30px_rgba(124,58,237,0.18)]
-                    transition-all duration-200
-                    hover:-translate-y-0.5
-                    hover:shadow-[0_15px_40px_rgba(124,58,237,0.25)]
+                    text-[#FFFDF8]
+                    shadow-[0_2px_8px_rgba(214,106,74,0.25)]
+                    transition-colors duration-200
+                    hover:bg-[#C45C3D]
                     disabled:opacity-60
                   "
                 >
@@ -568,7 +558,7 @@ const CareerDiscovery = () => {
           </div>
 
           {/* Bottom Hint */}
-          <div className="mt-5 flex items-center justify-center gap-2 text-[10px] text-white/20">
+          <div className="mt-5 flex items-center justify-center gap-2 text-[11px] text-[#8A948D]">
             <Brain className="h-3.5 w-3.5" />
             AI analyzes your responses to find your strongest career matches
           </div>
@@ -579,30 +569,30 @@ const CareerDiscovery = () => {
            RESULTS
         ========================================================== */
 
-        <div className="relative mx-auto max-w-6xl">
+        <div className="mx-auto max-w-6xl">
 
           {/* Results Header */}
-          <div className="mb-8 flex flex-col justify-between gap-5 md:flex-row md:items-end">
+          <div className="mb-8 flex flex-col justify-between gap-5 border-b border-[#DED8CC] pb-8 md:flex-row md:items-end">
 
             <div>
               <div className="mb-4 flex items-center gap-2">
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/10">
-                  <CircleCheck className="h-4 w-4 text-emerald-300" />
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#78927A]/15">
+                  <CircleCheck className="h-4 w-4 text-[#78927A]" />
                 </div>
 
-                <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-emerald-300/70">
+                <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-[#78927A]">
                   Assessment Complete
                 </span>
               </div>
 
-              <h1 className="text-3xl font-bold tracking-tight text-white md:text-5xl">
+              <h1 className="text-3xl font-bold tracking-tight text-[#173B32] md:text-5xl">
                 Your{' '}
-                <span className="bg-gradient-to-r from-violet-400 to-blue-400 bg-clip-text text-transparent">
+                <span className="text-[#D66A4A]">
                   Career Matches
                 </span>
               </h1>
 
-              <p className="mt-3 text-sm text-white/40 md:text-base">
+              <p className="mt-3 text-sm text-[#66736B] md:text-base">
                 AI-powered recommendations based on your responses.
               </p>
             </div>
@@ -611,15 +601,14 @@ const CareerDiscovery = () => {
               onClick={handleTakeAgain}
               className="
                 flex items-center justify-center gap-2
-                rounded-2xl
-                border border-white/[0.08]
-                bg-white/[0.025]
+                rounded-xl
+                border border-[#173B32]
+                bg-[#FFFDF8]
                 px-5 py-3
                 text-sm font-semibold
-                text-white/55
-                transition-all
-                hover:bg-white/[0.05]
-                hover:text-white
+                text-[#173B32]
+                transition-colors
+                hover:bg-[#173B32]/5
               "
             >
               <RotateCcw className="h-4 w-4" />
@@ -630,7 +619,7 @@ const CareerDiscovery = () => {
 
           {/* Error */}
           {error && (
-            <div className="mb-6 rounded-2xl border border-red-400/10 bg-red-500/[0.07] px-5 py-4 text-sm text-red-300">
+            <div className="mb-6 rounded-xl border border-[#B94F35]/30 bg-[#B94F35]/10 px-5 py-4 text-sm text-[#B94F35]">
               {error}
             </div>
           )}
@@ -640,10 +629,10 @@ const CareerDiscovery = () => {
 
             {careers.length === 0 ? (
 
-              <div className="rounded-[26px] border border-white/[0.08] bg-white/[0.025] p-12 text-center backdrop-blur-xl">
-                <Brain className="mx-auto mb-4 h-10 w-10 text-white/20" />
+              <div className="rounded-2xl border border-[#DED8CC] bg-[#FFFDF8] p-12 text-center shadow-[0_1px_4px_rgba(23,59,50,0.06)]">
+                <Brain className="mx-auto mb-4 h-10 w-10 text-[#8A948D]" />
 
-                <p className="text-sm text-white/40">
+                <p className="text-sm text-[#66736B]">
                   No career recommendations found.
                 </p>
               </div>
@@ -665,21 +654,16 @@ const CareerDiscovery = () => {
                     key={career.id || index}
                     className="
                       group relative overflow-hidden
-                      rounded-[26px]
-                      border border-white/[0.08]
-                      bg-white/[0.025]
+                      rounded-2xl
+                      border border-[#DED8CC]
+                      bg-[#FFFDF8]
                       p-5
-                      shadow-[0_20px_70px_rgba(0,0,0,0.15)]
-                      backdrop-blur-2xl
+                      shadow-[0_1px_4px_rgba(23,59,50,0.06)]
                       transition-all duration-300
-                      hover:border-violet-400/15
-                      hover:bg-white/[0.04]
+                      hover:shadow-[0_8px_22px_rgba(23,59,50,0.12)]
                       md:p-7
                     "
                   >
-
-                    {/* Card Glow */}
-                    <div className="pointer-events-none absolute -right-32 -top-32 h-72 w-72 rounded-full bg-violet-500/[0.08] blur-[100px]" />
 
                     <div className="relative flex flex-col gap-8 lg:flex-row">
 
@@ -689,25 +673,25 @@ const CareerDiscovery = () => {
                         {/* Rank + Title */}
                         <div className="mb-4 flex items-start gap-3">
 
-                          <span className="flex h-9 min-w-9 items-center justify-center rounded-xl bg-violet-500/10 px-2 text-xs font-bold text-violet-300">
+                          <span className="flex h-9 min-w-9 items-center justify-center rounded-lg bg-[#173B32] px-2 text-xs font-bold text-[#E4B84A]">
                             #{item.rank || index + 1}
                           </span>
 
                           <div>
-                            <h3 className="text-xl font-bold text-white md:text-2xl">
+                            <h3 className="text-xl font-bold text-[#173B32] md:text-2xl">
                               {career.title}
                             </h3>
 
                             <div className="mt-2 flex flex-wrap gap-2">
-                              <span className="rounded-full border border-white/[0.06] bg-white/[0.035] px-3 py-1 text-[10px] text-white/40">
+                              <span className="rounded-full border border-[#DED8CC] bg-[#F6F1E8] px-3 py-1 text-[11px] text-[#66736B]">
                                 {career.category}
                               </span>
 
-                              <span className="rounded-full border border-white/[0.06] bg-white/[0.035] px-3 py-1 text-[10px] text-white/40">
+                              <span className="rounded-full border border-[#DED8CC] bg-[#F6F1E8] px-3 py-1 text-[11px] text-[#66736B]">
                                 {career.difficulty}
                               </span>
 
-                              <span className="rounded-full border border-white/[0.06] bg-white/[0.035] px-3 py-1 text-[10px] text-white/40">
+                              <span className="rounded-full border border-[#DED8CC] bg-[#F6F1E8] px-3 py-1 text-[11px] text-[#66736B]">
                                 {career.average_learning_time}h learning
                               </span>
                             </div>
@@ -716,7 +700,7 @@ const CareerDiscovery = () => {
                         </div>
 
                         {/* Description */}
-                        <p className="mb-6 max-w-3xl text-sm leading-6 text-white/40">
+                        <p className="mb-6 max-w-3xl text-sm leading-6 text-[#66736B]">
                           {career.description}
                         </p>
 
@@ -725,7 +709,7 @@ const CareerDiscovery = () => {
 
                           {item.matched_skills?.length > 0 && (
                             <div>
-                              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300/60">
+                              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#78927A]">
                                 Matched Skills
                               </p>
 
@@ -734,12 +718,13 @@ const CareerDiscovery = () => {
                                   <span
                                     key={i}
                                     className="
-                                      rounded-xl
-                                      border border-emerald-400/10
-                                      bg-emerald-500/[0.07]
+                                      rounded-lg
+                                      border border-[#78927A]/40
+                                      bg-[#78927A]/15
                                       px-3 py-1.5
                                       text-[11px]
-                                      text-emerald-300/80
+                                      font-medium
+                                      text-[#173B32]
                                     "
                                   >
                                     ✓ {skill}
@@ -751,7 +736,7 @@ const CareerDiscovery = () => {
 
                           {item.missing_skills?.length > 0 && (
                             <div>
-                              <p className="mb-2 text-[10px] font-semibold uppercase tracking-[0.18em] text-orange-300/60">
+                              <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.15em] text-[#B94F35]">
                                 Skills to Improve
                               </p>
 
@@ -760,12 +745,13 @@ const CareerDiscovery = () => {
                                   <span
                                     key={i}
                                     className="
-                                      rounded-xl
-                                      border border-orange-400/10
-                                      bg-orange-500/[0.07]
+                                      rounded-lg
+                                      border border-[#D66A4A]/30
+                                      bg-[#D66A4A]/10
                                       px-3 py-1.5
                                       text-[11px]
-                                      text-orange-300/80
+                                      font-medium
+                                      text-[#B94F35]
                                     "
                                   >
                                     + {skill}
@@ -783,9 +769,9 @@ const CareerDiscovery = () => {
                             {item.reasons.map((reason, i) => (
                               <div
                                 key={i}
-                                className="flex items-start gap-2 text-xs text-emerald-300/70"
+                                className="flex items-start gap-2 text-xs text-[#66736B]"
                               >
-                                <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
+                                <Check className="mt-0.5 h-3.5 w-3.5 flex-shrink-0 text-[#78927A]" />
                                 <span>{reason}</span>
                               </div>
                             ))}
@@ -800,14 +786,13 @@ const CareerDiscovery = () => {
                           disabled={selecting === career.id}
                           className="
                             mt-7 flex w-full items-center justify-center gap-2
-                            rounded-2xl
-                            bg-gradient-to-r from-violet-600 to-blue-600
+                            rounded-xl
+                            bg-[#173B32]
                             px-5 py-3
                             text-sm font-semibold
-                            text-white
-                            transition-all
-                            hover:-translate-y-0.5
-                            hover:shadow-[0_12px_30px_rgba(124,58,237,0.2)]
+                            text-[#FFFDF8]
+                            transition-colors
+                            hover:bg-[#1F4A3F]
                             disabled:opacity-60
                           "
                         >
@@ -838,7 +823,7 @@ const CareerDiscovery = () => {
                               fill="none"
                               stroke="currentColor"
                               strokeWidth="5"
-                              className="text-white/[0.06]"
+                              className="text-[#DED8CC]"
                             />
 
                             <circle
@@ -850,21 +835,21 @@ const CareerDiscovery = () => {
                               strokeWidth="5"
                               strokeLinecap="round"
                               strokeDasharray={`${scoreDash} 314`}
-                              className="text-violet-400"
+                              className="text-[#D66A4A]"
                             />
                           </svg>
 
                           <div className="absolute inset-0 flex items-center justify-center">
                             <div className="text-center">
-                              <span className="text-3xl font-bold text-white">
+                              <span className="text-3xl font-bold text-[#173B32]">
                                 {score}
                               </span>
 
-                              <span className="text-sm text-white/40">
+                              <span className="text-sm text-[#66736B]">
                                 %
                               </span>
 
-                              <p className="mt-0.5 text-[9px] uppercase tracking-[0.15em] text-white/25">
+                              <p className="mt-0.5 text-[10px] uppercase tracking-[0.12em] text-[#8A948D]">
                                 Match
                               </p>
                             </div>
@@ -886,15 +871,14 @@ const CareerDiscovery = () => {
             onClick={handleTakeAgain}
             className="
               mt-6 flex w-full items-center justify-center gap-2
-              rounded-2xl
-              border border-white/[0.08]
-              bg-white/[0.025]
+              rounded-xl
+              border border-[#173B32]
+              bg-[#FFFDF8]
               px-6 py-3.5
               text-sm font-semibold
-              text-white/45
-              transition-all
-              hover:bg-white/[0.05]
-              hover:text-white
+              text-[#173B32]
+              transition-colors
+              hover:bg-[#173B32]/5
             "
           >
             <RotateCcw className="h-4 w-4" />
