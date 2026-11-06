@@ -220,11 +220,11 @@ const FloatingNav = ({ collapsed, setCollapsed }) => {
           rounded-[26px]
 
           border
-          border-[#0F2B24]
+          border-[#173B32]
 
           bg-[#173B32]
 
-          shadow-[0_12px_40px_rgba(23,59,50,0.35)]
+          shadow-none
 
           transition-all
           duration-300

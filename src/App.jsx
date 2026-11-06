@@ -31,7 +31,7 @@ function ProtectedApp() {
 
   return (
     <ProtectedRoute>
-      <div className="min-h-screen overflow-x-hidden bg-[#080d24] text-white">
+      <div className="min-h-screen overflow-x-hidden bg-[#173B32] text-white">
 
         <FloatingNav
           collapsed={navCollapsed}
@@ -131,7 +131,7 @@ function App() {
     <ThemeProvider>
       <Router>
 
-        <div className="min-h-screen overflow-x-hidden bg-[#080d24] text-white">
+        <div className="min-h-screen overflow-x-hidden bg-[#173B32] text-white">
 
           <Routes>
 

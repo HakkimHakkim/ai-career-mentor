@@ -274,14 +274,17 @@ const Profile = () => {
   // PHOTO
   // =========================================================
 
-  const photoUrl = profile.profile_photo_url
-  ? profile.profile_photo_url.startsWith("http")
-    ? profile.profile_photo_url
-    : `${API_BASE_URL}${profile.profile_photo_url}`
-  : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-      profile.name || "User"
-    )}&background=173B32&color=F6F1E8&size=200`;
+  const buildPhotoUrl = (p) => {
+  if (!p) return null;
+  if (p.startsWith("http")) return p;
+  return `${API_BASE_URL}${p.startsWith("/") ? "" : "/"}${p}`;
+};
 
+const fallbackAvatar = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+  profile.name || "User"
+)}&background=173B32&color=F6F1E8&size=200`;
+
+const photoUrl = buildPhotoUrl(profile.profile_photo_url) || fallbackAvatar;
   // =========================================================
   // UI
   // =========================================================
@@ -364,10 +367,14 @@ const Profile = () => {
 
                 <div className="w-28 h-28 rounded-2xl p-1 bg-[#F6F1E8] border border-[#DED8CC]">
                   <img
-                    src={photoUrl}
-                    alt="Profile"
-                    className="w-full h-full rounded-xl object-cover"
-                  />
+  src={photoUrl}
+  alt="Profile"
+  onError={(e) => {
+    e.currentTarget.onerror = null;
+    e.currentTarget.src = fallbackAvatar;
+  }}
+  className="w-full h-full rounded-xl object-cover"
+/>
                 </div>
 
                 <button

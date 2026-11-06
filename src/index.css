@@ -17,17 +17,16 @@ body {
   min-width: 320px;
   font-family: 'Inter', sans-serif;
   background: #e7edf6;
-  color: #172033;
+  color: #25304a;
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
 }
 
 html.dark body {
-  background: #080d24;
-  color: #ffffff;
+  background: #173B32;
+  color: #F6F1E8;
 }
-
 /* =========================================================
    PREMIUM THEME SYSTEM
 ========================================================= */
@@ -43,9 +42,9 @@ html.dark body {
   }
 
   .dark .app-page {
-    background: #080d24;
-    color: #ffffff;
-  }
+  background: #173B32;
+  color: #F6F1E8;
+}
 
   /* ---------- CARD ---------- */
 
@@ -57,10 +56,10 @@ html.dark body {
   }
 
   .dark .app-card {
-    background: #111633;
-    border-color: #1e2749;
-    box-shadow: none;
-  }
+  background: #1D463B;
+  border-color: #285747;
+  box-shadow: none;
+}
 
   /* ---------- SECONDARY CARD ---------- */
 
@@ -581,4 +580,33 @@ select {
   #root {
     padding-bottom: env(safe-area-inset-bottom);
   }
+}
+html,
+body,
+#root {
+  background: #173B32 !important;
+}
+
+/* Nav scrollbar blue -> green/gold */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #285747 #173B32;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #173B32;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #285747;
+  border-radius: 8px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #E4B84A;
 }
