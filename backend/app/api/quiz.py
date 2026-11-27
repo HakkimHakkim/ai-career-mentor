@@ -8,8 +8,11 @@ from app.db import get_db
 from app.utils.dependencies import get_current_user
 from app.models.user import User
 from app.services.quiz_service import QuizService
+from app.utils.rate_limit import enforce_rate_limit
+from app.config import get_settings
 
 router = APIRouter(prefix="/api/v1/quiz", tags=["quiz"])
+settings = get_settings()
 
 
 class SubmitQuizRequest(BaseModel):
@@ -58,6 +61,7 @@ async def generate_quiz(
     db: Session = Depends(get_db)
 ):
     """Generate a new quiz for a skill at the user's current difficulty level"""
+    enforce_rate_limit(db, f"quiz:{current_user.id}", settings.RATE_LIMIT_QUIZ, 3600)
     try:
         session = await QuizService.generate_quiz_session(
             current_user.id, skill_name, db
@@ -83,13 +87,13 @@ async def generate_quiz(
 
     except ValueError as e:
         raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=str(e)
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Quiz generation is temporarily unavailable"
         )
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error generating quiz: {str(e)}"
+            detail="Unable to generate quiz"
         )
 
 
@@ -112,12 +116,12 @@ async def submit_quiz(
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=str(e)
+            detail="Quiz session not found"
         )
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error submitting quiz: {str(e)}"
+            detail="Unable to submit quiz"
         )
 
 

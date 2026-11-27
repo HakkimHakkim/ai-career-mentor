@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
+from starlette.middleware.base import BaseHTTPMiddleware
 from pathlib import Path
 
 from app.config import get_settings
@@ -16,17 +17,37 @@ from app.api import (
 settings = get_settings()
 app = FastAPI()
 
+
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    async def dispatch(self, request, call_next):
+        content_length = request.headers.get("content-length")
+        if content_length and content_length.isdigit() and int(content_length) > settings.MAX_UPLOAD_SIZE + 1024 * 1024:
+            return JSONResponse(status_code=413, content={"detail": "Request body too large"})
+        response = await call_next(request)
+        response.headers.setdefault("X-Content-Type-Options", "nosniff")
+        response.headers.setdefault("Referrer-Policy", "strict-origin-when-cross-origin")
+        response.headers.setdefault("X-Frame-Options", "DENY")
+        response.headers.setdefault("Permissions-Policy", "camera=(), microphone=(), geolocation=()")
+        if settings.ENVIRONMENT.lower() == "production":
+            response.headers.setdefault("Strict-Transport-Security", "max-age=31536000; includeSubDomains")
+        return response
+
+
+app.add_middleware(SecurityHeadersMiddleware)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type", "Accept"],
+    max_age=600,
 )
 
 # Static files (profile photos etc.)
-Path("uploads/profile").mkdir(parents=True, exist_ok=True)
-app.mount("/uploads", StaticFiles(directory="uploads"), name="uploads")
+profile_uploads = Path(settings.UPLOAD_DIR) / "profile"
+profile_uploads.mkdir(parents=True, exist_ok=True)
+app.mount("/uploads/profile", StaticFiles(directory=str(profile_uploads)), name="profile-uploads")
 
 
 @app.on_event("startup")
@@ -56,9 +77,12 @@ app.include_router(quiz.router)
 
 @app.exception_handler(Exception)
 async def global_exception_handler(request, exc):
+    # Keep exception details in server logs only; never return DB/provider data.
+    import logging
+    logging.getLogger("app").exception("Unhandled request error", exc_info=exc)
     return JSONResponse(
         status_code=500,
-        content={"success": False, "error": str(exc)},
+        content={"success": False, "error": "Internal server error"},
     )
 
 

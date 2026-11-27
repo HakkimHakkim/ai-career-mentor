@@ -5,17 +5,21 @@ from app.db import get_db
 from app.utils.security import verify_token
 from app.models.user import User
 
-security = HTTPBearer()
+security = HTTPBearer(auto_error=False)
 
 async def get_current_user(
     credentials: HTTPAuthorizationCredentials = Depends(security),
     db: Session = Depends(get_db)
 ) -> User:
     """Get current authenticated user"""
+    if credentials is None:
+        raise HTTPException(status_code=401, detail="Invalid authentication credentials")
     token = credentials.credentials
     payload = verify_token(token)
     
-    if not payload or not payload.get("sub"):
+    # Tokens issued before the access-token type claim are accepted for
+    # compatibility; refresh tokens are never valid as API credentials.
+    if not payload or payload.get("type", "access") != "access":
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid authentication credentials",
@@ -44,7 +48,7 @@ async def get_optional_user(
     token = credentials.credentials
     payload = verify_token(token)
     
-    if not payload or not payload.get("sub"):
+    if not payload or payload.get("type", "access") != "access":
         return None
     
     user_id = payload.get("sub")

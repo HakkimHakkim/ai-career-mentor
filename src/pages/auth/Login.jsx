@@ -187,9 +187,9 @@ const Login = ({
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 8 || !/[A-Z]/.test(password) || !/\d/.test(password)) {
       setError(
-        'Password must be at least 6 characters.'
+        'Password must be at least 8 characters and include an uppercase letter and a number.'
       );
       return;
     }
@@ -223,15 +223,7 @@ const Login = ({
         );
       }
 
-      setSuccess(
-        'Account created successfully. Please sign in.'
-      );
-
-      setTimeout(() => {
-        navigate('/login', {
-          replace: true,
-        });
-      }, 1000);
+      setSuccess('Account created. Check your inbox for a verification link before signing in.');
 
     } catch (err) {
       console.error(
@@ -268,13 +260,13 @@ const Login = ({
     try {
       setLoading(true);
 
-      /*
-        Keep your existing forgot-password
-        endpoint here if your backend already has one.
-
-        This UI intentionally doesn't assume
-        a different backend contract.
-      */
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/forgot-password`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.detail || 'Unable to process your request.');
 
       setSuccess(
         'If this email exists, password reset instructions will be sent.'
@@ -289,6 +281,26 @@ const Login = ({
       setError(
         'Unable to process your request.'
       );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleResendVerification = async () => {
+    setError('');
+    setSuccess('');
+    try {
+      setLoading(true);
+      const response = await fetch(`${API_BASE_URL}/api/v1/auth/resend-verification`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({ email: email.trim() }),
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data?.detail || 'Unable to resend verification email.');
+      setSuccess(data.message || 'If your account needs verification, an email has been sent.');
+    } catch (err) {
+      setError(err?.message || 'Unable to resend verification email.');
     } finally {
       setLoading(false);
     }
@@ -585,6 +597,17 @@ const Login = ({
                   <CheckCircle2 className="h-4 w-4 text-[#78927A]" />
                   {success}
                 </div>
+              )}
+
+              {isRegister && (success || error) && (
+                <button type="button" onClick={handleResendVerification} disabled={loading} className="mb-4 text-sm font-semibold text-[#D66A4A] underline disabled:opacity-50">
+                  Resend verification email
+                </button>
+              )}
+              {!isRegister && !isForgotPassword && error.toLowerCase().includes('verify your email') && (
+                <button type="button" onClick={handleResendVerification} disabled={loading} className="mb-4 text-sm font-semibold text-[#D66A4A] underline disabled:opacity-50">
+                  Resend verification email
+                </button>
               )}
 
               {/* =================================================

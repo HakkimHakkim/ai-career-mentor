@@ -10,6 +10,7 @@ import { ThemeProvider } from './contexts/ThemeContext';
 import FloatingNav from './components/navigation/FloatingNav';
 
 import Login from './pages/auth/Login';
+import SecurityAction from './pages/auth/SecurityAction';
 import ProtectedRoute from './components/auth/ProtectedRoute';
 
 import Dashboard from './pages/dashboard/Dashboard';
@@ -23,6 +24,7 @@ import SkillQuizzes from './pages/jobs/SkillQuizzes';
 import Interview from './pages/interview/Interview';
 import Progress from './pages/profile/Progress';
 import Profile from './pages/profile/Profile';
+import Landing from './pages/Landing';
 
 function ProtectedApp() {
   const [navCollapsed, setNavCollapsed] = useState(
@@ -135,15 +137,7 @@ function App() {
 
           <Routes>
 
-            <Route
-              path="/"
-              element={
-                <Navigate
-                  to="/login"
-                  replace
-                />
-              }
-            />
+            <Route path="/" element={<Landing />} />
 
             <Route
               path="/login"
@@ -163,6 +157,9 @@ function App() {
                 <Login isForgotPassword />
               }
             />
+
+            <Route path="/verify-email" element={<SecurityAction />} />
+            <Route path="/reset-password" element={<SecurityAction reset />} />
 
             <Route
               path="/*"

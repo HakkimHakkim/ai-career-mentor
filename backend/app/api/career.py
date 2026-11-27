@@ -13,6 +13,7 @@ from app.schemas.career import (
 )
 from app.services.ml_service import MLService
 import json
+from app.utils.rate_limit import enforce_rate_limit
 
 router = APIRouter(prefix="/api/v1/career", tags=["career"])
 
@@ -45,6 +46,7 @@ async def predict_career(
     db: Session = Depends(get_db)
 ):
     """Get AI career recommendation"""
+    enforce_rate_limit(db, f"career-predict:{current_user.id}", 5, 3600)
     try:
         recommendations = MLService.predict_careers(
             current_user,
@@ -84,12 +86,10 @@ async def predict_career(
             ]
         }
 
-    except Exception as e:
-        import traceback
-        traceback.print_exc()
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error generating recommendations: {str(e)}"
+            detail="Unable to generate recommendations"
         )
 
 

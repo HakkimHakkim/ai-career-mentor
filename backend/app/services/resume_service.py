@@ -10,6 +10,8 @@ from app.config import get_settings
 import json
 from typing import Tuple
 import re
+import uuid
+import zipfile
 
 settings = get_settings()
 
@@ -22,7 +24,7 @@ class ResumeService:
     UPLOAD_DIR = settings.UPLOAD_DIR
 
     @staticmethod
-    def validate_file(filename: str, file_size: int) -> tuple:
+    def validate_file(filename: str, file_size: int, content: bytes = b"") -> tuple:
         """Validate file"""
         if file_size > ResumeService.MAX_FILE_SIZE:
             return False, "File size exceeds maximum limit"
@@ -30,6 +32,23 @@ class ResumeService:
         ext = filename.rsplit('.', 1)[1].lower() if '.' in filename else ''
         if ext not in ResumeService.ALLOWED_EXTENSIONS:
             return False, f"File type not allowed. Allowed: {', '.join(ResumeService.ALLOWED_EXTENSIONS)}"
+
+        if ext == "pdf" and not content.startswith(b"%PDF-"):
+            return False, "File content does not match PDF format"
+        if ext == "docx":
+            try:
+                import io
+                with zipfile.ZipFile(io.BytesIO(content)) as archive:
+                    members = archive.infolist()
+                    total_size = sum(item.file_size for item in members)
+                    if ("[Content_Types].xml" not in archive.namelist()
+                            or "word/document.xml" not in archive.namelist()
+                            or len(members) > 2000
+                            or total_size > 50 * 1024 * 1024
+                            or any(item.flag_bits & 1 for item in members)):
+                        return False, "Invalid or oversized DOCX document"
+            except (zipfile.BadZipFile, OSError):
+                return False, "File content does not match DOCX format"
 
         return True, "File is valid"
 
@@ -39,8 +58,7 @@ class ResumeService:
         os.makedirs(ResumeService.UPLOAD_DIR, exist_ok=True)
 
         ext = original_filename.rsplit('.', 1)[1].lower()
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        stored_filename = f"resume_{timestamp}_{Path(original_filename).stem}.{ext}"
+        stored_filename = f"resume_{uuid.uuid4().hex}.{ext}"
 
         filepath = os.path.join(ResumeService.UPLOAD_DIR, stored_filename)
 
@@ -56,10 +74,14 @@ class ResumeService:
         try:
             with open(filepath, 'rb') as f:
                 reader = PyPDF2.PdfReader(f)
+                if len(reader.pages) > 100:
+                    return ""
                 for page in reader.pages:
-                    text += page.extract_text()
+                    text += page.extract_text() or ""
+                    if len(text) > 200_000:
+                        return text[:200_000]
         except Exception as e:
-            print(f"Error extracting PDF: {e}")
+            return ""
 
         return text
 
@@ -71,8 +93,10 @@ class ResumeService:
             doc = Document(filepath)
             for para in doc.paragraphs:
                 text += para.text + "\n"
+                if len(text) > 200_000:
+                    return text[:200_000]
         except Exception as e:
-            print(f"Error extracting DOCX: {e}")
+            return ""
 
         return text
 
@@ -180,15 +204,13 @@ class ResumeService:
             career_fit = ResumeService.calculate_career_fit(skills, required_skills)
 
         try:
-            print(f"DEBUG: Calling Grok with career_goal={career_goal}")
             ai_analysis = await GrokService.analyze_resume_for_career(text, career_goal)
 
             overall_score = int(ai_analysis.get("score_out_of_100", 70))
             missing_skills = ai_analysis.get("missing_keywords", [])
             improvements = ai_analysis.get("improvements", [])
 
-        except Exception as e:
-            print(f"Grok analysis failed: {e}, using fallback")
+        except Exception:
             overall_score = 70 + (len(skills) * 2)
             overall_score = min(overall_score, 100)
             missing_skills = []

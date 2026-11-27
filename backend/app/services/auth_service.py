@@ -1,4 +1,5 @@
 from sqlalchemy.orm import Session
+from sqlalchemy import func
 from app.models.user import User, UserProfile
 from app.schemas.auth import RegisterRequest, LoginRequest
 from app.utils.security import (
@@ -9,6 +10,9 @@ from app.utils.security import (
 )
 from datetime import timedelta
 from fastapi import HTTPException, status
+from app.config import get_settings
+
+settings = get_settings()
 
 class AuthService:
     """Authentication service"""
@@ -17,7 +21,8 @@ class AuthService:
     def register(db: Session, request: RegisterRequest) -> User:
         """Register new user"""
         # Check if user exists
-        existing_user = db.query(User).filter(User.email == request.email).first()
+        normalized_email = str(request.email).strip().lower()
+        existing_user = db.query(User).filter(func.lower(User.email) == normalized_email).first()
         if existing_user:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -27,7 +32,7 @@ class AuthService:
         # Create user
         user = User(
             name=request.name,
-            email=request.email,
+            email=normalized_email,
             password_hash=hash_password(request.password)
         )
         
@@ -45,7 +50,7 @@ class AuthService:
     @staticmethod
     def login(db: Session, request: LoginRequest) -> tuple:
         """Login user and return tokens"""
-        user = db.query(User).filter(User.email == request.email).first()
+        user = db.query(User).filter(func.lower(User.email) == str(request.email).strip().lower()).first()
         
         if not user or not verify_password(request.password, user.password_hash):
             raise HTTPException(
@@ -58,9 +63,15 @@ class AuthService:
                 status_code=status.HTTP_403_FORBIDDEN,
                 detail="User account is inactive"
             )
+
+        if not user.is_verified:
+            raise HTTPException(
+                status_code=status.HTTP_403_FORBIDDEN,
+                detail="Please verify your email before signing in",
+            )
         
         # Create tokens
-        access_token_expires = timedelta(minutes=30)
+        access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         access_token = create_access_token(
             data={"sub": user.id},
             expires_delta=access_token_expires

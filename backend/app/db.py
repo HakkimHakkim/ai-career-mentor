@@ -19,6 +19,7 @@ from app.models import notification
 from app.models import progress
 from app.models import roadmap
 from app.models import skill
+from app.models import rate_limit
 
 settings = get_settings()
 

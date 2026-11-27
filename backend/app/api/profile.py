@@ -2,12 +2,16 @@ from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from sqlalchemy.orm import Session
 
 from pathlib import Path
-import shutil
 import uuid
+from io import BytesIO
+from PIL import Image
 
 from app.db import get_db
 from app.models.user import User, UserProfile
 from app.utils.dependencies import get_current_user
+from app.config import get_settings
+
+settings = get_settings()
 
 
 router = APIRouter(
@@ -39,12 +43,29 @@ async def upload_profile_photo(
             detail="Only JPG, PNG and WEBP images are allowed"
         )
 
+    content = await file.read(5 * 1024 * 1024 + 1)
+    if len(content) > 5 * 1024 * 1024:
+        raise HTTPException(status_code=413, detail="Image exceeds 5 MB limit")
+    try:
+        image = Image.open(BytesIO(content))
+        if image.width * image.height > 20_000_000:
+            raise HTTPException(status_code=400, detail="Image dimensions are too large")
+        image.verify()
+        actual_type = image.format
+    except HTTPException:
+        raise
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid image file")
+    format_extensions = {"JPEG": ".jpg", "PNG": ".png", "WEBP": ".webp"}
+    if actual_type not in format_extensions:
+        raise HTTPException(status_code=400, detail="Only JPG, PNG and WEBP images are allowed")
+
     # Upload directory
-    upload_dir = Path("uploads/profile")
+    upload_dir = Path(settings.UPLOAD_DIR) / "profile"
     upload_dir.mkdir(parents=True, exist_ok=True)
 
     # Get extension
-    extension = Path(file.filename).suffix.lower()
+    extension = format_extensions[actual_type]
 
     # Unique filename
     filename = f"{current_user.id}_{uuid.uuid4().hex}{extension}"
@@ -53,12 +74,12 @@ async def upload_profile_photo(
 
     # Save image
     try:
-        with open(file_path, "wb") as buffer:
-            shutil.copyfileobj(file.file, buffer)
-    except Exception as e:
+        with open(file_path, "xb") as buffer:
+            buffer.write(content)
+    except Exception:
         raise HTTPException(
             status_code=500,
-            detail=f"Failed to save image: {str(e)}"
+            detail="Failed to save image"
         )
 
     # Find profile

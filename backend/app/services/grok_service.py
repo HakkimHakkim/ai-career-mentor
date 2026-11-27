@@ -25,12 +25,15 @@ class GrokService:
         system_prompt: Optional[str] = None,
         temperature: float = 0.7,
         max_tokens: int = 1000,
-        timeout: int = 60
+        timeout: int = 0
     ) -> str:
         """Call Groq API"""
 
         if not settings.GROK_API_KEY:
             raise ValueError("GROK_API_KEY not configured")
+        if len(prompt) > 20000 or (system_prompt and len(system_prompt) > 8000):
+            raise ValueError("AI input exceeds the maximum allowed size")
+        timeout = min(max(timeout or settings.GROK_TIMEOUT, 1), 60)
 
         headers = {
             "Authorization": f"Bearer {settings.GROK_API_KEY}",
@@ -67,11 +70,7 @@ class GrokService:
                     json=payload
                 )
 
-                if response.status_code != 200:
-                    raise Exception(
-                        f"Groq API error {response.status_code}: "
-                        f"{response.text}"
-                    )
+                response.raise_for_status()
 
                 data = response.json()
 
@@ -93,8 +92,8 @@ class GrokService:
         except httpx.ConnectError:
             raise Exception("Could not connect to Groq API")
 
-        except Exception as e:
-            raise Exception(f"Groq API error: {str(e)}")
+        except Exception:
+            raise RuntimeError("AI provider request failed") from None
 
     # =========================================================
     # CAREER EXPLANATION
@@ -410,11 +409,6 @@ Field meanings:
                 max_tokens=1200
             )
 
-            print("========================================")
-            print("INTERVIEW AI RAW RESPONSE")
-            print(response)
-            print("========================================")
-
             result = cls._extract_json_object(response)
 
             if not result:
@@ -470,10 +464,7 @@ Field meanings:
 
             return result
 
-        except Exception as e:
-
-            print("Interview answer evaluation error:")
-            print(str(e))
+        except Exception:
 
             # Safe fallback
             return {
@@ -592,13 +583,7 @@ Rules:
 
             return json.loads(json_string)
 
-        except Exception as e:
-
-            print("JSON parsing failed:")
-            print(str(e))
-            print("Raw response:")
-            print(text)
-
+        except Exception:
             return None
 
     # =========================================================
@@ -638,13 +623,7 @@ Rules:
 
             return json.loads(json_string)
 
-        except Exception as e:
-
-            print("JSON array parsing failed:")
-            print(str(e))
-            print("Raw response:")
-            print(text)
-
+        except Exception:
             return None
 
 

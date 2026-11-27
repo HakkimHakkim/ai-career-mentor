@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+from pydantic import BaseModel, field_validator
 from typing import Optional
 from app.db import get_db
 from app.utils.dependencies import get_current_user
@@ -29,6 +29,15 @@ class UserProfileUpdate(BaseModel):
 class ChangePasswordRequest(BaseModel):
     current_password: str
     new_password: str
+
+    @field_validator("new_password")
+    @classmethod
+    def validate_new_password(cls, value):
+        if len(value) < 8 or not any(c.isupper() for c in value) or not any(c.isdigit() for c in value):
+            raise ValueError("Password must be at least 8 characters and contain an uppercase letter and digit")
+        if len(value.encode("utf-8")) > 72:
+            raise ValueError("Password must be at most 72 UTF-8 bytes")
+        return value
 
 @router.get("/me")
 async def get_current_user_profile(
@@ -147,6 +156,9 @@ async def update_preferences(
 ):
     """Update user preferences"""
     
+    allowed = {"preferred_language", "preferred_theme", "learning_hours_per_week", "remote_preference"}
+    if set(preferences) - allowed:
+        raise HTTPException(status_code=400, detail="Unsupported preference field")
     AuthService.update_profile(db, current_user.id, preferences)
     
     return {

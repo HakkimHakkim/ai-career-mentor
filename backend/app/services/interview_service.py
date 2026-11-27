@@ -107,12 +107,7 @@ class InterviewService:
                 count=template["questions_count"],
             )
 
-        except Exception as exc:
-            print(
-                "Question generation failed:",
-                str(exc),
-            )
-
+        except Exception:
             db.delete(session)
             db.commit()
 
@@ -261,11 +256,6 @@ Each item must follow this format:
 
             try:
 
-                print(
-                    f"Generating interview questions "
-                    f"(attempt {attempt + 1}/2)"
-                )
-
                 response = await GrokService.call_grok(
                     prompt=prompt,
 
@@ -288,11 +278,6 @@ Do not duplicate questions.
 
                     timeout=90,
                 )
-
-                print("========================================")
-                print("INTERVIEW QUESTIONS RAW RESPONSE")
-                print(response)
-                print("========================================")
 
                 questions = (
                     InterviewService._extract_json_array(
@@ -377,35 +362,14 @@ Do not duplicate questions.
 
                 if len(valid_questions) >= count:
 
-                    print(
-                        f"Successfully generated "
-                        f"{len(valid_questions)} questions."
-                    )
-
                     return valid_questions[:count]
 
-                print(
-                    f"AI returned "
-                    f"{len(valid_questions)}/{count} "
-                    f"valid questions."
-                )
-
-            except Exception as exc:
-
-                print(
-                    f"Question generation error "
-                    f"(attempt {attempt + 1}):",
-                    str(exc),
-                )
+            except Exception:
+                continue
 
         # =====================================================
         # FALLBACK QUESTIONS
         # =====================================================
-
-        print(
-            f"Using fallback questions for "
-            f"{interview_type}"
-        )
 
         return InterviewService._generate_fallback_questions(
             interview_type=interview_type,
@@ -1235,16 +1199,5 @@ Do not duplicate questions.
 
             return []
 
-        except Exception as exc:
-
-            print(
-                "Interview JSON parsing failed:",
-                str(exc),
-            )
-
-            print(
-                "Raw response:",
-                text,
-            )
-
+        except Exception:
             return []

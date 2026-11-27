@@ -1,5 +1,7 @@
 import json
 from fastapi import APIRouter, Depends, HTTPException, status, UploadFile, File
+from fastapi.responses import FileResponse
+from pathlib import Path
 from sqlalchemy.orm import Session
 from app.db import get_db
 from app.utils.dependencies import get_current_user
@@ -8,8 +10,11 @@ from app.models.resume import Resume
 from app.models.career import CareerRecommendation, Career
 from app.services.resume_service import ResumeService
 from app.services.grok_service import GrokService
+from app.utils.rate_limit import enforce_rate_limit
+from app.config import get_settings
 
 router = APIRouter(prefix="/api/v1/resume", tags=["resume"])
+settings = get_settings()
 
 
 @router.post("/upload")
@@ -20,11 +25,15 @@ async def upload_resume(
 ):
     """Upload resume"""
     try:
-        content = await file.read()
+        enforce_rate_limit(db, f"resume:{current_user.id}", settings.RATE_LIMIT_RESUME, 3600)
+        content = await file.read(ResumeService.MAX_FILE_SIZE + 1)
+        if len(content) > ResumeService.MAX_FILE_SIZE:
+            raise HTTPException(status_code=413, detail="File size exceeds maximum limit")
 
         is_valid, message = ResumeService.validate_file(
             file.filename,
-            len(content)
+            len(content),
+            content
         )
 
         if not is_valid:
@@ -34,14 +43,16 @@ async def upload_resume(
             )
 
         file_type = file.filename.rsplit(".", 1)[1].lower()
+        safe_original_name = Path((file.filename or "resume").replace("\\", "/")).name
+        safe_original_name = "".join(c for c in safe_original_name if c.isprintable())[:255] or "resume"
         stored_filename = ResumeService.save_file(
             content,
-            file.filename
+            safe_original_name
         )
 
         resume = ResumeService.save_resume(
             current_user.id,
-            file.filename,
+            safe_original_name,
             stored_filename,
             file_type,
             db
@@ -95,7 +106,7 @@ async def upload_resume(
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error uploading resume: {str(e)}"
+        detail="Unable to process uploaded resume"
         )
 
 
@@ -117,6 +128,32 @@ async def get_my_resume(
         "success": True,
         "data": resume.to_dict()
     }
+
+
+@router.get("/{resume_id}/download")
+async def download_resume(
+    resume_id: str,
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_db)
+):
+    """Download a resume only after checking ownership."""
+    resume = db.query(Resume).filter(
+        Resume.id == resume_id,
+        Resume.user_id == current_user.id
+    ).first()
+    if not resume:
+        raise HTTPException(status_code=404, detail="Resume not found")
+    path = (Path(ResumeService.UPLOAD_DIR) / resume.stored_filename).resolve()
+    root = Path(ResumeService.UPLOAD_DIR).resolve()
+    if path.parent != root or not path.is_file():
+        raise HTTPException(status_code=404, detail="Resume file not found")
+    media_type = "application/pdf" if resume.file_type == "pdf" else "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+    return FileResponse(
+        path,
+        media_type=media_type,
+        filename=Path(resume.original_filename).name,
+        headers={"Cache-Control": "private, no-store", "X-Content-Type-Options": "nosniff"},
+    )
 
 
 @router.get("/{resume_id}/analysis")
@@ -178,10 +215,10 @@ async def improve_resume(
             "data": suggestions
         }
 
-    except Exception as e:
+    except Exception:
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail=f"Error analyzing resume: {str(e)}"
+            detail="Resume analysis is temporarily unavailable"
         )
 
 

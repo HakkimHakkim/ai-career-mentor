@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 import json
 
 from app.db import get_db
@@ -8,9 +8,12 @@ from app.utils.dependencies import get_current_user
 from app.models.user import User
 from app.models.interview import InterviewSession
 from app.services.interview_service import InterviewService
+from app.utils.rate_limit import enforce_rate_limit
+from app.config import get_settings
 
 
 router = APIRouter(prefix="/api/v1/interview", tags=["interview"])
+settings = get_settings()
 
 
 def parse_tips(tips_raw):
@@ -30,13 +33,13 @@ def parse_tips(tips_raw):
 # ============================================================
 
 class CreateSessionRequest(BaseModel):
-    interview_type: str
+    interview_type: str = Field(..., min_length=1, max_length=32)
     # technical, hr, behavioral, mock
 
 
 class SubmitAnswerRequest(BaseModel):
     question_id: str
-    answer_text: str
+    answer_text: str = Field(..., min_length=1, max_length=10000)
 
 
 # ============================================================
@@ -50,6 +53,7 @@ async def start_interview(
     db: Session = Depends(get_db)
 ):
     """Start a new interview session"""
+    enforce_rate_limit(db, f"interview:{current_user.id}", settings.RATE_LIMIT_INTERVIEW, 3600)
 
     try:
         session = await InterviewService.create_session(
@@ -85,11 +89,10 @@ async def start_interview(
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
+            detail="Invalid interview request"
         )
 
-    except Exception as e:
-        print(f"Start interview error: {e}")
+    except Exception:
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -138,6 +141,7 @@ async def submit_answer(
     db: Session = Depends(get_db)
 ):
     """Submit and evaluate an interview answer"""
+    enforce_rate_limit(db, f"interview:{current_user.id}", settings.RATE_LIMIT_INTERVIEW, 3600)
 
     session = db.query(InterviewSession).filter(
         InterviewSession.id == session_id,
@@ -218,8 +222,8 @@ async def submit_answer(
                     session_id,
                     db
                 )
-            except Exception as e:
-                print(f"Auto complete error: {e}")
+            except Exception:
+                pass
 
         return {
             "success": True,
@@ -284,14 +288,13 @@ async def submit_answer(
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
+            detail="Interview answer could not be processed"
         )
 
     except HTTPException:
         raise
 
-    except Exception as e:
-        print(f"Submit answer error: {e}")
+    except Exception:
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
@@ -344,11 +347,10 @@ async def complete_interview(
     except ValueError as e:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail=str(e)
+            detail="Interview session cannot be completed"
         )
 
-    except Exception as e:
-        print(f"Complete interview error: {e}")
+    except Exception:
 
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,

@@ -17,6 +17,8 @@ class RegisterRequest(BaseModel):
     @field_validator('password')
     @classmethod
     def validate_password(cls, v):
+        if len(v.encode("utf-8")) > 72:
+            raise ValueError('Password must be at most 72 UTF-8 bytes')
         if len(v) < 8:
             raise ValueError('Password must be at least 8 characters')
         if not any(c.isupper() for c in v):
@@ -35,6 +37,15 @@ class ForgotPasswordRequest(BaseModel):
 class ResetPasswordRequest(BaseModel):
     token: str
     password: str
+
+    @field_validator('password')
+    @classmethod
+    def validate_password(cls, v):
+        if len(v.encode("utf-8")) > 72:
+            raise ValueError('Password must be at most 72 UTF-8 bytes')
+        if len(v) < 8 or not any(c.isupper() for c in v) or not any(c.isdigit() for c in v):
+            raise ValueError('Password must be at least 8 characters and contain an uppercase letter and digit')
+        return v
 
 class VerifyEmailRequest(BaseModel):
     token: str

@@ -1,0 +1,5 @@
+
+User-agent: *
+Allow: /
+
+Sitemap: https://ai-career-mentor-beta.vercel.app/sitemap.xml
