@@ -2,50 +2,52 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+
 const features = [
   {
     number: "01",
     icon: "🎯",
     title: "AI Career Discovery",
     description:
-      "Discover suitable career paths based on your interests, skills, strengths and goals.",
+      "Discover suitable career opportunities through AI-powered career assessment based on your interests, skills, strengths and professional goals.",
   },
   {
     number: "02",
     icon: "🗺️",
-    title: "Personalized Roadmaps",
+    title: "Personalized Career Roadmaps",
     description:
-      "Follow a structured learning roadmap to build the skills required for your chosen career.",
+      "Build a personalized career roadmap with structured learning paths, essential skills and practical steps to achieve your career goals.",
   },
   {
     number: "03",
     icon: "🤖",
     title: "AI Learning Tutor",
     description:
-      "Learn concepts, clarify doubts and improve your technical knowledge with AI assistance.",
+      "Improve your technical knowledge with an AI learning tutor that explains concepts, answers questions and supports your learning journey.",
   },
   {
     number: "04",
     icon: "📄",
-    title: "Resume Preparation",
+    title: "AI Resume Preparation",
     description:
-      "Prepare a professional resume and understand how to present your skills effectively.",
+      "Prepare a professional resume, organize your skills and improve how you present your qualifications to potential employers.",
   },
   {
     number: "05",
     icon: "💻",
     title: "Skill Assessments",
     description:
-      "Test your knowledge through skill-based quizzes and identify areas for improvement.",
+      "Evaluate your technical knowledge through skill-based assessments and identify areas where you can improve.",
   },
   {
     number: "06",
     icon: "🎤",
-    title: "Interview Preparation",
+    title: "AI Interview Preparation",
     description:
-      "Practice interview questions and improve your confidence before applying for jobs.",
+      "Practice interview questions, improve your answers and build confidence before applying for job opportunities.",
   },
 ];
+
 
 export default function Landing() {
   return (
@@ -92,17 +94,19 @@ export default function Landing() {
           </div>
 
           <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl md:text-7xl">
-            Build Your
-            <span className="block text-emerald-400">Future Career</span>
-            With Intelligence.
-          </h1>
+  AI Career Guidance
+  <span className="block text-emerald-400">
+    For Your Future
+  </span>
+  Starts Here.
+</h1>
 
           <p className="mt-6 max-w-xl text-sm leading-7 text-gray-400 sm:mt-7 sm:text-base sm:leading-8 md:text-lg">
-            Discover your career direction, build in-demand skills and prepare
-            for your dream job with personalized career guidance and AI-powered
-            learning tools.
-          </p>
-
+  Career Intelligence helps students and job seekers discover
+  suitable career paths, explore personalized learning roadmaps,
+  develop in-demand skills and prepare for interviews with
+  AI-powered career guidance.
+</p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <Link
               to="/register"
@@ -229,29 +233,40 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* About */}
-      <section id="about" className="px-4 py-16 sm:px-6 sm:py-24">
-        <div className="mx-auto max-w-5xl rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-[#123322] to-[#0c1b13] px-5 py-10 text-center sm:px-10 sm:py-14 md:px-16">
-          <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-400">
-            About Career Intelligence
-          </p>
-          <h2 className="mt-5 text-3xl font-bold md:text-4xl">
-            Your Career Journey Starts With a Plan.
-          </h2>
-          <p className="mx-auto mt-5 max-w-2xl leading-8 text-gray-400">
-            Career Intelligence is designed to help students and job seekers
-            explore career opportunities, develop relevant skills and prepare
-            for professional opportunities through structured learning and
-            intelligent guidance.
-          </p>
-          <Link
-            to="/register"
-            className="mt-8 inline-flex rounded-xl bg-emerald-400 px-7 py-4 font-semibold text-[#071510] transition hover:bg-emerald-300"
-          >
-            Get Started Today →
-          </Link>
-        </div>
-      </section>
+      
+{/* About */}
+<section id="about" className="px-4 py-16 sm:px-6 sm:py-24">
+  <div className="mx-auto max-w-5xl rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-[#123322] to-[#0c1b13] px-5 py-10 text-center sm:px-10 sm:py-14 md:px-16">
+
+    <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-400">
+      About Career Intelligence
+    </p>
+
+    <h2 className="mt-5 text-3xl font-bold md:text-4xl">
+      AI-Powered Career Guidance for a Better Future
+    </h2>
+
+    <p className="mx-auto mt-5 max-w-2xl leading-8 text-gray-400">
+      Career Intelligence is an AI-powered career guidance platform
+      designed for students, graduates and job seekers. It helps users
+      discover suitable career opportunities, explore personalized
+      learning roadmaps, assess their skills, prepare professional
+      resumes and practice job interviews. Our goal is to make career
+      planning and professional development easier through intelligent
+      learning tools and structured guidance.
+    </p>
+
+    <Link
+      to="/register"
+      className="mt-8 inline-flex rounded-xl bg-emerald-400 px-7 py-4 font-semibold text-[#071510] transition hover:bg-emerald-300"
+    >
+      Get Started Today →
+    </Link>
+
+  </div>
+</section>
+
+        
 
       {/* Footer */}
       <footer className="border-t border-white/10 px-4 py-8 sm:px-6">
