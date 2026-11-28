@@ -55,8 +55,9 @@ export default function Landing() {
       {/* Navigation */}
       <nav className="mx-auto flex max-w-7xl items-center justify-between gap-2 px-4 py-4 sm:px-6 sm:py-6">
         <Link to="/" className="text-xl font-bold tracking-tight sm:text-2xl">
-          <span className="text-emerald-400">Career</span> Intelligence
-        </Link>
+  <span className="text-emerald-400">Lerqon</span>{" "}
+  <span className="text-white">AI Career</span>
+</Link>
 
         <div className="hidden items-center gap-8 text-sm text-gray-300 md:flex">
           <a href="#features" className="transition hover:text-emerald-400">
@@ -102,10 +103,10 @@ export default function Landing() {
 </h1>
 
           <p className="mt-6 max-w-xl text-sm leading-7 text-gray-400 sm:mt-7 sm:text-base sm:leading-8 md:text-lg">
-  Career Intelligence helps students and job seekers discover
-  suitable career paths, explore personalized learning roadmaps,
-  develop in-demand skills and prepare for interviews with
-  AI-powered career guidance.
+  Lerqon AI Career helps students and job seekers discover
+suitable career paths, explore personalized learning roadmaps,
+develop in-demand skills and prepare for interviews with
+AI-powered career guidance.
 </p>
           <div className="mt-9 flex flex-col gap-4 sm:flex-row sm:flex-wrap">
             <Link
@@ -239,7 +240,7 @@ export default function Landing() {
   <div className="mx-auto max-w-5xl rounded-3xl border border-emerald-400/15 bg-gradient-to-br from-[#123322] to-[#0c1b13] px-5 py-10 text-center sm:px-10 sm:py-14 md:px-16">
 
     <p className="text-sm font-semibold uppercase tracking-[0.25em] text-emerald-400">
-      About Career Intelligence
+      About Lerqon AI Career
     </p>
 
     <h2 className="mt-5 text-3xl font-bold md:text-4xl">
@@ -247,13 +248,13 @@ export default function Landing() {
     </h2>
 
     <p className="mx-auto mt-5 max-w-2xl leading-8 text-gray-400">
-      Career Intelligence is an AI-powered career guidance platform
-      designed for students, graduates and job seekers. It helps users
-      discover suitable career opportunities, explore personalized
-      learning roadmaps, assess their skills, prepare professional
-      resumes and practice job interviews. Our goal is to make career
-      planning and professional development easier through intelligent
-      learning tools and structured guidance.
+      Lerqon AI Career is an AI-powered career guidance platform
+designed for students, graduates and job seekers. It helps users
+discover suitable career opportunities, explore personalized
+learning roadmaps, assess their skills, prepare professional
+resumes and practice job interviews. Our goal is to make career
+planning and professional development easier through intelligent
+learning tools and structured guidance.
     </p>
 
     <Link
@@ -272,13 +273,13 @@ export default function Landing() {
       <footer className="border-t border-white/10 px-4 py-8 sm:px-6">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 text-center md:flex-row md:text-left">
           <p className="font-semibold">
-            <span className="text-emerald-400">Career</span> Intelligence
+            <span className="text-emerald-400">Lerqon</span>{" "}AI Career
           </p>
           <p className="text-sm text-gray-500">
             Learn · Plan · Grow
           </p>
           <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} Career Intelligence. All rights reserved.
+            © {new Date().getFullYear()} Lerqon AI Career. All rights reserved.
           </p>
         </div>
       </footer>
